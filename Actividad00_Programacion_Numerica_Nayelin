@@ -1,36 +1,123 @@
-% Including necessary packages for document formatting
-\documentclass[12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{parskip}
-% Configuring font package last
-\usepackage{noto}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 00 - Programación Numérica</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
 
-\begin{document}
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
-% Setting up the title and content
-\section*{Programación Numérica}
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
 
-La programación numérica es una rama de la informática y las matemáticas que se centra en el desarrollo de algoritmos y métodos computacionales para resolver problemas mediante cálculos aproximados. Su principal objetivo es encontrar soluciones cuando los métodos analíticos tradicionales no son suficientes o son demasiado complicados de aplicar, especialmente en problemas que involucran grandes cantidades de datos, ecuaciones complejas o funciones difíciles de evaluar directamente. Esta disciplina permite que los problemas matemáticos, estadísticos y de ingeniería sean resueltos de manera más rápida y precisa, automatizando cálculos que serían muy tediosos si se hicieran a mano \cite{Burden2016}.
+        h1, h2 {
+            color: #003366;
+            text-align: center;
+        }
 
-% Discussing applications in Statistical Engineering
-En el área de Ingeniería Estadística, la programación numérica tiene aplicaciones fundamentales. Por ejemplo, se utiliza en la estimación de parámetros de modelos estadísticos complejos, como regresiones múltiples o análisis de series temporales, donde se requiere procesar grandes cantidades de datos y ajustar modelos a observaciones reales. También se aplica en la simulación estadística, empleando métodos como Monte Carlo para generar escenarios y predecir probabilidades o comportamientos de variables aleatorias, lo que es especialmente útil para tomar decisiones en condiciones de incertidumbre \cite{Burden2016}.
+        p {
+            text-align: justify;
+            font-size: 16px;
+            color: #333;
+        }
 
-% Discussing applications in Computer Science
-En el ámbito de Informática, la programación numérica se utiliza para resolver problemas prácticos que requieren procesamiento de datos a gran escala. Por ejemplo, en el procesamiento de imágenes y señales, los algoritmos numéricos permiten filtrar, mejorar y transformar información digital, lo que es esencial en aplicaciones como visión por computadora, fotografía digital y análisis de audio. Además, se aplica en la optimización de algoritmos y recursos computacionales, facilitando tareas como la planificación de rutas, el balanceo de carga en servidores o la distribución eficiente de recursos en sistemas complejos, mejorando el rendimiento y reduciendo costos operativos \cite{Burden2016}.
+        .referencias {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #eef3f8;
+            border-left: 5px solid #003366;
+        }
 
-% Summarizing the importance of numerical programming
-En resumen, la programación numérica es una herramienta clave para ingenieros y científicos, ya que convierte problemas matemáticos complejos en soluciones computacionales prácticas, agilizando el análisis de datos y la toma de decisiones en múltiples áreas de la ingeniería y la informática.
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
 
-% Including bibliography
-\begin{thebibliography}{9}
-\bibitem{Burden2016}
-Burden, R. L., \& Faires, J. D. (2016). \emph{Numerical Analysis} (10th ed.). Cengage Learning.
+    <header>
+        UNIVERSIDAD NACIONAL DEL ALTIPLANO - PUNO <br>
+        Facultad de Ingeniería Estadística e Informática
+    </header>
+
+    <div class="container">
+        <h1>Actividad 00</h1>
+        <h2>Programación Numérica</h2>
+
+        <p>
+            La <strong>programación numérica</strong> es una rama de la informática y las matemáticas que se centra en el 
+            desarrollo de algoritmos y métodos computacionales para resolver problemas mediante cálculos aproximados. 
+            Su principal objetivo es encontrar soluciones cuando los métodos analíticos tradicionales no son suficientes 
+            o resultan demasiado complicados de aplicar, especialmente en problemas que involucran grandes cantidades de datos, 
+            ecuaciones complejas o funciones difíciles de evaluar directamente. 
+            Esta disciplina permite que los problemas matemáticos, estadísticos y de ingeniería sean resueltos 
+            de manera más rápida y precisa, automatizando cálculos que serían muy tediosos si se hicieran a mano <strong>[1]</strong>.
+        </p>
+
+        <p>
+            En el área de <strong>Ingeniería Estadística</strong>, la programación numérica tiene aplicaciones fundamentales. 
+            Por ejemplo, se utiliza en la estimación de parámetros de modelos estadísticos complejos, como regresiones múltiples 
+            o análisis de series temporales, donde se requiere procesar grandes cantidades de datos y ajustar modelos a observaciones reales. 
+            También se aplica en la <em>simulación estadística</em>, empleando métodos como Monte Carlo para generar escenarios 
+            y predecir probabilidades o comportamientos de variables aleatorias, lo que es especialmente útil para tomar 
+            decisiones en condiciones de incertidumbre <strong>[1]</strong>.
+        </p>
+
+        <p>
+            En el ámbito de <strong>Informática</strong>, la programación numérica se utiliza para resolver problemas prácticos 
+            que requieren procesamiento de datos a gran escala. Por ejemplo, en el procesamiento de imágenes y señales, 
+            los algoritmos numéricos permiten filtrar, mejorar y transformar información digital, lo que es esencial en aplicaciones 
+            como visión por computadora, fotografía digital y análisis de audio. Además, se aplica en la optimización de algoritmos 
+            y recursos computacionales, facilitando tareas como la planificación de rutas, el balanceo de carga en servidores 
+            o la distribución eficiente de recursos en sistemas complejos, mejorando el rendimiento y reduciendo costos operativos <strong>[1]</strong>.
+        </p>
+
+        <p>
+            En resumen, la <strong>programación numérica</strong> es una herramienta clave para ingenieros y científicos, 
+            ya que convierte problemas matemáticos complejos en soluciones computacionales prácticas, agilizando 
+            el análisis de datos y la toma de decisiones en múltiples áreas de la ingeniería y la informática.
+        </p>
+
+        <div class="referencias">
+            <h3>Referencias</h3>
+            <p>[1] Burden, R. L., & Faires, J. D. (2016). <em>Numerical Analysis</em> (10th ed.). Cengage Learning.</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Nayelin Brisbany Cutipa Ramos - Ingeniería Estadística e Informática
+    </footer>
+
+</body>
+</html>
+
 \end{thebibliography}
 
 \end{document}
