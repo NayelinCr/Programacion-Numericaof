@@ -1,0 +1,25 @@
+ACTIVIDAD 00 Defina con sus propias palabras, programaci´on Num´erica y mencione
+almenos 2 aplicaciones desde la Ingenier´ıa Estadistica e Inform´atica.
+Programaci´on Num´erica
+La programaci´on num´erica es una rama de la inform´atica y las matem´aticas que se centra en el desarrollo de algoritmos y m´etodos computacionales para resolver problemas
+mediante c´alculos aproximados. Su principal objetivo es encontrar soluciones cuando los
+m´etodos anal´ıticos tradicionales no son suficientes o son demasiado complicados de aplicar, especialmente en problemas que involucran grandes cantidades de datos, ecuaciones
+complejas o funciones dif´ıciles de evaluar directamente. Esta disciplina permite que los
+problemas matem´aticos, estad´ısticos y de ingenier´ıa sean resueltos de manera m´as r´apida
+y precisa, automatizando c´alculos que ser´ıan muy tediosos si se hicieran a mano [1].
+En el ´area de Ingenier´ıa Estad´ıstica, la programaci´on num´erica tiene aplicaciones fundamentales. Por ejemplo, se utiliza en la estimaci´on de par´ametros de modelos estad´ısticos
+complejos, como regresiones m´ultiples o an´alisis de series temporales, donde se requiere
+procesar grandes cantidades de datos y ajustar modelos a observaciones reales. Tambi´en
+se aplica en la simulaci´on estad´ıstica, empleando m´etodos como Monte Carlo para generar
+escenarios y predecir probabilidades o comportamientos de variables aleatorias, lo que es
+especialmente ´util para tomar decisiones en condiciones de incertidumbre [1].
+En el ´ambito de Inform´atica, la programaci´on num´erica se utiliza para resolver problemas pr´acticos que requieren procesamiento de datos a gran escala. Por ejemplo, en el
+procesamiento de im´agenes y se˜nales, los algoritmos num´ericos permiten filtrar, mejorar y transformar informaci´on digital, lo que es esencial en aplicaciones como visi´on por
+computadora, fotograf´ıa digital y an´alisis de audio. Adem´as, se aplica en la optimizaci´on
+de algoritmos y recursos computacionales, facilitando tareas como la planificaci´on de rutas, el balanceo de carga en servidores o la distribuci´on eficiente de recursos en sistemas
+complejos, mejorando el rendimiento y reduciendo costos operativos [1].
+En resumen, la programaci´on num´erica es una herramienta clave para ingenieros y cient´ıficos, ya que convierte problemas matem´aticos complejos en soluciones computacionales
+pr´acticas, agilizando el an´alisis de datos y la toma de decisiones en m´ultiples ´areas de la
+ingenier´ıa y la inform´atica.
+Referencias
+[1] Burden, R. L., & Faires, J. D. (2016). Numerical Analysis (10th ed.). Cengage Learning.
