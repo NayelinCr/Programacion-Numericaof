@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Portafolio – Programación Numérica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8f4ef;         /* fondo marfil */
+      --panel:#f3ece6;      /* crema rosado */
+      --ink:#3e2f2f;        /* marrón oscuro */
+      --ink-soft:#5a4640;   /* marrón medio */
+      --brand:#6b4e3d;      /* marrón cacao */
+      --brand-2:#a37b5e;    /* marrón latte */
+      --accent:#d4bfa6;     /* beige */
+      --ring:#c8b39b;       /* borde suave */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background: radial-gradient(1200px 500px at 100% -50%, #ecdccd40, transparent 60%),
+                  radial-gradient(1000px 500px at -20% 120%, #e6d6c540, transparent 60%),
+                  var(--bg);
+      color:var(--ink);
+      margin:0;
+    }
+
+    header{
+      background:linear-gradient(180deg, var(--brand), #5f4335);
+      padding:1.25rem 1rem 1.4rem;
+      text-align:center;
+      color:#fff;
+      border-bottom:3px solid var(--accent);
+      position:sticky; top:0; z-index:20;
+      backdrop-filter:saturate(1.2);
+    }
+    header h1{font-family:'Playfair Display',serif;font-size:2.15rem;margin:0}
+    header p{margin:.45rem 0 0;font-size:.95rem;color:#f6eee7}
+
+    .container{max-width:1200px;margin:2rem auto;padding:0 1rem}
+
+    /* Panel de chips + métricas */
+    .top-panel{
+      background:var(--panel);
+      border:1px solid var(--ring);
+      border-radius:18px;
+      padding:1.25rem;
+      box-shadow:0 8px 20px #00000010;
+      display:grid; gap:1rem;
+      grid-template-columns:1.2fr .8fr;
+    }
+    @media (max-width:900px){.top-panel{grid-template-columns:1fr}}
+
+    .chips{display:flex;flex-wrap:wrap;gap:.5rem}
+    .chip{
+      background:#fff; color:var(--ink);
+      border:1px solid var(--accent);
+      padding:.4rem .7rem; border-radius:999px; font-size:.85rem;
+      box-shadow:0 2px 6px #00000008;
+    }
+
+    .metrics{display:grid; gap:.75rem; grid-template-columns:repeat(3,1fr)}
+    @media (max-width:520px){.metrics{grid-template-columns:1fr}}
+    .metric{
+      background:#fff; border:1px solid var(--ring); border-radius:14px; padding:1rem;
+      box-shadow:0 8px 18px #0000000a;
+    }
+    .metric .big{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--brand)}
+    .muted{color:var(--ink-soft);font-size:.9rem}
+
+    .progress{
+      height:10px; background:#efe7de; border-radius:999px; overflow:hidden; border:1px solid var(--accent);
+      margin-top:.5rem;
+    }
+    .progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-2));}
+
+    section h2{
+      color:var(--brand); font-family:'Playfair Display',serif; margin:2rem 0 1rem; 
+      padding-left:.6rem; border-left:6px solid var(--accent);
+    }
+
+    .intro{line-height:1.7;color:var(--ink-soft)}
+
+    .actividades{
+      display:flex;
+      flex-wrap:nowrap;
+      gap:1.2rem;
+      overflow-x:auto;
+      scroll-behavior:smooth;
+      padding-bottom:1rem;
+    }
+    .actividad{
+      background:#fff; border:1px solid var(--ring); border-radius:16px; padding:1.1rem; 
+      box-shadow:0 10px 24px #0000000f; transition:transform .25s ease, box-shadow .25s ease;
+      position:relative; overflow:hidden;
+      flex:0 0 280px;
+    }
+    .actividad:hover{transform:translateY(-6px); box-shadow:0 16px 32px #00000018}
+    .actividad:before{content:""; position:absolute; inset:auto -40% -40% auto; width:180px; height:180px; border-radius:50%; background:radial-gradient(closest-side, #f2e7db, transparent); opacity:.6;}
+    .actividad h3{margin:0 0 .6rem; color:var(--brand)}
+    .actividad p{color:var(--ink-soft); font-size:.95rem}
+    .tags{margin-top:.7rem}
+    .tag{display:inline-block;background:var(--accent);color:var(--ink);padding:.32rem .6rem;border-radius:8px;font-size:.78rem;margin:.18rem}
+    .boton{display:inline-block;margin-top:.9rem;padding:.55rem 1rem;border-radius:10px;background:var(--brand);color:#fff;text-decoration:none;font-size:.9rem;border:1px solid #563e31;box-shadow:0 6px 14px #6b4e3d33;transition:transform .2s, background .2s}
+    .boton:hover{background:var(--brand-2); transform:translateY(-2px)}
+
+    footer{ text-align:center; padding:1.6rem; font-size:.92rem; color:var(--ink-soft); background:var(--panel); border-top:2px solid var(--accent); margin-top:2.2rem }
+
+    /* Botón subir */
+    .to-top{position:fixed; right:18px; bottom:18px; background:var(--brand); color:#fff; border:none; border-radius:999px; width:48px; height:48px; cursor:pointer; box-shadow:0 10px 20px #6b4e3d44}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Portafolio – Programación Numérica</h1>
+    <p>FINESI · Universidad Nacional del Altiplano – Puno · Semestre 2025 II </p>
+  </header>
+
+  <div class="container">
+    <!-- PANEL SUPERIOR: chips + métricas -->
+    <div class="top-panel">
+      <div>
+        <h2 style="margin-top:0">Sobre este portafolio</h2>
+        <p class="intro">Espacio para documentar mis actividades, tareas y proyectos del curso <strong>Programación Numérica</strong>. Cada entrada incluye resumen, evidencias y enlaces a código o informes.</p>
+        <div class="chips" aria-label="etiquetas del curso">
+          <span class="chip">2025-II</span>
+          <span class="chip">Métodos Numéricos</span>
+          <span class="chip">C/C++ · Python · Excel</span>
+          <span class="chip">UNA Puno · FINESI</span>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="muted">Actividades registradas</div>
+          <div class="big" id="kpi-registradas">0</div>
+          <div class="muted">de <span id="kpi-total">16</span></div>
+        </div>
+        <div class="metric">
+          <div class="muted">Progreso</div>
+          <div class="big" id="kpi-progreso">0%</div>
+          <div class="progress" aria-label="barra de progreso"><span id="barra" style="width:0%"></span></div>
+        </div>
+        <div class="metric">
+          <div class="muted">Estado</div>
+          <div class="big">On track ✨</div>
+          <div class="muted">Sección PN-01</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Datos de cabecera simples -->
+    <div class="chips" style="margin:1rem 0 2rem">
+      <span class="chip"><strong>Estudiante:</strong> CUTIPA RAMOS NAYELIN BRISBANY</span>
+      <span class="chip"><strong>Docente:</strong> TORRES CRUZ FRED </span>
+      <span class="chip"><strong>Semestre:</strong> IV-A</span>
+    </div>
+
+    <section>
+      <h2>Actividades del curso</h2>
+      <div class="actividades" id="lista-actividades">
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 00 · Introducción a Programación Numérica</h3>
+          <p><strong>Fecha:</strong> 03/03/2025 · Semana 1</p>
+          <p>Defina con sus propias palabras, programación Numérica y mencione almenos 2 aplicaciones desde la Ingeniería Estadistica e Informática.</p>
+          <div class="tags">
+            <span class="tag">Definicion</span>
+            <span class="tag">Aplicaciones</span>
+          </div>
+          <a href="#" class="boton">Ver repositorio / archivo</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 01 · Error y Aritmética de Punto Flotante</h3>
+          <p><strong>Fecha:</strong> 10/03/2025 · Semana 1</p>
+          <p>Ejercicios de redondeo, error absoluto/relativo y estabilidad numérica. Informe con ejemplos en Python.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Teoría</span>
+            <span class="tag">Informe</span>
+          </div>
+          <a href="#" class="boton">Ver repositorio / archivo</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 02 · Raíces: Bisección y Newton-Raphson</h3>
+          <p><strong>Fecha:</strong> 17/03/2025 · Semana 2</p>
+          <p>Implementación comparativa, criterios de paro y gráficas de convergencia. Casos de prueba.</p>
+          <div class="tags">
+            <span class="tag">C++</span>
+            <span class="tag">Métodos de raíces</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 03 · Sistemas de Ecuaciones Lineales</h3>
+          <p><strong>Fecha:</strong> 24/03/2025 · Semana 3</p>
+          <p>Métodos de eliminación Gaussiana y factorización LU. Implementación en C++.</p>
+          <div class="tags">
+            <span class="tag">C++</span>
+            <span class="tag">Álgebra Lineal</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 04 · Métodos Iterativos</h3>
+          <p><strong>Fecha:</strong> 31/03/2025 · Semana 4</p>
+          <p>Implementación de métodos de Jacobi y Gauss-Seidel con análisis de convergencia.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Métodos Iterativos</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 05 · Interpolación y Ajuste</h3>
+          <p><strong>Fecha:</strong> 07/04/2025 · Semana 5</p>
+          <p>Interpolación de Newton y spline cúbico; ajuste por mínimos cuadrados a datos experimentales.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Excel</span>
+            <span class="tag">Reporte</span>
+          </div>
+          <a href="#" class="boton">Informe final</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 06 · Integración Numérica</h3>
+          <p><strong>Fecha:</strong> 14/04/2025 · Semana 6</p>
+          <p>Métodos del trapecio y Simpson. Comparación de precisión en Python.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Integración</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 07 · Ecuaciones Diferenciales Ordinarias</h3>
+          <p><strong>Fecha:</strong> 21/04/2025 · Semana 7</p>
+          <p>Método de Euler y Runge-Kutta. Implementación y visualización en Python.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">EDO</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 08 · Optimización Numérica</h3>
+          <p><strong>Fecha:</strong> 28/04/2025 · Semana 8</p>
+          <p>Métodos de gradiente descendente y Newton para optimización.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Optimización</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 09 · Métodos de Monte Carlo</h3>
+          <p><strong>Fecha:</strong> 05/05/2025 · Semana 9</p>
+          <p>Simulaciones de Monte Carlo para integración y optimización.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Monte Carlo</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 10 · Análisis de Errores</h3>
+          <p><strong>Fecha:</strong> 12/05/2025 · Semana 10</p>
+          <p>Análisis de errores en métodos numéricos y estrategias de mitigación.</p>
+          <div class="tags">
+            <span class="tag">Teoría</span>
+            <span class="tag">Informe</span>
+          </div>
+          <a href="#" class="boton">Ver repositorio / archivo</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 11 · Transformadas Rápidas de Fourier</h3>
+          <p><strong>Fecha:</strong> 19/05/2025 · Semana 11</p>
+          <p>Implementación de FFT para análisis de señales en Python.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">FFT</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 12 · Métodos de Diferencias Finitas</h3>
+          <p><strong>Fecha:</strong> 26/05/2025 · Semana 12</p>
+          <p>Solución de ecuaciones diferenciales parciales usando diferencias finitas.</p>
+          <div class="tags">
+            <span class="tag">C++</span>
+            <span class="tag">EDP</span>
+          </div>
+          <a href="#" class="boton">Código fuente</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 13 · Análisis de Sensibilidad</h3>
+          <p><strong>Fecha:</strong> 02/06/2025 · Semana 13</p>
+          <p>Estudio de sensibilidad en modelos numéricos y perturbaciones.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Análisis</span>
+          </div>
+          <a href="#" class="boton">Informe final</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 14 · Proyecto Final: Simulación Numérica</h3>
+          <p><strong>Fecha:</strong> 09/06/2025 · Semana 14</p>
+          <p>Simulación numérica de un problema aplicado con informe detallado.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">C++</span>
+            <span class="tag">Reporte</span>
+          </div>
+          <a href="#" class="boton">Informe final</a>
+        </div>
+        <div class="actividad" data-registrada="false">
+          <h3>Actividad 15 · Revisión y Documentación</h3>
+          <p><strong>Fecha:</strong> 16/06/2025 · Semana 15</p>
+          <p>Compilación y revisión de todo el portafolio para entrega final.</p>
+          <div class="tags">
+            <span class="tag">Documentación</span>
+            <span class="tag">Informe</span>
+          </div>
+          <a href="#" class="boton">Ver repositorio / archivo</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Recursos</h2>
+      <ul class="intro">
+        <li>Programa del curso y calendario.</li>
+        <li>Bibliografía recomendada.</li>
+        <li>Guías y apuntes adicionales.</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 Nayelin Brisbany Cutipa Ramos · Portafolio Programación Numérica</p> · Contacto: 60758595@est.unap.edu.pe
+  </footer>
+
+  <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Subir">↑</button>
+
+  <script>
+    // --- Contador dinámico: 0 de 16 (inicia en 0) ---
+    const TOTAL = 16; // metas definidas
+    const registradas = document.querySelectorAll('.actividad[data-registrada="true"]').length; // comienza en 0
+
+    const kpiTotal = document.getElementById('kpi-total');
+    const kpiReg = document.getElementById('kpi-registradas');
+    const kpiProg = document.getElementById('kpi-progreso');
+    const barra = document.getElementById('barra');
+
+    kpiTotal.textContent = TOTAL;
+    kpiReg.textContent = registradas;
+    const pct = Math.round((registradas / TOTAL) * 100);
+    kpiProg.textContent = pct + '%';
+    barra.style.width = pct + '%';
+
+    // Sugerencia: cuando termines una, cambia data-registrada="true" en la tarjeta.
+  </script>
+</body>
+</html>
