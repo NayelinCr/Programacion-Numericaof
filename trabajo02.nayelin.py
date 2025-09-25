@@ -1,62 +1,72 @@
-import tkinter as tk
-import math
 import re
 
-def preparar_funcion(expr):
+class FuncionLineal:
+    def __init__(self, m, b, simbolo="*"):
+        self.m = m
+        self.b = b
+        self.simbolo = simbolo
 
-    expr = expr.replace(" ", "")
-
-    expr = re.sub(r"(\d)([a-zA-Z])", r"\1*\2", expr)
-    return expr
-
-def graficar():
-    canvas.delete("all")
-
-
-    canvas.create_line(250, 0, 250, 500, fill="black")  
-    canvas.create_line(0, 250, 500, 250, fill="black")  
+    def evaluar(self, x):
+        return round(self.m * x + self.b)
 
 
-    funciones = [(entrada1.get(), "blue"), (entrada2.get(), "red")]
+class PlanoCartesiano:
+    def __init__(self, xmin=-10, xmax=10, ymin=-10, ymax=10):
+        self.xmin = xmin
+        self.xmax = xmax
+        self.ymin = ymin
+        self.ymax = ymax
 
-    for funcion, color in funciones:
-        if funcion.strip() == "":
-            continue
+    def graficar(self, funciones):
+        for y in range(self.ymax, self.ymin - 1, -1):
+            linea = ""
+            for x in range(self.xmin, self.xmax + 1):
+                simbolo = " "
+                for f in funciones:
+                    if f.evaluar(x) == y:
+                        simbolo = f.simbolo
+                if x == 0 and y == 0:
+                    simbolo = "O"
+                elif x == 0 and simbolo == " ":
+                    simbolo = "|"
+                elif y == 0 and simbolo == " ":
+                    simbolo = "-"
+                linea += simbolo
+            print(linea)
+def parsear_funcion(expr):
+    expr = expr.replace(" ", "")  
 
-        funcion = preparar_funcion(funcion) 
+   
+    if "x" in expr:
+        partes = expr.split("x")
+        m_str = partes[0]
+        b_str = partes[1] if len(partes) > 1 else "0"
 
-        puntos = []
-        for x_pixel in range(0, 500):
-            x = (x_pixel - 250) / 25  
-            try:
-                y = eval(funcion, {"x": x, "math": math})
-                y_pixel = 250 - y * 25
-                puntos.append((x_pixel, y_pixel))
-            except Exception as e:
-                print("Error en función:", funcion, e)
+        if m_str in ["", "+"]:
+            m = 1
+        elif m_str == "-":
+            m = -1
+        else:
+            m = float(m_str)
 
+        b = float(b_str) if b_str != "" else 0
+    else:
+        m = 0
+        b = float(expr)
 
-        for i in range(len(puntos)-1):
-            x1, y1 = puntos[i]
-            x2, y2 = puntos[i+1]
-            canvas.create_line(x1, y1, x2, y2, fill=color)
+    return m, b
 
-ventana = tk.Tk()
-ventana.title("Graficadora de Funciones")
+funciones_texto = []
+for i in range(2):  
+    f_str = input(f"Ingrese función {i+1} (ejemplo 2x+5, -x+3): ")
+    funciones_texto.append(f_str)
 
-tk.Label(ventana, text="f1(x):").pack()
-entrada1 = tk.Entry(ventana, width=40)
-entrada1.pack()
+funciones = []
+simbolos = ["*", "+"]
+for i, f_str in enumerate(funciones_texto):
+    m, b = parsear_funcion(f_str)
+    funciones.append(FuncionLineal(m, b, simbolos[i]))
 
-tk.Label(ventana, text="f2(x):").pack()
-entrada2 = tk.Entry(ventana, width=40)
-entrada2.pack()
-
-boton = tk.Button(ventana, text="Graficar", command=graficar)
-boton.pack()
-
-canvas = tk.Canvas(ventana, width=500, height=500, bg="white")
-canvas.pack()
-
-ventana.mainloop()
+plano = PlanoCartesiano()
+plano.graficar(funciones)
 
