@@ -137,10 +137,12 @@
       box-shadow: 0 0 15px rgba(255,255,255,0.4);
       backdrop-filter: blur(4px);
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .logos img:hover {
       transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(255,255,255,0.7);
     }
 
     /* ===== BURBUJAS DE INFORMACIÓN ===== */
@@ -248,8 +250,12 @@
 
     <!-- 🔰 Logos -->
     <div class="logos">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Logo_UNAP.png/250px-Logo_UNAP.png" alt="Logo UNAP" title="Universidad Nacional del Altiplano">
-      <img src="https://www.odinlaboratory.com/frontend/images/FinesiLogo.png" alt="Logo Facultad" title="Facultad de Ingeniería">
+      <a href="https://portal.unap.edu.pe/" target="_blank" title="Ir a la UNAP">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Logo_UNAP.png/250px-Logo_UNAP.png" alt="Logo UNAP">
+      </a>
+      <a href="https://finesi.edu.pe/v1/" target="_blank" title="Ir a la Facultad de Ingeniería Estadística e Informática">
+        <img src="https://www.odinlaboratory.com/frontend/images/FinesiLogo.png" alt="Logo Facultad">
+      </a>
     </div>
 
     <div class="content">
@@ -267,8 +273,8 @@
       <div class="burbuja">👩‍🎓 Alumna: Cutipa Ramos Nayelin Brisbany</div>
       <div class="burbuja">📘 Curso: Programación Numérica</div>
       <div class="burbuja">📅 Semestre: IV - 2025-II</div>
-      <a href="#" class="burbuja">🏛️ Universidad Nacional del Altiplano - Puno</a>
-      <a href="#" class="burbuja">🏫 Facultad: Ingeniería Estadística e Informática</a>
+      <a href="https://portal.unap.edu.pe/" target="_blank" class="burbuja">🏛️ Universidad Nacional del Altiplano - Puno</a>
+      <a href="https://finesi.edu.pe/v1/" target="_blank" class="burbuja">🏫 Facultad: Ingeniería Estadística e Informática</a>
     </div>
   </header>
 
@@ -300,4 +306,5 @@
   </script>
 </body>
 </html>
+
 
