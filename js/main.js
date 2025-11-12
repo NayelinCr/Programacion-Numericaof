@@ -1,9 +1,10 @@
-/* 🎀 Script principal del Portafolio de Nayelin (versión mejorada)
-   ✨ Funcionalidad:
-   - Botón "Volver arriba" animado y visible según el desplazamiento.
-   - Desplazamiento suave entre secciones.
-   - Modo oscuro / claro con almacenamiento de preferencia en localStorage.
-   - Animaciones sutiles al cargar elementos.
+/* 🎀 Script principal del Portafolio de Nayelin (versión final optimizada)
+   🌸 Funcionalidades:
+   - Botón "Volver arriba" con animación suave.
+   - Desplazamiento fluido entre secciones.
+   - Modo oscuro / claro con almacenamiento de preferencia.
+   - Animaciones de entrada al hacer scroll.
+   - Efecto de aparición inicial en el contenido.
 */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,14 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const linksSuaves = document.querySelectorAll('a[href^="#"]');
   const btnTema = document.getElementById("btnTema");
 
-  /* 🌙 Recuperar tema guardado */
+  /* 🌙 Recuperar el tema guardado */
   const temaGuardado = localStorage.getItem("tema");
   if (temaGuardado === "oscuro") {
     document.body.classList.add("oscuro");
     if (btnTema) btnTema.innerHTML = "🌙 Modo Claro";
   }
 
-  /* 🌸 Mostrar/ocultar botón "Volver arriba" con animación */
+  /* 🌷 Mostrar/ocultar botón "Volver arriba" */
   window.addEventListener("scroll", () => {
     if (window.scrollY > 250) {
       btnArriba?.classList.add("mostrar");
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* 🌷 Acción del botón "Volver arriba" */
+  /* 🩵 Acción del botón "Volver arriba" */
   btnArriba?.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
@@ -47,20 +48,17 @@ document.addEventListener("DOMContentLoaded", () => {
   btnTema?.addEventListener("click", () => {
     document.body.classList.toggle("oscuro");
     const esOscuro = document.body.classList.contains("oscuro");
-
     btnTema.innerHTML = esOscuro ? "🌙 Modo Claro" : "☀️ Modo Oscuro";
-
-    // Guardar preferencia
     localStorage.setItem("tema", esOscuro ? "oscuro" : "claro");
 
-    // Pequeño efecto visual
-    btnTema.animate([{ transform: "scale(1.1)" }, { transform: "scale(1)" }], {
-      duration: 300,
-      easing: "ease-out",
-    });
+    // ✨ Animación del botón
+    btnTema.animate(
+      [{ transform: "scale(1.1)" }, { transform: "scale(1)" }],
+      { duration: 300, easing: "ease-out" }
+    );
   });
 
-  /* 🪄 Animar contenido al cargar */
+  /* 🪄 Animación inicial al cargar contenido */
   const contenido = document.querySelector(".content");
   if (contenido) {
     contenido.style.opacity = 0;
@@ -71,5 +69,20 @@ document.addEventListener("DOMContentLoaded", () => {
       contenido.style.transform = "translateY(0)";
     }, 300);
   }
+
+  /* 🌼 Animaciones al hacer scroll (para secciones, tarjetas, proyectos, etc.) */
+  const elementosAnimados = document.querySelectorAll(
+    "section, .card, .proyecto, .contenedor"
+  );
+
+  const observer = new IntersectionObserver((entradas) => {
+    entradas.forEach((entrada) => {
+      if (entrada.isIntersecting) {
+        entrada.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  elementosAnimados.forEach((el) => observer.observe(el));
 });
 
