@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unidad 1 · Actividad 05</title>
+  <title>Unidad 1 · Actividad 03</title>
 
   <!-- Fuentes modernas -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
@@ -209,17 +209,19 @@
     <a href="unidad1_00.html">Actividad 00</a>
     <a href="unidad1_01.html">Actividad 01</a>
     <a href="unidad1_02.html">Actividad 02</a>
-    <a href="unidad1_03.html">Actividad 03</a>
+    <a href="unidad1_03.html" class="active">Actividad 03</a>
     <a href="unidad1_04.html">Actividad 04</a>
-    <a href="unidad1_05.html" class="active">Actividad 05</a>
+    <a href="unidad1_05.html">Actividad 05</a>
     <a href="../index.html">🏠 Volver al inicio</a>
+    <a href="../unidad2/unidad2.html">➡ Ir a Unidad 2</a>
+
   </aside>
 
   <!-- Contenido -->
   <div class="content" id="content">
     <header>
-      <h1>Actividad 05 · Método de Newton-Raphson</h1>
-      <p>08/10/2025</p>
+      <h1>Actividad 03 · Resolución de Ejercicios</h1>
+      <p>11/09/2025</p>
       <div class="estado">
         <div class="burbuja"></div>
         <span>Completada</span>
@@ -228,65 +230,15 @@
 
     <main>
       <section>
-        <h2>Descripción</h2>
-        <p>Solución en código Python al primer tema expuesto en clase, implementando el Método de Newton-Raphson con derivadas numéricas.</p>
+        <h2> Descripción de la Actividad </h2>
+        <p>Resolver los ejercicios planteados en la unidad 1 aplicando conceptos de programación numérica.</p>
       </section>
 
       <section>
-        <h2>Código de ejemplo</h2>
-        <pre><code>"""
-Método de Newton-Raphson 
-Propio de: Nayelin Cutipa
-Curso: Programación Numérica
-Fecha: 08/10/2025
-"""
-
-import math
-
-def derivada_numerica(f, x, h=1e-6):
-    """Aproximación de la derivada de f en x usando diferencias centradas."""
-    return (f(x + h) - f(x - h)) / (2 * h)
-
-def newton_raphson(f, x0, tol=1e-12, max_iter=100):
-    """
-    Método de Newton-Raphson con derivada numérica automática.
-    f: función
-    x0: valor inicial
-    tol: tolerancia
-    max_iter: número máximo de iteraciones
-    """
-    x = x0
-    for i in range(max_iter):
-        fx = f(x)
-        dfx = derivada_numerica(f, x)
-
-        if dfx == 0:
-            print(f"Error: la derivada se anuló en la iteración {i}.")
-            return None
-
-        x_next = x - fx / dfx
-
-        if abs(x_next - x) < tol:
-            print(f"Convergencia alcanzada en la iteración {i+1}")
-            return x_next
-
-        x = x_next
-
-    print("El método no convergió en el número máximo de iteraciones.")
-    return None
-
-print("=== MÉTODO DE NEWTON-RAPHSON ===\n")
-
-funcion = input("Ingresa f(x): ")     
-x0 = float(input("Ingresa el valor inicial x0: "))
-
-f = lambda x: eval(funcion)
-
-raiz = newton_raphson(f, x0)
-
-if raiz is not None:
-    print(f"\nRaíz aproximada: {raiz:.12f}")
-</code></pre>
+        <h2>Informe de la Actividad </h2>
+        <ul>
+          <li>📄 <a href="https://drive.google.com/file/d/1veaiFxUiYwAatQy58BZDauvwVGSi8UL8/view?usp=sharing" target="_blank">Informe (PDF)</a></li>
+        </ul>
       </section>
     </main>
 
