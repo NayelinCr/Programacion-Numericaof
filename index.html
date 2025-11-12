@@ -5,27 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portafolio – Programación Numérica – Nayelin Cutipa</title>
 
-  <!-- Descripción SEO -->
-  <meta name="description" content="Portafolio académico de Nayelin Cutipa Ramos - Curso de Programación Numérica, Universidad Nacional del Altiplano Puno.">
-
   <!-- Fuente moderna -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== RESET Y BASE ===== */
+    /* ===== BASE GENERAL ===== */
     * {
-      transition: all 0.25s ease-in-out;
       box-sizing: border-box;
+      transition: all 0.25s ease-in-out;
     }
 
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
-      color: #fff;
-      background-color: #2a2037;
+      font-family: 'Poppins', sans-serif;
+      background: #2a2037; /* Lila oscuro */
+      color: #f3e8ff;
       overflow-x: hidden;
-      animation: fadeIn 0.8s ease-in-out;
-      line-height: 1.6;
+      line-height: 1.7;
+      animation: fadeIn 1s ease-in-out;
     }
 
     @keyframes fadeIn {
@@ -35,14 +32,14 @@
 
     h1, h2 {
       margin: 0;
-      text-transform: uppercase;
+      font-weight: 600;
     }
 
     /* ===== SECCIÓN HERO ===== */
     .hero {
       position: relative;
       height: 100vh;
-      background: linear-gradient(rgba(80,40,120,0.4), rgba(60,30,90,0.7)),
+      background: linear-gradient(135deg, rgba(74,46,104,0.8), rgba(126,87,194,0.8)),
         url("https://img.freepik.com/fotos-premium/espacio-trabajo-escritorio-femenino-tulipanes-teclado-lentes-agenda-clips-dorados-violeta_1429-5209.jpg?semt=ais_hybrid&w=740&q=80")
         center/cover no-repeat fixed;
       display: flex;
@@ -51,26 +48,27 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
     .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(80, 40, 120, 0.4);
+      background: rgba(42, 32, 55, 0.5);
       z-index: 1;
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(3px);
     }
 
     .content {
       position: relative;
       z-index: 2;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
       padding: 20px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
       animation: aparecer 1.5s ease-out;
     }
 
     @keyframes aparecer {
-      from { opacity: 0; transform: scale(0.9); }
+      from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
 
@@ -81,18 +79,18 @@
     }
 
     .content h2 {
-      font-size: 1.3rem;
-      margin-top: 10px;
-      color: #f3eaff;
+      font-size: 1.2rem;
+      margin-top: 0.6rem;
+      color: #e5d0ff;
       font-weight: 400;
     }
 
     /* ===== BOTONES DE UNIDADES ===== */
     .buttons {
-      margin-top: 40px;
+      margin-top: 2rem;
       display: flex;
       justify-content: center;
-      gap: 40px;
+      gap: 2rem;
       flex-wrap: wrap;
     }
 
@@ -102,38 +100,21 @@
       justify-content: center;
       width: 180px;
       height: 100px;
-      background: linear-gradient(135deg, #7e57c2, #b388ff);
-      color: #fff;
+      background: #3d2b56;
+      color: #e1caff;
       font-size: 1.3rem;
       font-weight: 600;
       text-decoration: none;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(158, 80, 255, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .unidad-boton::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: rgba(255,255,255,0.1);
-      transform: rotate(25deg);
-      transition: all 0.5s ease;
-    }
-
-    .unidad-boton:hover::before {
-      transform: rotate(25deg) translateX(10px) translateY(10px);
-      background: rgba(255,255,255,0.2);
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
     }
 
     .unidad-boton:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 0 25px #b388ff, 0 0 50px #9c75f3;
-      background: linear-gradient(135deg, #9c75f3, #b388ff);
+      background: #b388ff;
+      color: #2a2037;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(179,136,255,0.6);
     }
 
     /* ===== LOGOS ===== */
@@ -148,12 +129,12 @@
     }
 
     .logos img {
-      width: 85px;
-      height: 85px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 0 15px rgba(255,255,255,0.4);
       background-color: rgba(255,255,255,0.3);
+      box-shadow: 0 0 15px rgba(255,255,255,0.4);
       backdrop-filter: blur(4px);
       transition: transform 0.3s ease;
     }
@@ -176,54 +157,54 @@
     }
 
     .burbuja {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
+      background: #3a2951;
+      color: #e5d0ff;
       padding: 12px 22px;
-      border-radius: 20px;
+      border-radius: 30px;
       font-size: 1rem;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       transition: all 0.3s ease;
       text-decoration: none;
     }
 
     .burbuja:hover {
+      background: #4b3370;
       transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.25);
-      box-shadow: 0 0 10px #b388ff;
+      box-shadow: 0 0 15px #b388ff;
     }
 
     /* ===== PIE DE PÁGINA ===== */
     footer {
-      background: #42275a;
-      color: #fff;
+      background: #3a2951;
+      color: #e5d0ff;
       text-align: center;
-      padding: 18px 0;
+      padding: 1.2rem 0;
       font-size: 0.9rem;
-      letter-spacing: 0.5px;
+      border-top: 1px solid #4e3872;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
     }
 
-    /* ===== BOTÓN VOLVER ARRIBA ===== */
+    /* ===== BOTÓN ARRIBA ===== */
     #btnArriba {
       position: fixed;
       bottom: 20px;
       right: 20px;
       padding: 12px 14px;
-      background-color: #6f2dbd;
+      background-color: #4a2e68;
       color: white;
       border: none;
       border-radius: 50%;
       cursor: pointer;
       font-size: 18px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       display: none;
       z-index: 10;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background 0.3s;
     }
 
     #btnArriba:hover {
-      background-color: #a06cd5;
+      background-color: #b388ff;
+      color: #2a2037;
       transform: translateY(-3px);
     }
 
@@ -254,7 +235,6 @@
       .content h1 { font-size: 2rem; }
       .content h2 { font-size: 1rem; }
       .logos img { width: 65px; height: 65px; }
-      .burbuja { font-size: 0.85rem; padding: 10px 18px; }
       .buttons { flex-direction: column; gap: 20px; }
       .unidad-boton { width: 160px; height: 90px; font-size: 1.1rem; }
     }
@@ -262,51 +242,43 @@
 </head>
 
 <body>
-  <!-- 🌸 Encabezado principal -->
   <header class="hero">
     <div class="overlay"></div>
     <div class="particulas" id="particulas"></div>
 
-    <!-- 🔰 Logos institucionales -->
+    <!-- 🔰 Logos -->
     <div class="logos">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Logo_UNAP.png/250px-Logo_UNAP.png" alt="Logo UNAP" title="Universidad Nacional del Altiplano">
-      <img src="https://www.odinlaboratory.com/frontend/images/FinesiLogo.png" alt="Logo Facultad de Ingeniería" title="Facultad de Ingeniería">
+      <img src="https://www.odinlaboratory.com/frontend/images/FinesiLogo.png" alt="Logo Facultad" title="Facultad de Ingeniería">
     </div>
 
-    <!-- ✨ Título central -->
     <div class="content">
       <h1>Programación Numérica</h1>
-      <h2>Portafolio de: Nayelin Brisbany Cutipa Ramos</h2>
+      <h2>Portafolio de Nayelin Brisbany Cutipa Ramos</h2>
 
-      <!-- Botones de unidades -->
       <div class="buttons">
         <a href="unidad1/unidad1.html" class="unidad-boton">Unidad 1</a>
         <a href="unidad2/unidad2.html" class="unidad-boton">Unidad 2</a>
       </div>
     </div>
 
-    <!-- 📘 Información académica -->
     <div class="info-burbujas">
       <div class="burbuja">👩‍🏫 Docente: Ing. Torres Cruz Fred</div>
       <div class="burbuja">👩‍🎓 Alumna: Cutipa Ramos Nayelin Brisbany</div>
       <div class="burbuja">📘 Curso: Programación Numérica</div>
       <div class="burbuja">📅 Semestre: IV - 2025-II</div>
-      <a href="#" class="burbuja" title="Ir al sitio web de la UNAP">🏛️ Universidad Nacional del Altiplano - Puno</a>
-      <a href="#" class="burbuja" title="Ir al sitio web de la Facultad">🏫 Facultad: Ingeniería Estadística e Informática</a>
+      <a href="#" class="burbuja">🏛️ Universidad Nacional del Altiplano - Puno</a>
+      <a href="#" class="burbuja">🏫 Facultad: Ingeniería Estadística e Informática</a>
     </div>
   </header>
 
-  <!-- 🪷 Pie de página -->
   <footer>
-    <p>© 2025 Nayelin Brisbany Cutipa Ramos | Portafolio de Programación Numérica</p>
+    <p>© 2025 Nayelin Brisbany Cutipa Ramos · Portafolio Programación Numérica 💜</p>
   </footer>
 
-  <!-- ⬆ Botón volver arriba -->
   <button id="btnArriba" title="Volver arriba">⬆</button>
 
-  <!-- ⚙️ Script principal -->
   <script>
-    // Mostrar/Ocultar botón arriba
     const btnArriba = document.getElementById("btnArriba");
     window.addEventListener("scroll", () => {
       btnArriba.style.display = window.scrollY > 200 ? "block" : "none";
@@ -315,9 +287,8 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Generar partículas flotantes
     const contenedor = document.getElementById("particulas");
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 25; i++) {
       const p = document.createElement("div");
       p.classList.add("particula");
       p.style.left = Math.random() * 100 + "%";
