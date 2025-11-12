@@ -1,223 +1,179 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Unidad 1 · Actividades</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UNIDAD 1 · ACTIVIDADES</title>
 
-    <!-- Fuente -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #2a2037;
-            /* Lila oscuro de fondo */
-            color: #f3e8ff;
-            margin: 0;
-            line-height: 1.7;
-        }
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #2a2037; /* Lila oscuro de fondo */
+      color: #f3e8ff;
+      margin: 0;
+      line-height: 1.7;
+    }
 
-        header {
-            background: linear-gradient(135deg, #4a2e68, #7e57c2);
-            color: white;
-            padding: 1.8rem 0;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
-        }
+    header {
+      background: linear-gradient(135deg, #4a2e68, #7e57c2);
+      color: white;
+      padding: 1.8rem 0;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+    }
 
-        .wrap {
-            width: 90%;
-            max-width: 1000px;
-            margin: auto;
-        }
+    .wrap {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+    }
 
-        h1 {
-            margin: 0;
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: 0.6px;
-        }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+    }
 
-        nav {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    nav {
+      margin-top: 1rem;
+    }
 
-        nav a {
-            background: #3d2b56;
-            color: #e1caff;
-            text-decoration: none;
-            padding: 0.7rem 1.1rem;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
+    nav a {
+      background: #3d2b56;
+      color: #e1caff;
+      text-decoration: none;
+      padding: 0.7rem 1.1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-right: 0.6rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
 
-        nav a:hover {
-            background: #b388ff;
-            color: #2a2037;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-        }
+    nav a:hover {
+      background: #b388ff;
+      color: #2a2037;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
 
-        main {
-            background: #38284e;
-            padding: 2rem;
-            margin: 2rem auto;
-            border-radius: 18px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-        }
+    main {
+      background: #38284e;
+      padding: 2rem;
+      margin: 2rem auto;
+      border-radius: 18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-        li {
-            margin-bottom: 1rem;
-            padding: 1rem 1.3rem;
-            background: #3d2b56;
-            border-radius: 12px;
-            transition: transform 0.2s, background 0.3s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    li {
+      margin-bottom: 1rem;
+      padding: 1rem 1.3rem;
+      background: #3d2b56;
+      border-radius: 12px;
+      transition: transform 0.2s, background 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        li:hover {
-            transform: scale(1.02);
-            background: #4b3370;
-        }
+    li:hover {
+      transform: scale(1.02);
+      background: #4b3370;
+    }
 
-        a.enlace-actividad {
-            color: #d1b3ff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-        }
+    a.enlace-actividad {
+      color: #d1b3ff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
 
-        a.enlace-actividad:hover {
-            text-decoration: underline;
-            color: #e3cfff;
-        }
+    a.enlace-actividad:hover {
+      text-decoration: underline;
+      color: #e3cfff;
+    }
 
-        /* Estado de cada actividad */
-        .estado {
-            font-size: 0.85rem;
-            background: #3a2951;
-            color: #e5d0ff;
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
+    /* Estado de cada actividad */
+    .estado {
+      font-size: 0.85rem;
+      background: #3a2951;
+      color: #e5d0ff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
 
-        .burbuja {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #b388ff;
-        }
+    .burbuja {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #b388ff;
+    }
 
-        /* Burbujas rectangulares de navegación interna */
-        .boton-unidad {
-            display: inline-block;
-            margin: 2rem 0;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #7e57c2, #b388ff);
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.2rem;
-            border-radius: 20px;
-            text-decoration: none;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .boton-unidad:hover {
-            transform: translateY(-3px) scale(1.05);
-            background: linear-gradient(135deg, #9c75f3, #b388ff);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.2rem 0;
-            background: #3a2951;
-            color: #e5d0ff;
-            font-size: 0.9rem;
-            border-top: 1px solid #4e3872;
-        }
-    </style>
+    footer {
+      text-align: center;
+      padding: 1.2rem 0;
+      background: #3a2951;
+      color: #e5d0ff;
+      font-size: 0.9rem;
+      border-top: 1px solid #4e3872;
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <div class="wrap">
-            <h1>UNIDAD 1 · ACTIVIDADES</h1>
-            <nav>
-                <a href="../index.html">🏠 Inicio</a>
-                <a href="../unidad1/unidad1.html" class="boton-unidad">➡ VOLVER A LA UNIDAD 1</a>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <div class="wrap">
+      <h1>UNIDAD 1 · ACTIVIDADES</h1>
+      <nav>
+        <a href="../index.html">🏠 INICIO</a>
+        <a href="../unidad2/unidad2.html">➡ UNIDAD 2</a>
+      </nav>
+    </div>
+  </header>
 
-    <main class="wrap">
-        <ul>
-            <li>
-                <a class="enlace-actividad" href="unidad1_00.html">🌸 Actividad 00 · Introducción a Programación
-                    Numérica </a>
-                <div class="estado">
-                    <div class="burbuja"></div> Completada
-                </div>
-            </li>
-            <li>
-                <a class="enlace-actividad" href="unidad1_01.html">🌸 Actividad 01 · Crear un programa identificador de
-                    variables y operaciones</a>
-                <div class="estado">
-                    <div class="burbuja"></div> Completada
-                </div>
-            </li>
-            <li>
-                <a class="enlace-actividad" href="unidad1_02.html">🌸 Actividad 02 · Crear una graficadora de
-                    funciones</a>
-                <div class="estado">
-                    <div class="burbuja"></div> Completada
-                </div>
-            </li>
-            <li>
-                <a class="enlace-actividad" href="unidad1_03.html">🌸 Actividad 03 · Restricciones</a>
-                <div class="estado">
-                    <div class="burbuja" style="background:#ffb3b3;"></div> Pendiente
-                </div>
-            </li>
-            <li>
-                <a class="enlace-actividad" href="unidad1_04.html">🌸 Actividad 04 · Métodos Iterativos</a>
-                <div class="estado">
-                    <div class="burbuja"></div> Completada
-                </div>
-            </li>
-            <li>
-                <a class="enlace-actividad" href="unidad1_05.html">🌸 Actividad 05 · MÉTODO DE NEWTON-RAPHSON</a>
-                <div class="estado">
-                    <div class="burbuja" style="background:#ffb3b3;"></div> Pendiente
-                </div>
-            </li>
-        </ul>
+  <main class="wrap">
+    <ul>
+      <li>
+        <a class="enlace-actividad" href="unidad1_00.html">🌸 Actividad 00 · Introducción a Programación Numérica </a>
+        <div class="estado"><div class="burbuja"></div> Completada</div>
+      </li>
+      <li>
+        <a class="enlace-actividad" href="unidad1_01.html">🌸 Actividad 01 · Crear un programa identificador de variables y operaciones</a>
+        <div class="estado"><div class="burbuja"></div> Completada</div>
+      </li>
+      <li>
+        <a class="enlace-actividad" href="unidad1_02.html">🌸 Actividad 02 ·  Crear una graficadora de funciones</a>
+        <div class="estado"><div class="burbuja"></div> Completada</div>
+      </li>
+      <li>
+        <a class="enlace-actividad" href="unidad1_03.html">🌸 Actividad 03 · Restricciones</a>
+        <div class="estado"><div class="burbuja" style="background:#ffb3b3;"></div> Pendiente</div>
+      </li>
+      <li>
+        <a class="enlace-actividad" href="unidad1_04.html">🌸 Actividad 04 · Métodos Iterativos</a>
+        <div class="estado"><div class="burbuja"></div> Completada</div>
+      </li>
+      <li>
+        <a class="enlace-actividad" href="unidad1_05.html">🌸 Actividad 05 · MÉTODO DE NEWTON-RAPHSON</a>
+        <div class="estado"><div class="burbuja" style="background:#ffb3b3;"></div> Pendiente</div>
+      </li>
+    </ul>
+  </main>
 
-        <!-- Burbujas grandes para ir a otras unidades -->
-        <a href="../unidad2/unidad2.html" class="boton-unidad">➡ IR A LA UNIDAD 2</a>
-    </main>
-
-    <footer>
-        <p>© 2025 Nayelin · Portafolio Programación Numérica 💜</p>
-    </footer>
+  <footer>
+    <p>© 2025 NAYELIN BRISBANY CUTIPA RAMOS · PORTAFOLIO PROGRAMACION NUMERICA💜</p>
+  </footer>
 </body>
-
 </html>
