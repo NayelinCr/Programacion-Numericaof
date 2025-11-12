@@ -268,7 +268,7 @@ body.oscuro footer {
   color: #bca9e8;
 }
 
-/* ===== BOTÓN DE TEMA ===== */
+/* ===== BOTÓN DE TEMA (Versión mejorada) ===== */
 #btnTema {
   position: fixed;
   bottom: 25px;
@@ -282,15 +282,45 @@ body.oscuro footer {
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+#btnTema::before {
+  content: "☀️";
+  font-size: 1.2rem;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+#btnTema span {
+  transition: opacity 0.4s ease;
 }
 
 #btnTema:hover {
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(-2deg);
   background: linear-gradient(135deg, #8b70ff, #c2a2ff);
+  box-shadow: 0 0 15px rgba(155, 120, 255, 0.5);
 }
 
-/* ===== EFECTO FADE-UP (animaciones al aparecer en pantalla) ===== */
+body.oscuro #btnTema {
+  background: linear-gradient(135deg, #6a4cd8, #9b83ff);
+  box-shadow: 0 0 15px rgba(140, 120, 255, 0.4);
+}
+
+body.oscuro #btnTema::before {
+  content: "🌙";
+  transform: rotate(360deg);
+}
+
+#btnTema:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 10px rgba(200, 180, 255, 0.4);
+}
+
+/* ===== EFECTO FADE-UP ===== */
 .fade-up {
   opacity: 0;
   transform: translateY(40px);
@@ -313,5 +343,10 @@ body.oscuro footer {
     left: 15px;
     padding: 8px 14px;
     font-size: 0.9rem;
+    gap: 6px;
+  }
+
+  #btnTema::before {
+    font-size: 1rem;
   }
 }
