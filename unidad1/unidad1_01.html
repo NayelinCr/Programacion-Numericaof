@@ -3,127 +3,126 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unidad 1 · Actividad 00</title>
+  <title>Unidad 1 · Actividad 01</title>
 
   <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
 
   <style>
-    /* ======= ESTILO GENERAL ======= */
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
       color: #f0e6ff;
       margin: 0;
-      line-height: 1.7;
+      display: flex;
       min-height: 100vh;
     }
 
-    /* ======= ENCABEZADO ======= */
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 250px;
+      background: #3d2b56;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .sidebar h2 {
+      font-size: 1.2rem;
+      color: #e9dcff;
+      margin-bottom: 1rem;
+      text-align: center;
+      border-bottom: 2px solid #b388ff;
+      padding-bottom: 0.4rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .sidebar li {
+      margin-bottom: 0.8rem;
+    }
+
+    .sidebar a {
+      color: #d6b6ff;
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #b388ff;
+      color: #2a2037;
+    }
+
+    .sidebar .bottom-links {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .sidebar .bottom-links a {
+      display: block;
+      background: #4a2e68;
+      color: #f3e8ff;
+      margin-top: 0.5rem;
+      padding: 0.6rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .sidebar .bottom-links a:hover {
+      background: #b388ff;
+      color: #2a2037;
+    }
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .content {
+      margin-left: 260px;
+      padding: 2rem;
+      flex: 1;
+    }
+
     header {
       background: linear-gradient(135deg, #4a2e68, #7e57c2);
       color: white;
-      padding: 1.8rem 0;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
-      position: relative;
-      border-bottom: 3px solid #b388ff;
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
-    .wrap {
-      width: 90%;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .brand-link {
-      color: #e9dcff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color 0.3s ease;
-    }
-
-    .brand-link:hover {
-      color: #d1b3ff;
-      text-decoration: underline;
-    }
-
-    h1.brand {
-      margin: 0.4rem 0 0;
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: 0.6px;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
     }
 
     p.subtitle {
-      margin: 0;
+      margin: 0.3rem 0 0;
       font-size: 0.9rem;
       opacity: 0.9;
     }
 
-    /* ======= BURBUJA DE ESTADO ======= */
-    .estado {
-      position: absolute;
-      top: 1.3rem;
-      right: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-      background: rgba(61, 43, 86, 0.9);
-      color: #f3e8ff;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-    }
-
-    .burbuja {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #b388ff;
-      box-shadow: 0 0 6px #b388ff;
-      transition: background 0.3s;
-    }
-
-    /* ======= NAVEGACIÓN ======= */
-    nav.mini-nav {
-      margin-top: 1rem;
-    }
-
-    nav.mini-nav a {
-      background: #3d2b56;
-      color: #e1caff;
-      text-decoration: none;
-      padding: 0.6rem 1rem;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      margin-right: 0.6rem;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    nav.mini-nav a:hover {
-      background: #b388ff;
-      color: #2a2037;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    }
-
-    /* ======= CUERPO PRINCIPAL ======= */
     main {
       background: rgba(56, 40, 78, 0.95);
-      padding: 2.2rem;
-      margin: 2rem auto;
+      padding: 2rem;
+      margin-top: 1.5rem;
       border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(3px);
-      transition: transform 0.2s ease;
-    }
-
-    main:hover {
-      transform: scale(1.01);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     }
 
     h2 {
@@ -132,35 +131,8 @@
       display: inline-block;
       padding-bottom: 0.4rem;
       margin-bottom: 1rem;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     }
 
-    section {
-      margin-bottom: 2.2rem;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      margin: 0.6rem 0;
-    }
-
-    a {
-      color: #d6b6ff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: #f1e0ff;
-    }
-
-    /* ======= BLOQUE DE CÓDIGO ======= */
     pre {
       background: #2f2043;
       border-radius: 12px;
@@ -172,58 +144,60 @@
       box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
     }
 
-    /* ======= PIE DE PÁGINA ======= */
     footer {
       text-align: center;
-      padding: 1.4rem 0;
-      background: #3a2951;
+      margin-top: 2rem;
       color: #e5d0ff;
       font-size: 0.9rem;
-      border-top: 1px solid #4e3872;
-      letter-spacing: 0.4px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    footer p {
-      margin: 0;
+      opacity: 0.8;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="wrap">
-      <a class="brand-link" href="unidad1.html">← Unidad 1</a>
-      <h1 class="brand">Actividad 00 · Introducción</h1>
-      <p class="subtitle">04/09/2025</p>
-
-      <nav class="mini-nav">
-        <a href="../index.html">Inicio</a>
-        <a href="unidad1.html">Volver a Unidad 1</a>
-      </nav>
-
-      <!-- Burbuja de estado -->
-      <div class="estado">
-        <div class="burbuja"></div>
-        <span>Completada</span>
-      </div>
+  <!-- ======= SIDEBAR ======= -->
+  <aside class="sidebar">
+    <div>
+      <h2>Unidad 1</h2>
+      <ul>
+        <li><a href="unidad1_00.html">🌸 Actividad 00</a></li>
+        <li><a href="unidad1_01.html" class="active">🌸 Actividad 01</a></li>
+        <li><a href="unidad1_02.html">🌸 Actividad 02</a></li>
+        <li><a href="unidad1_03.html">🌸 Actividad 03</a></li>
+        <li><a href="unidad1_04.html">🌸 Actividad 04</a></li>
+        <li><a href="unidad1_05.html">🌸 Actividad 05</a></li>
+      </ul>
     </div>
-  </header>
 
-  <main class="wrap">
-    <section>
-      <h2>Descripción</h2>
-      <p>Programa con entrada, funcion, variable Informe con ejemplos en Python.</p>
-    </section>
+    <div class="bottom-links">
+      <a href="../index.html">🏠 Inicio</a>
+      <a href="../unidad2/unidad2.html">➡ Unidad 2</a>
+    </div>
+  </aside>
 
-    <section>
-      <h2>Evidencias</h2>
-      
-    </section>
+  <!-- ======= CONTENIDO PRINCIPAL ======= -->
+  <div class="content">
+    <header>
+      <h1>Actividad 01 · Análisis de Expresiones</h1>
+      <p class="subtitle">05/09/2025 · Estado: Completada 💜</p>
+    </header>
 
-    <section>
-      <h2>Código:</h2>
-      <pre><code>import re
+    <main>
+      <section>
+        <h2>Descripción</h2>
+        <p>Programa que analiza una expresión matemática e identifica las variables y operaciones presentes en ella.</p>
+      </section>
+
+      <section>
+        <h2>Evidencias</h2>
+        <ul>
+          <li>📄 <a href="https://drive.google.com/" target="_blank">Informe (PDF)</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Código en Python</h2>
+        <pre><code>import re
 
 def analizar_expresion(expresion):
     # Buscar variables (letras o combinaciones de letras)
@@ -244,18 +218,13 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-ejemplo()
 </code></pre>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer>
-    <p>© 2025 Nayelin · Portafolio Programación Numérica 💜</p>
-  </footer>
+    <footer>
+      © 2025 Nayelin · Portafolio Programación Numérica 💜
+    </footer>
+  </div>
 </body>
 </html>
-
-
-
