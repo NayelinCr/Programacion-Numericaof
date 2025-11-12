@@ -356,3 +356,14 @@ body.oscuro #btnTema::before {
     font-size: 1rem;
   }
 }
+/* ===== ANIMACIONES DE ENTRADA AL HACER SCROLL ===== */
+section, .card, .proyecto, .contenedor {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+section.visible, .card.visible, .proyecto.visible, .contenedor.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
