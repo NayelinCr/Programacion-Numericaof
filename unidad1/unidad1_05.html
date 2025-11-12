@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Unidad 1 · Actividad 05</title>
 
-  <!-- Fuente moderna -->
+  <!-- Fuentes modernas -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
 
   <style>
@@ -59,6 +59,11 @@
       background: #b388ff;
       color: #2a2037;
       transform: translateX(4px);
+    }
+
+    .sidebar a.active {
+      background: #b388ff;
+      color: #2a2037;
     }
 
     .toggle-btn {
@@ -129,7 +134,7 @@
       padding: 2.2rem;
       margin-top: 2rem;
       border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
       backdrop-filter: blur(3px);
       transition: transform 0.2s ease;
     }
@@ -141,7 +146,7 @@
     h1 {
       margin: 0.4rem 0 0;
       font-size: 1.9rem;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
 
     h2 {
@@ -150,7 +155,7 @@
       display: inline-block;
       padding-bottom: 0.4rem;
       margin-bottom: 1rem;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
 
     section {
@@ -168,6 +173,18 @@
       box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
     }
 
+    a {
+      color: #d6b6ff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: #f1e0ff;
+      text-decoration: underline;
+    }
+
     footer {
       text-align: center;
       margin-top: 2rem;
@@ -176,7 +193,7 @@
       color: #e5d0ff;
       font-size: 0.9rem;
       border-top: 1px solid #4e3872;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
       border-radius: 10px;
     }
   </style>
@@ -189,12 +206,12 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <h2>Unidad 1</h2>
-    <a href="actividad0.html">Actividad 0</a>
-    <a href="actividad1.html">Actividad 1</a>
-    <a href="actividad2.html">Actividad 2</a>
-    <a href="actividad3.html">Actividad 3</a>
-    <a href="actividad4.html">Actividad 4</a>
-    <a href="actividad5.html" style="background:#b388ff;color:#2a2037;">Actividad 5</a>
+    <a href="unidad1_00.html">Actividad 00</a>
+    <a href="unidad1_01.html">Actividad 01</a>
+    <a href="unidad1_02.html">Actividad 02</a>
+    <a href="unidad1_03.html">Actividad 03</a>
+    <a href="unidad1_04.html">Actividad 04</a>
+    <a href="unidad1_05.html" class="active">Actividad 05</a>
     <a href="../index.html">🏠 Volver al inicio</a>
   </aside>
 
@@ -202,7 +219,7 @@
   <div class="content" id="content">
     <header>
       <h1>Actividad 05 · Método de Newton-Raphson</h1>
-      <p>Fecha: 08/10/2025</p>
+      <p>08/10/2025</p>
       <div class="estado">
         <div class="burbuja"></div>
         <span>Completada</span>
@@ -212,7 +229,7 @@
     <main>
       <section>
         <h2>Descripción</h2>
-        <p>Solución en código Python al primer tema expuesto en clase.</p>
+        <p>Solución en código Python al primer tema expuesto en clase, implementando el Método de Newton-Raphson con derivadas numéricas.</p>
       </section>
 
       <section>
@@ -274,7 +291,7 @@ if raiz is not None:
     </main>
 
     <footer>
-      <p>© 2025 Nayelin · Portafolio Programación Numérica 💜</p>
+      © 2025 Nayelin · Portafolio Programación Numérica 💜
     </footer>
   </div>
 
