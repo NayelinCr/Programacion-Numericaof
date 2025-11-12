@@ -8,9 +8,6 @@
   <!-- Descripción SEO -->
   <meta name="description" content="Portafolio académico de Nayelin Cutipa Ramos - Curso de Programación Numérica, Universidad Nacional del Altiplano Puno.">
 
-  <!-- CSS principal -->
-  <link rel="stylesheet" href="css/main.css" />
-
   <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
 
@@ -69,6 +66,12 @@
       z-index: 2;
       padding: 20px;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+      animation: aparecer 1.5s ease-out;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .content h1 {
@@ -105,7 +108,7 @@
       font-weight: 600;
       text-decoration: none;
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 0 15px rgba(158, 80, 255, 0.4);
       position: relative;
       overflow: hidden;
     }
@@ -124,12 +127,12 @@
 
     .unidad-boton:hover::before {
       transform: rotate(25deg) translateX(10px) translateY(10px);
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.2);
     }
 
     .unidad-boton:hover {
       transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+      box-shadow: 0 0 25px #b388ff, 0 0 50px #9c75f3;
       background: linear-gradient(135deg, #9c75f3, #b388ff);
     }
 
@@ -223,6 +226,28 @@
       transform: translateY(-3px);
     }
 
+    /* ===== PARTÍCULAS ===== */
+    .particulas {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particula {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      animation: flotar 10s linear infinite;
+    }
+
+    @keyframes flotar {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-800px) scale(0.5); opacity: 0; }
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .content h1 { font-size: 2rem; }
@@ -239,6 +264,7 @@
   <!-- 🌸 Encabezado principal -->
   <header class="hero">
     <div class="overlay"></div>
+    <div class="particulas" id="particulas"></div>
 
     <!-- 🔰 Logos institucionales -->
     <div class="logos">
@@ -277,8 +303,8 @@
   <button id="btnArriba" title="Volver arriba">⬆</button>
 
   <!-- ⚙️ Script principal -->
-  <script src="js/main.js"></script>
   <script>
+    // Mostrar/Ocultar botón arriba
     const btnArriba = document.getElementById("btnArriba");
     window.addEventListener("scroll", () => {
       btnArriba.style.display = window.scrollY > 200 ? "block" : "none";
@@ -286,7 +312,20 @@
     btnArriba.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    // Generar partículas flotantes
+    const contenedor = document.getElementById("particulas");
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.classList.add("particula");
+      p.style.left = Math.random() * 100 + "%";
+      p.style.bottom = Math.random() * 100 + "px";
+      p.style.animationDuration = 6 + Math.random() * 5 + "s";
+      p.style.animationDelay = Math.random() * 5 + "s";
+      contenedor.appendChild(p);
+    }
   </script>
 </body>
 </html>
+
 
