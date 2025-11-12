@@ -5,45 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portafolio – Programación Numérica – Nayelin Cutipa</title>
 
-  <!-- Fuente moderna -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ===== BASE GENERAL ===== */
-    * { box-sizing: border-box; transition: all 0.25s ease-in-out; }
+    * { box-sizing: border-box; transition: all 0.3s ease-in-out; }
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #2a2037;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #2a2037, #1a1525 70%);
       color: #f3e8ff;
-      overflow-x: hidden;
       line-height: 1.7;
-      animation: fadeIn 1s ease-in-out;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    h1,h2,h3 { margin: 0; font-weight: 600; }
 
-    /* ===== SECCIÓN HERO ===== */
+    h1, h2, h3 { margin: 0; font-weight: 700; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== HERO ===== */
     .hero {
       position: relative;
-      height: 70vh; /* disminuido para dejar espacio visible a la segunda sección al cargar */
-      min-height: 420px;
-      background: linear-gradient(135deg, rgba(74,46,104,0.8), rgba(126,87,194,0.8)),
-        url("https://img.freepik.com/fotos-premium/espacio-trabajo-escritorio-femenino-tulipanes-teclado-lentes-agenda-clips-dorados-violeta_1429-5209.jpg?semt=ais_hybrid&w=740&q=80")
-        center/cover no-repeat fixed;
+      height: 75vh;
+      min-height: 480px;
+      background: linear-gradient(135deg, rgba(58,41,81,0.85), rgba(90,62,145,0.85)),
+                  url("https://img.freepik.com/fotos-premium/espacio-trabajo-escritorio-femenino-tulipanes-teclado-lentes-agenda-clips-dorados-violeta_1429-5209.jpg?semt=ais_hybrid&w=740&q=80")
+                  center/cover no-repeat fixed;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
-    .overlay { position: absolute; inset: 0; background: rgba(42,32,55,0.5); z-index:1; backdrop-filter: blur(3px); }
-    .content { position: relative; z-index:2; text-shadow: 0 2px 6px rgba(0,0,0,0.4); padding: 20px; animation: aparecer 1.2s ease-out; }
-    @keyframes aparecer { from { opacity:0; transform: scale(.97);} to { opacity:1; transform: scale(1);} }
-    .content h1 { font-size: 2.6rem; color: #fff; letter-spacing: 1px; }
-    .content h2 { font-size: 1.05rem; margin-top: .6rem; color: #e5d0ff; font-weight: 400; }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(30,27,43,0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1;
+    }
+
+    .hero .content {
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.5);
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      animation: fadeInText 2s ease-in-out;
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h2 {
+      font-size: 1.2rem;
+      color: #e2d5ff;
+      font-weight: 500;
+    }
 
     /* ===== LOGOS ===== */
     .logos {
@@ -52,17 +82,25 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 0 30px;
+      padding: 0 40px;
       z-index: 3;
     }
-    .logos a img {
-      width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
-      background-color: rgba(255,255,255,0.3); box-shadow: 0 0 15px rgba(255,255,255,0.4);
-      transition: transform 0.28s ease, box-shadow .28s;
-    }
-    .logos a img:hover { transform: scale(1.08); box-shadow: 0 0 26px rgba(255,255,255,0.6); cursor: pointer; }
 
-    /* ===== BURBUJAS PEQUEÑAS EN HERO ===== */
+    .logos a img {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.25);
+      box-shadow: 0 0 15px rgba(255,255,255,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logos a img:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 30px rgba(179,136,255,0.7);
+    }
+
+    /* ===== BURBUJAS INFO ===== */
     .info-burbujas {
       position: absolute;
       bottom: 24px;
@@ -74,154 +112,190 @@
       gap: 12px;
       z-index: 3;
     }
+
     .burbuja {
-      background: #3a2951;
+      background: rgba(61,43,86,0.9);
       color: #e5d0ff;
-      padding: 10px 18px;
+      padding: 12px 20px;
       border-radius: 999px;
-      font-size: .95rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: all 0.22s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      animation: bubbleUp 3s ease-in-out infinite alternate;
     }
-    .burbuja:hover { background: #4b3370; transform: translateY(-3px); box-shadow: 0 0 15px #b388ff; }
 
-    /* ===== SECCIÓN INFORMATIVA (BURBUJA GRANDE) ===== */
-    section.info-academica {
-      background: linear-gradient(180deg, rgba(45,32,56,0.6), rgba(42,32,55,0.9));
-      padding: 3.2rem 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-    .burbuja-grande {
-      width: 100%;
-      max-width: 980px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 20px;
-      padding: 2rem;
-      color: #e5d0ff;
-      box-shadow: 0 0 30px rgba(179,136,255,0.12);
-      line-height: 1.7;
-      backdrop-filter: blur(6px);
-      animation: fadeInUp 1s ease;
-    }
-    .burbuja-grande h3 { color: #d5b4ff; margin-top: .6rem; font-size: 1.02rem; }
-    .burbuja-grande p { margin: .6rem 0; text-align: justify; font-size: .96rem; }
-
-    @keyframes fadeInUp { from{ opacity:0; transform: translateY(20px);} to{ opacity:1; transform: translateY(0);} }
-
-    /* ===== BURBUJA DE UNIDADES (SEPARADA) ===== */
-    section.unidades {
-      padding: 2.2rem 1rem 3.4rem;
-      display: flex;
-      justify-content: center;
-      background: transparent;
-    }
-    .burbuja-unidades {
-      width: 100%;
-      max-width: 960px;
-      background: rgba(58,41,81,0.12);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 1.6rem;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-      backdrop-filter: blur(4px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-    }
-    .burbuja-unidades h3 {
-      color: #f1e6ff;
-      font-size: 1.05rem;
-      margin-bottom: 6px;
-      text-align: center;
-    }
-    .burbuja-unidades p { color: #e7d9ff; margin: 0; font-size: .95rem; text-align: center; opacity: .95; }
-
-    /* contenedor de botones - apariencia tipo portada */
-    .unidades-botones {
-      display: flex;
-      gap: 28px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-    }
-    .unidad-boton {
-      min-width: 220px;
-      padding: 18px 28px;
-      background: rgba(61,43,86,0.95);
-      color: #e1caff;
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 8px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.5);
-      text-align: center;
-      transition: transform .22s ease, background .22s ease, box-shadow .22s;
-      border: 2px solid rgba(255,255,255,0.03);
-    }
-    .unidad-boton:hover {
+    .burbuja:hover {
       background: #b388ff;
       color: #2a2037;
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 10px 30px rgba(179,136,255,0.28);
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px #b388ff;
     }
 
-    /* ===== PIE DE PÁGINA ===== */
+    @keyframes bubbleUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      display: flex;
+      justify-content: center;
+      padding: 3rem 1rem;
+    }
+
+    .burbuja-grande {
+      width: 100%;
+      max-width: 950px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 2.5rem 3rem;
+      color: #e5d0ff;
+      box-shadow: 0 10px 35px rgba(179,136,255,0.15);
+      backdrop-filter: blur(8px);
+      line-height: 1.8;
+      animation: fadeInUp 1s ease;
+    }
+
+    .burbuja-grande h3 {
+      color: #d5b4ff;
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+      border-left: 4px solid #b388ff;
+      padding-left: 10px;
+    }
+
+    .burbuja-grande p {
+      margin: 0.8rem 0;
+      text-align: justify;
+      font-size: 1rem;
+    }
+
+    /* ===== UNIDADES ===== */
+    .unidades {
+      flex-direction: column;
+      align-items: center;
+      background: #1e1b2b;
+    }
+
+    .burbuja-unidades {
+      width: 100%;
+      max-width: 950px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 2.5rem 3rem;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(179,136,255,0.2);
+      backdrop-filter: blur(8px);
+    }
+
+    .burbuja-unidades h3 {
+      color: #d5b4ff;
+      font-size: 1.3rem;
+      border-left: 4px solid #b388ff;
+      padding-left: 10px;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
+    .burbuja-unidades p {
+      color: #e5d0ff;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .unidades-botones {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* ===== BOTONES COMO BURBUJAS (GRANDES) ===== */
+    .unidades-botones .unidad-boton {
+      display: inline-block;
+      background: rgba(61,43,86,0.9);
+      color: #e5d0ff;
+      padding: 18px 28px;
+      border-radius: 999px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      min-width: 180px;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      animation: bubbleUp 3s ease-in-out infinite alternate;
+    }
+
+    .unidades-botones .unidad-boton:hover {
+      background: #b388ff;
+      color: #2a2037;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 0 25px #b388ff;
+    }
+
+    /* ===== FOOTER ===== */
     footer {
       background: #3a2951;
       color: #e5d0ff;
       text-align: center;
-      padding: 1.2rem 0;
-      font-size: 0.9rem;
+      padding: 1.5rem 0;
+      font-size: 0.95rem;
       border-top: 1px solid #4e3872;
       box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
     }
 
     /* ===== BOTÓN ARRIBA ===== */
     #btnArriba {
-      position: fixed; bottom: 20px; right: 20px;
-      padding: 12px 14px; background-color: #4a2e68; color: white;
-      border: none; border-radius: 50%; cursor: pointer; font-size: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4); display: none; z-index: 50;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 14px;
+      background-color: #4a2e68;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 50;
     }
-    #btnArriba:hover { background-color: #b388ff; color: #2a2037; transform: translateY(-3px); }
 
-    /* ===== PARTÍCULAS ===== */
-    .particulas { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
-    .particula {
-      position: absolute; width: 6px; height: 6px; background: rgba(255,255,255,0.38);
-      border-radius: 50%; animation: flotar 10s linear infinite;
+    #btnArriba:hover {
+      background-color: #b388ff;
+      color: #2a2037;
+      transform: translateY(-3px);
     }
-    @keyframes flotar { 0%{ transform: translateY(0) scale(1); opacity:1;} 100%{ transform: translateY(-800px) scale(.5); opacity:0;} }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 880px) {
-      .hero { height: 60vh; }
-      .burbuja-grande { padding: 1.4rem; }
-      .unidades-botones { gap: 16px; }
-      .unidad-boton { min-width: 160px; padding: 14px 18px; font-size: .98rem; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.8rem; }
+      .burbuja-grande, .burbuja-unidades { padding: 2rem; }
+      .unidades-botones .unidad-boton { padding: 16px 24px; font-size: 1rem; min-width: 160px; }
+    }
+
     @media (max-width: 480px) {
-      .content h1 { font-size: 1.7rem; }
-      .content h2 { font-size: .95rem; }
-      .logos a img { width: 60px; height: 60px; }
-      .burbuja-grande h3 { font-size: .98rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero h2 { font-size: 1rem; }
+      .unidades-botones { flex-direction: column; gap: 16px; }
+      .unidades-botones .unidad-boton { width: 100%; max-width: 300px; padding: 16px 24px; font-size: 1rem; }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="overlay"></div>
-    <div class="particulas" id="particulas"></div>
 
-    <!-- Logos con enlaces -->
+  <!-- HERO -->
+  <header class="hero">
+    <div class="content">
+      <h1>PROGRAMACIÓN NUMÉRICA</h1>
+      <h2>Portafolio de Nayelin Brisbany Cutipa Ramos</h2>
+    </div>
+
+    <!-- LOGOS -->
     <div class="logos">
       <a href="https://portal.unap.edu.pe/" target="_blank" title="Universidad Nacional del Altiplano">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Logo_UNAP.png/250px-Logo_UNAP.png" alt="Logo UNAP">
@@ -231,76 +305,62 @@
       </a>
     </div>
 
-    <div class="content">
-      <h1>PROGRAMACIÓN NUMÉRICA</h1>
-      <h2>Portafolio de Nayelin Brisbany Cutipa Ramos</h2>
-    </div>
-
-    <!-- Pequeñas burbujas informativas en la cabecera -->
+    <!-- BURBUJAS INFO -->
     <div class="info-burbujas">
       <div class="burbuja">👩‍🏫 Docente: Ing. Torres Cruz Fred</div>
       <div class="burbuja">👩‍🎓 Alumna: Cutipa Ramos Nayelin Brisbany</div>
       <div class="burbuja">📘 Curso: Programación Numérica</div>
       <div class="burbuja">📅 Semestre: IV - 2025-II</div>
-      <a href="https://portal.unap.edu.pe/" target="_blank" class="burbuja">🏛️ Universidad Nacional del Altiplano - Puno</a>
+      <a href="https://portal.unap.edu.pe/" target="_blank" class="burbuja">🏛️ Universidad Nacional del Altiplano</a>
       <a href="https://finesi.edu.pe/v1/" target="_blank" class="burbuja">🏫 Facultad: Ingeniería Estadística e Informática</a>
     </div>
   </header>
 
-  <!-- SECCIÓN INFORMATIVA (BURBUJA GRANDE) -->
-  <section class="info-academica" aria-labelledby="info-title">
-    <div class="burbuja-grande" id="info-title">
-      <h3>💻 Portafolio de Programación Numérica</h3>
-      <p>Este repositorio digital constituye el registro formal y centralizado de las competencias adquiridas y el trabajo práctico desarrollado a lo largo del curso de <strong>Programación Numérica</strong>.</p>
-
-      <h3>✨ Propósito</h3>
-      <p>El objetivo fundamental de este portafolio es servir como una demostración probatoria de la capacidad para implementar, analizar y aplicar algoritmos de programación para la solución de problemas matemáticos y de ingeniería complejos, consolidando el dominio técnico de la disciplina.</p>
+  <!-- SOBRE EL CURSO -->
+  <section>
+    <div class="burbuja-grande">
+      <h3>💻 Sobre el Curso</h3>
+      <p>Este portafolio técnico-académico documenta el aprendizaje progresivo y las implementaciones desarrolladas en el curso de <strong>Programación Numérica</strong>, centrado en el uso de algoritmos computacionales para resolver problemas matemáticos complejos.</p>
     </div>
   </section>
 
-  <!-- SECCIÓN DE UNIDADES (BURBUJA SEPARADA) -->
-  <section class="unidades" aria-labelledby="unidades-title">
-    <div class="burbuja-unidades" id="unidades-title">
-      <h3>💻 UNIDADES </h3>
-      <p>A continuación se muestran los accesos directos a las unidades con la evidencia práctica y los trabajos desarrollados.</p>
+  <!-- PROPÓSITO -->
+  <section>
+    <div class="burbuja-grande">
+      <h3>✨ Propósito</h3>
+      <p>El propósito de este repositorio digital es demostrar la capacidad de aplicar principios matemáticos, análisis numérico y programación estructurada en la resolución de problemas de ingeniería, consolidando competencias técnicas y analíticas en C++ y Python.</p>
+    </div>
+  </section>
 
-      <div class="unidades-botones" role="navigation" aria-label="Enlaces a unidades">
-        <a href="unidad1/unidad1.html" class="unidad-boton" title="Ir a Unidad 1">UNIDAD 1</a>
-        <a href="unidad2/unidad2.html" class="unidad-boton" title="Ir a Unidad 2">UNIDAD 2</a>
+  <!-- UNIDADES -->
+  <section class="unidades">
+    <div class="burbuja-unidades">
+      <h3>📚 Unidades y Temas</h3>
+      <p>Sección destinada a las evidencias prácticas, proyectos y análisis realizados en cada unidad temática del curso.</p>
+      <div class="unidades-botones">
+        <a href="unidad1/unidad1.html" class="unidad-boton">UNIDAD 1</a>
+        <a href="unidad2/unidad2.html" class="unidad-boton">UNIDAD 2</a>
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 Nayelin Brisbany Cutipa Ramos · Portafolio Programación Numérica 💜</p>
   </footer>
 
+  <!-- BOTÓN ARRIBA -->
   <button id="btnArriba" title="Volver arriba">⬆</button>
 
   <script>
-    // Mostrar/ocultar botón "arriba"
     const btnArriba = document.getElementById("btnArriba");
     window.addEventListener("scroll", () => {
       btnArriba.style.display = window.scrollY > 200 ? "block" : "none";
     });
-    btnArriba.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-
-    // Partículas
-    const contenedor = document.getElementById("particulas");
-    for (let i = 0; i < 28; i++) {
-      const p = document.createElement("div");
-      p.classList.add("particula");
-      p.style.left = Math.random() * 100 + "%";
-      p.style.bottom = Math.random() * 100 + "px";
-      p.style.width = (4 + Math.random() * 6) + "px";
-      p.style.height = p.style.width;
-      p.style.opacity = 0.3 + Math.random() * 0.7;
-      p.style.animationDuration = 6 + Math.random() * 6 + "s";
-      p.style.animationDelay = Math.random() * 5 + "s";
-      contenedor.appendChild(p);
-    }
+    btnArriba.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   </script>
+
 </body>
 </html>
-
-
