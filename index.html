@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PORTAFOLIO – PROGRAMACION NUMERICA – NAYELIN CUTIPA</title>
+  <title>PORTAFOLIO – PROGRAMACIÓN NUMÉRICA – NAYELIN CUTIPA</title>
+
+  <!-- Descripción SEO -->
+  <meta name="description" content="Portafolio académico de Nayelin Cutipa Ramos - Curso de Programación Numérica, Universidad Nacional del Altiplano Puno.">
 
   <!-- CSS principal -->
   <link rel="stylesheet" href="css/main.css" />
@@ -13,12 +16,22 @@
 
   <style>
     /* ===== ESTILOS BASE ===== */
+    * {
+      transition: all 0.25s ease-in-out;
+    }
+
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
       color: #fff;
       background-color: #2a2037; /* lila muy oscuro */
       overflow-x: hidden;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1, h2 {
@@ -87,7 +100,6 @@
       text-decoration: none;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
@@ -163,12 +175,12 @@
       font-size: 1rem;
       backdrop-filter: blur(6px);
       box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease, background 0.3s ease;
     }
 
     .burbuja:hover {
       transform: translateY(-3px);
       background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 10px #b388ff;
     }
 
     /* ===== PIE DE PÁGINA ===== */
@@ -195,7 +207,6 @@
       font-size: 18px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       display: none;
-      transition: all 0.3s ease;
     }
 
     #btnArriba:hover {
@@ -205,34 +216,12 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .content h1 {
-        font-size: 2rem;
-      }
-
-      .content h2 {
-        font-size: 1rem;
-      }
-
-      .logos img {
-        width: 65px;
-        height: 65px;
-      }
-
-      .burbuja {
-        font-size: 0.85rem;
-        padding: 10px 18px;
-      }
-
-      .buttons {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .unidad-boton {
-        width: 160px;
-        height: 90px;
-        font-size: 1.1rem;
-      }
+      .content h1 { font-size: 2rem; }
+      .content h2 { font-size: 1rem; }
+      .logos img { width: 65px; height: 65px; }
+      .burbuja { font-size: 0.85rem; padding: 10px 18px; }
+      .buttons { flex-direction: column; gap: 20px; }
+      .unidad-boton { width: 160px; height: 90px; font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -244,14 +233,14 @@
 
     <!-- 🔰 Logos institucionales -->
     <div class="logos">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Logo_UNAP.png/250px-Logo_UNAP.png" title="Universidad Nacional del Altiplano">
-      <img src="https://www.odinlaboratory.com/frontend/images/FinesiLogo.png" alt="Facultad de Ingeniería" title="Facultad de Ingeniería">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Logo_UNAP.png/250px-Logo_UNAP.png" alt="Logo UNAP" title="Universidad Nacional del Altiplano">
+      <img src="https://www.odinlaboratory.com/frontend/images/FinesiLogo.png" alt="Logo Facultad de Ingeniería" title="Facultad de Ingeniería">
     </div>
 
     <!-- ✨ Título central -->
     <div class="content">
-      <h1>PROGRAMACION NUMERICA</h1>
-      <h2>PORTAFOLIO DE : NAYELIN BRISBANY CUTTPA RAMOS</h2>
+      <h1>PROGRAMACIÓN NUMÉRICA</h1>
+      <h2>PORTAFOLIO DE: NAYELIN BRISBANY CUTIPA RAMOS</h2>
 
       <!-- Burbujas rectangulares de unidades -->
       <div class="buttons">
@@ -264,15 +253,15 @@
     <div class="info-burbujas">
       <div class="burbuja">👩‍🏫 Docente: Ing. TORRES CRUZ FRED</div>
       <div class="burbuja">👩‍🎓 Alumna: CUTIPA RAMOS NAYELIN BRISBANY</div>
-      <div class="burbuja">📘 Curso: PROGRAMACION NUMERICA</div>
+      <div class="burbuja">📘 Curso: PROGRAMACIÓN NUMÉRICA</div>
       <div class="burbuja">📅 Semestre: IV - 2025-II</div>
-      <div class="burbuja">🏛️ UNIVERSIDAD NACIONAL DEL ALTIPLANO-PUNO</div>
+      <div class="burbuja">🏛️ UNIVERSIDAD NACIONAL DEL ALTIPLANO - PUNO</div>
     </div>
   </header>
 
   <!-- 🪷 Pie de página -->
   <footer>
-    <p>© 2025 NAYELIN BRISBANY CUTIPA RAMOS| PORTAFOLIO PROGRAMCION NUMERICA</p>
+    <p>© 2025 NAYELIN BRISBANY CUTIPA RAMOS | PORTAFOLIO PROGRAMACIÓN NUMÉRICA</p>
   </footer>
 
   <!-- ⬆ Botón volver arriba -->
@@ -281,7 +270,6 @@
   <!-- ⚙️ Script principal -->
   <script src="js/main.js"></script>
   <script>
-    // Mostrar/ocultar botón de volver arriba
     const btnArriba = document.getElementById("btnArriba");
     window.addEventListener("scroll", () => {
       btnArriba.style.display = window.scrollY > 200 ? "block" : "none";
@@ -292,6 +280,5 @@
   </script>
 </body>
 </html>
-
 
 
