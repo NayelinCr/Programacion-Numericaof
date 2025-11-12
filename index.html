@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PORTAFOLIO – PROGRAMACIÓN NUMÉRICA – NAYELIN CUTIPA</title>
+  <title>Portafolio – Programación Numérica – Nayelin Cutipa</title>
 
   <!-- Descripción SEO -->
   <meta name="description" content="Portafolio académico de Nayelin Cutipa Ramos - Curso de Programación Numérica, Universidad Nacional del Altiplano Puno.">
@@ -15,18 +15,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== ESTILOS BASE ===== */
+    /* ===== RESET Y BASE ===== */
     * {
       transition: all 0.25s ease-in-out;
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
       color: #fff;
-      background-color: #2a2037; /* lila muy oscuro */
+      background-color: #2a2037;
       overflow-x: hidden;
       animation: fadeIn 0.8s ease-in-out;
+      line-height: 1.6;
     }
 
     @keyframes fadeIn {
@@ -36,15 +38,16 @@
 
     h1, h2 {
       margin: 0;
+      text-transform: uppercase;
     }
 
-    /* ===== SECCIÓN PRINCIPAL ===== */
+    /* ===== SECCIÓN HERO ===== */
     .hero {
       position: relative;
       height: 100vh;
       background: linear-gradient(rgba(80,40,120,0.4), rgba(60,30,90,0.7)),
         url("https://img.freepik.com/fotos-premium/espacio-trabajo-escritorio-femenino-tulipanes-teclado-lentes-agenda-clips-dorados-violeta_1429-5209.jpg?semt=ais_hybrid&w=740&q=80")
-        center/cover no-repeat;
+        center/cover no-repeat fixed;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -58,6 +61,7 @@
       inset: 0;
       background: rgba(80, 40, 120, 0.4);
       z-index: 1;
+      backdrop-filter: blur(2px);
     }
 
     .content {
@@ -70,15 +74,17 @@
     .content h1 {
       font-size: 2.8rem;
       color: #fff;
+      letter-spacing: 1px;
     }
 
     .content h2 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin-top: 10px;
-      color: #f8e9ff;
+      color: #f3eaff;
+      font-weight: 400;
     }
 
-    /* ===== Burbujas rectangulares de Unidades ===== */
+    /* ===== BOTONES DE UNIDADES ===== */
     .buttons {
       margin-top: 40px;
       display: flex;
@@ -150,7 +156,7 @@
     }
 
     .logos img:hover {
-      transform: scale(1.08);
+      transform: scale(1.1);
     }
 
     /* ===== BURBUJAS DE INFORMACIÓN ===== */
@@ -175,6 +181,7 @@
       font-size: 1rem;
       backdrop-filter: blur(6px);
       box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
     }
 
     .burbuja:hover {
@@ -188,7 +195,7 @@
       background: #42275a;
       color: #fff;
       text-align: center;
-      padding: 15px 0;
+      padding: 18px 0;
       font-size: 0.9rem;
       letter-spacing: 0.5px;
     }
@@ -198,7 +205,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      padding: 10px 12px;
+      padding: 12px 14px;
       background-color: #6f2dbd;
       color: white;
       border: none;
@@ -207,6 +214,8 @@
       font-size: 18px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       display: none;
+      z-index: 10;
+      transition: transform 0.3s ease;
     }
 
     #btnArriba:hover {
@@ -239,29 +248,29 @@
 
     <!-- ✨ Título central -->
     <div class="content">
-      <h1>PROGRAMACIÓN NUMÉRICA</h1>
-      <h2>PORTAFOLIO DE: NAYELIN BRISBANY CUTIPA RAMOS</h2>
+      <h1>Programación Numérica</h1>
+      <h2>Portafolio de: Nayelin Brisbany Cutipa Ramos</h2>
 
-      <!-- Burbujas rectangulares de unidades -->
+      <!-- Botones de unidades -->
       <div class="buttons">
-        <a href="unidad1/unidad1.html" class="unidad-boton">UNIDAD 1</a>
-        <a href="unidad2/unidad2.html" class="unidad-boton">UNIDAD 2</a>
+        <a href="unidad1/unidad1.html" class="unidad-boton">Unidad 1</a>
+        <a href="unidad2/unidad2.html" class="unidad-boton">Unidad 2</a>
       </div>
     </div>
 
     <!-- 📘 Información académica -->
     <div class="info-burbujas">
-      <div class="burbuja">👩‍🏫 Docente: Ing. TORRES CRUZ FRED</div>
-      <div class="burbuja">👩‍🎓 Alumna: CUTIPA RAMOS NAYELIN BRISBANY</div>
-      <div class="burbuja">📘 Curso: PROGRAMACIÓN NUMÉRICA</div>
+      <div class="burbuja">👩‍🏫 Docente: Ing. Torres Cruz Fred</div>
+      <div class="burbuja">👩‍🎓 Alumna: Cutipa Ramos Nayelin Brisbany</div>
+      <div class="burbuja">📘 Curso: Programación Numérica</div>
       <div class="burbuja">📅 Semestre: IV - 2025-II</div>
-      <div class="burbuja">🏛️ UNIVERSIDAD NACIONAL DEL ALTIPLANO - PUNO</div>
+      <div class="burbuja">🏛️ Universidad Nacional del Altiplano - Puno</div>
     </div>
   </header>
 
   <!-- 🪷 Pie de página -->
   <footer>
-    <p>© 2025 NAYELIN BRISBANY CUTIPA RAMOS | PORTAFOLIO PROGRAMACIÓN NUMÉRICA</p>
+    <p>© 2025 Nayelin Brisbany Cutipa Ramos | Portafolio de Programación Numérica</p>
   </footer>
 
   <!-- ⬆ Botón volver arriba -->
@@ -280,5 +289,4 @@
   </script>
 </body>
 </html>
-
 
