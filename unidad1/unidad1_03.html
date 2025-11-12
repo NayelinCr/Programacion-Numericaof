@@ -5,143 +5,124 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Unidad 1 · Actividad 03</title>
 
-  <!-- Fuentes -->
+  <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      margin: 0;
       background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
       color: #f0e6ff;
+      margin: 0;
       display: flex;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
     /* ===== SIDEBAR ===== */
     .sidebar {
       width: 250px;
-      background: rgba(45, 30, 70, 0.95);
-      backdrop-filter: blur(8px);
-      padding: 2rem 1rem;
-      box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
+      background: #3d2b56;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s ease;
+      justify-content: space-between;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
     }
 
     .sidebar h2 {
       font-size: 1.2rem;
-      color: #e3ccff;
+      color: #e9dcff;
+      margin-bottom: 1rem;
       text-align: center;
-      margin-bottom: 2rem;
-      letter-spacing: 0.8px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      border-bottom: 2px solid #b388ff;
+      padding-bottom: 0.4rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .sidebar li {
+      margin-bottom: 0.8rem;
     }
 
     .sidebar a {
-      color: #cdb4ff;
+      color: #d6b6ff;
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #b388ff;
+      color: #2a2037;
+    }
+
+    .sidebar .bottom-links {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .sidebar .bottom-links a {
+      display: block;
+      background: #4a2e68;
+      color: #f3e8ff;
+      margin-top: 0.5rem;
+      padding: 0.6rem;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: 600;
-      padding: 0.6rem 1rem;
-      margin: 0.3rem 0;
-      border-radius: 8px;
       transition: all 0.3s;
-      display: block;
     }
 
-    .sidebar a:hover {
+    .sidebar .bottom-links a:hover {
       background: #b388ff;
       color: #2a2037;
-      transform: translateX(4px);
-    }
-
-    .toggle-btn {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #b388ff;
-      color: #2a2037;
-      border: none;
-      padding: 0.6rem 0.9rem;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-    }
-
-    .sidebar.hide {
-      transform: translateX(-100%);
     }
 
     /* ===== CONTENIDO PRINCIPAL ===== */
     .content {
-      flex: 1;
-      margin-left: 250px;
+      margin-left: 260px;
       padding: 2rem;
-      transition: margin-left 0.3s;
-    }
-
-    .content.full {
-      margin-left: 0;
+      flex: 1;
     }
 
     header {
       background: linear-gradient(135deg, #4a2e68, #7e57c2);
       color: white;
-      padding: 1.5rem 2rem;
+      padding: 1.2rem 1.5rem;
       border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.45);
-      position: relative;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
-    .estado {
-      position: absolute;
-      top: 1.2rem;
-      right: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      background: rgba(61, 43, 86, 0.9);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-      backdrop-filter: blur(5px);
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
     }
 
-    .burbuja {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #b388ff;
-      box-shadow: 0 0 6px #b388ff;
+    p.subtitle {
+      margin: 0.3rem 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
     }
 
     main {
       background: rgba(56, 40, 78, 0.95);
-      padding: 2.2rem;
-      margin-top: 2rem;
+      padding: 2rem;
+      margin-top: 1.5rem;
       border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(3px);
-      transition: transform 0.2s ease;
-    }
-
-    main:hover {
-      transform: scale(1.01);
-    }
-
-    h1 {
-      margin: 0.4rem 0 0;
-      font-size: 1.9rem;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     }
 
     h2 {
@@ -150,71 +131,55 @@
       display: inline-block;
       padding-bottom: 0.4rem;
       margin-bottom: 1rem;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     }
 
-    section {
-      margin-bottom: 2rem;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      margin: 0.6rem 0;
-    }
-
-    a {
-      color: #d6b6ff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      color: #f1e0ff;
-      text-decoration: underline;
+    pre {
+      background: #2f2043;
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      color: #e9ddff;
+      border: 1px solid #4e3872;
+      box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
     }
 
     footer {
       text-align: center;
       margin-top: 2rem;
-      padding: 1rem 0;
-      background: #3a2951;
       color: #e5d0ff;
       font-size: 0.9rem;
-      border-top: 1px solid #4e3872;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
+      opacity: 0.8;
     }
   </style>
 </head>
 
 <body>
-  <!-- Botón Toggle -->
-  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+  <!-- ======= SIDEBAR ======= -->
+  <aside class="sidebar">
+    <div>
+      <h2>Unidad 1</h2>
+      <ul>
+        <li><a href="unidad1_00.html">🌸 Actividad 00</a></li>
+        <li><a href="unidad1_01.html">🌸 Actividad 01</a></li>
+        <li><a href="unidad1_02.html">🌸 Actividad 02</a></li>
+        <li><a href="unidad1_03.html" class="active">🌸 Actividad 03</a></li>
+        <li><a href="unidad1_04.html">🌸 Actividad 04</a></li>
+        <li><a href="unidad1_05.html">🌸 Actividad 05</a></li>
+      </ul>
+    </div>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <h2>Unidad 1</h2>
-    <a href="actividad0.html">Actividad 0</a>
-    <a href="actividad1.html">Actividad 1</a>
-    <a href="actividad2.html">Actividad 2</a>
-    <a href="actividad3.html" style="background:#b388ff;color:#2a2037;">Actividad 3</a>
-    <a href="../index.html">🏠 Volver al inicio</a>
+    <div class="bottom-links">
+      <a href="../index.html">🏠 Inicio</a>
+      <a href="../unidad2/unidad2.html">➡ Unidad 2</a>
+    </div>
   </aside>
 
-  <!-- Contenido -->
-  <div class="content" id="content">
+  <!-- ======= CONTENIDO PRINCIPAL ======= -->
+  <div class="content">
     <header>
       <h1>Actividad 03 · Resolución de Ejercicios</h1>
-      <p>Fecha: 11/09/2025</p>
-      <div class="estado">
-        <div class="burbuja"></div>
-        <span>Completada</span>
-      </div>
+      <p class="subtitle">11/09/2025 · Estado: Completada 💜</p>
     </header>
 
     <main>
@@ -232,19 +197,9 @@
     </main>
 
     <footer>
-      <p>© 2025 Nayelin · Portafolio Programación Numérica 💜</p>
+      © 2025 Nayelin · Portafolio Programación Numérica 💜
     </footer>
   </div>
-
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      sidebar.classList.toggle('hide');
-      content.classList.toggle('full');
-    }
-  </script>
 </body>
 </html>
-
 
