@@ -1,4 +1,4 @@
-/* 🎀 Estilo principal del portafolio de Nayelin (versión mejorada + modo oscuro) 🎀 */
+/* 🎀 Estilo principal del portafolio de Nayelin (versión mejorada completa) 🎀 */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
 
 /* ===== RESET GLOBAL ===== */
@@ -51,6 +51,7 @@ header {
   text-shadow: 0 2px 8px rgba(140, 94, 242, 0.6);
 }
 
+/* ===== NAV LINKS ===== */
 .nav-links {
   list-style: none;
   display: flex;
@@ -109,15 +110,13 @@ header {
   position: relative;
   z-index: 2;
   padding: 0 20px;
-  animation: fadeIn 1s ease-in-out forwards;
+  animation: fadeIn 1.2s ease-in-out forwards;
   opacity: 0;
 }
 
 @keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== BOTONES ===== */
@@ -268,7 +267,7 @@ body.oscuro footer {
   color: #bca9e8;
 }
 
-/* ===== BOTÓN DE TEMA (Versión mejorada) ===== */
+/* ===== BOTÓN DE TEMA ===== */
 #btnTema {
   position: fixed;
   bottom: 25px;
