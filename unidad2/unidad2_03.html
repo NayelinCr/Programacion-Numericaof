@@ -294,329 +294,157 @@
             <section>
                 <h2>Desarrollo de la Actividad</h2>
                 
-                <h2>1. Resumen</h2>
-                [cite_start]<p>Este informe presenta la **comparación computacional y numérica** entre dos métodos para estimar una regresión lineal simple: **Mínimos Cuadrados Ordinarios (OLS)** y **Gradiente Descendente (GD)**[cite: 24].</p>
-                [cite_start]<p>El estudio se realizó en R usando **datos simulados** (1000 observaciones) con la relación verdadera: $\text{peso} = 2.5 \times \text{talla} + \text{error}$[cite: 25]. [cite_start]Se midieron tiempos de ejecución y se compararon los coeficientes estimados[cite: 26].</p>
-                
-                <p>Resultados clave:</p>
-                <ul>
-                    [cite_start]<li>**OLS (lm):** Intercepto $\approx -1.6789$, Pendiente $\approx 2.6174$, Tiempo $\approx 0.003$ s[cite: 27].</li>
-                    [cite_start]<li>**Gradiente Descendente:** Intercepto $\approx -0.0052$, Pendiente $\approx 2.5071$, Tiempo $\approx 0.165$ s (5000 iteraciones, $\alpha=0.001$)[cite: 28].</li>
-                </ul>
-                [cite_start]<p>Conclusión breve: para este problema (1000 observaciones, 1 variable), **OLS es mucho más rápido** y entrega la solución analítica exacta[cite: 29]. [cite_start]**GD** requiere iteraciones y es más lento, aunque converge a una solución cercana[cite: 30]. [cite_start]Sin embargo, **GD escala mejor** en ciertos escenarios grandes o modelos sin solución analítica[cite: 31].</p>
-            </section>
+               <section>
+    <h2>Comparación de Métodos: Mínimos Cuadrados Ordinarios (OLS) vs. Gradiente Descendente (GD)</h2>
+    <p>Este trabajo presenta una comparación numérica y computacional entre dos métodos para estimar una <strong>regresión lineal simple</strong>:</p>
+    <ul>
+        <li><strong>Mínimos Cuadrados Ordinarios (OLS):</strong> método analítico directo.</li>
+        <li><strong>Gradiente Descendente (GD):</strong> método iterativo de optimización.</li>
+    </ul>
+</section>
 
-            <hr>
+<hr>
 
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
-                
-                <h2>2. Introducción</h2>
-                [cite_start]<p>En la asignatura de Programación Numérica se estudian técnicas para resolver problemas matemáticos de forma eficiente en computador[cite: 36]. [cite_start]Este trabajo tiene como propósito comparar dos aproximaciones para estimar una regresión lineal simple: el **método cerrado de Mínimos Cuadrados** y un **método iterativo basado en gradiente**[cite: 38]. [cite_start]La comparación se hace tanto desde el punto de vista numérico (coeficientes, error) como computacional (tiempo de ejecución)[cite: 39].</p>
+<section>
+    <h2>1. Definición de los Métodos</h2>
+    
+    <h3>1.1. Mínimos Cuadrados Ordinarios (OLS)</h3>
+    <p>OLS busca los coeficientes que minimizan el error cuadrático medio (MSE) resolviendo la ecuación matricial:</p>
+    <div class="equation">
+        $$\beta = (X'X)^{-1}X'Y$$
+    </div>
+    <p>Es un método <strong>directo</strong> y <strong>exacto</strong> (en aritmética real), ideal para bases de datos de tamaño pequeño o moderado.</p>
+    
+    <h3>1.2. Gradiente Descendente (GD)</h3>
+    <p>GD es un método <strong>iterativo</strong> que actualiza los parámetros en la dirección opuesta al gradiente del error:</p>
+    <div class="equation">
+        $$\beta_j \leftarrow \beta_j - \alpha \frac{\partial J}{\partial \beta_j}$$
+    </div>
+    <p>donde $\alpha$ es la tasa de aprendizaje. Con suficientes iteraciones, GD converge a una solución cercana a OLS.</p>
+</section>
 
-                <h2>3. Marco Teórico</h2>
-                <h3>3.1. Introducción al cálculo numérico</h3>
-                [cite_start]<p>El cálculo numérico estudia algoritmos para aproximar soluciones de problemas matemáticos mediante operaciones finitas[cite: 42]. [cite_start]Se preocupa por la estabilidad, precisión y eficiencia de los métodos[cite: 43].</p>
+<hr>
 
-                <h3>3.2. Conceptos fundamentales (error, convergencia)</h3>
-                <ul>
-                    [cite_start]<li>**Error absoluto y relativo:** medidas de la diferencia entre la solución aproximada y la verdadera[cite: 45].</li>
-                    [cite_start]<li>**Convergencia:** proceso por el cual un algoritmo iterativo se aproxima a una solución [cite: 46][cite_start]; depende del paso, la condición del problema y la tolerancia[cite: 47].</li>
-                    [cite_start]<li>**Estabilidad numérica:** cómo se amplifican los errores de redondeo en las operaciones[cite: 48].</li>
-                </ul>
-
-                <h3>3.3. Métodos directos vs iterativos</h3>
-                <ul>
-                    [cite_start]<li>**Métodos directos (Ej. OLS con ecuaciones normales):** Producen una solución en un número finito de pasos y suelen implicar operaciones matriciales completas[cite: 50].</li>
-                    [cite_start]<li>**Métodos iterativos (Ej. Gradiente Descendente):** Generan una sucesión que converge a la solución [cite: 51][cite_start]; son útiles cuando la matriz es muy grande o dispersa[cite: 52].</li>
-                </ul>
-
-                <h3>3.4. Gradiente Descendente</h3>
-                [cite_start]<p>El Gradiente Descendente minimiza una función objetivo (por ejemplo, el error cuadrático medio) actualizando parámetros en la dirección opuesta al gradiente[cite: 54].</p>
-                <p>Para la regresión lineal con parámetros $\beta=(\beta_{0},\beta_{1})$, las actualizaciones son:</p>
-                <div class="equation">
-                    $$\beta_{0}\leftarrow\beta_{0}-\alpha\frac{\partial J}{\partial\beta_{0}}$$
-                    $$\beta_{1}\leftarrow\beta_{1}-\alpha\frac{\partial J}{\partial\beta_{1}}$$
-                </div>
-                [cite_start]<p>Donde $J$ es el MSE (Error Cuadrático Medio) y $\alpha$ es la tasa de aprendizaje[cite: 59]. [cite_start]La elección de $\alpha$ y del número de iteraciones es crítica para la convergencia[cite: 60].</p>
-            </section>
-
-            <hr>
-
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
-
-                <h3>3.5. Mínimos Cuadrados (OLS) y solución analítica</h3>
-                [cite_start]<p>Para regresión lineal simple, OLS (Ordinary Least Squares) obtiene la **solución cerrada** resolviendo $(X^{\prime}X)\beta=X^{\prime}Y$[cite: 62], lo que conduce a la fórmula:</p>
-                <div class="equation">
-                    $$\beta=(X^{\prime}X)^{-1}X^{\prime}Y$$
-                </div>
-                [cite_start]<p>Este enfoque es exacto (en aritmética real) y muy eficiente para problemas de dimensión moderada[cite: 64].</p>
-
-                <h2>4. Objetivos</h2>
-                <h3>4.1. Objetivo General</h3>
-                [cite_start]<p>Comparar, desde la perspectiva de Programación Numérica, el rendimiento computacional y la precisión de OLS frente a Gradiente Descendente al estimar una regresión lineal simple[cite: 67].</p>
-
-                <h3>4.2. Objetivos Específicos</h3>
-                <ul>
-                    [cite_start]<li>Implementar ambos métodos en R usando datos simulados[cite: 69].</li>
-                    [cite_start]<li>Medir tiempos de ejecución usando `system.time()` y `profvis()`[cite: 70].</li>
-                    [cite_start]<li>Comparar coeficientes estimados y errores (MSE)[cite: 71].</li>
-                    [cite_start]<li>Redactar conclusiones sobre cuándo elegir cada método[cite: 72].</li>
-                </ul>
-
-                <h2>5. Metodología</h2>
-                <h3>5.1. Tipo de estudio</h3>
-                [cite_start]<p>Estudio experimental y comparativo mediante simulación numérica[cite: 75].</p>
-
-                <h3>5.2. Fuente de datos</h3>
-                [cite_start]<p>Datos simulados en R: $talla\sim N(15,1,5)$, $peso=2,5\times talla+N(0,2)$; se usaron **1000 observaciones**[cite: 77].</p>
-
-                <h3>5.3. Población y variable de estudio</h3>
-                [cite_start]<p>Población simulada representativa de la relación entre "talla" (predictora) y "peso" (respuesta)[cite: 79].</p>
-            </section>
-
-            <hr>
-
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
-
-                <h3>5.4. Implementación computacional</h3>
-                [cite_start]<p>Se implementaron los algoritmos en R. Para OLS se utilizó la función nativa `lm()`[cite: 83]. [cite_start]Para GD se implementó el bucle iterativo con **5000 iteraciones** y tasa de aprendizaje $\alpha=0.001$[cite: 84].</p>
-
-                <h3>5.5. Procesamiento y métricas de comparación</h3>
-                <ul>
-                    <li>**Tiempos:** `system.time()` para tiempo total; [cite_start]`profvis()` para análisis por línea (opcional)[cite: 86].</li>
-                    [cite_start]<li>**Precisión:** Coeficientes estimados y MSE final[cite: 87].</li>
-                    [cite_start]<li>**Visual:** Gráficos de dispersión con la recta ajustada[cite: 88].</li>
-                </ul>
-
-                <h2>6. Experimentos y Resultados</h2>
-                <h3>6.1. Preparación de datos</h3>
-                [cite_start]<p>Se generaron **1000 observaciones** con `set.seed (123)` para garantizar la reproducibilidad de los resultados[cite: 91]. [cite_start]La relación verdadera simulada fue $peso = 2.5 \times talla + error$[cite: 92].</p>
-
-                <h3>6.2. Ejecución: Mínimos Cuadrados Ordinarios (OLS)</h3>
-                [cite_start]<p>Se utilizó la función nativa `lm()` de R para la solución analítica de OLS[cite: 95].</p>
-                <div class="code-block">
-                    <p><em>Listing 1: Código de Ejecución OLS (Resumen)</em></p>
-                    <pre><code>set.seed(123)
+<section>
+    <h2>2. Implementación en R</h2>
+    <p>Se generaron <strong>1000 observaciones simuladas</strong> con la relación verdadera: <em>peso = 2.5 × talla + error</em>.</p>
+    
+    <h3>2.1. Código OLS (Solución Analítica)</h3>
+    <pre><code>set.seed(123)
 talla <- rnorm(1000, 15, 1.5)
-peso <- 2.5 * talla + rnorm(1000, 0, 2)
+peso  <- 2.5 * talla + rnorm(1000, 0, 2)
 datos <- data.frame(talla, peso)
 
 tiempo_ols <- system.time({
-    modelo_ols <- lm(peso ~ talla, data = datos)
+  modelo_ols <- lm(peso ~ talla, data = datos)
 })
 
-# Resultados
-coef(modelo_ols) # Intercepto: -1.6789
-                 # Pendiente: 2.6174
-# Tiempo: 0.003 s</code></pre>
-                </div>
-                [cite_start]<p><strong>Resultados:</strong> Intercepto: $-1.6789$, Pendiente: $2.6174$, Tiempo: $0.003$ s[cite: 27].</p>
+coef(modelo_ols)   # Intercepto: -1.6789
+                   # Pendiente: 2.6174
+tiempo_ols["elapsed"]  # 0.003 s
+</code></pre>
 
-                <h3>6.3. Ejecución: Gradiente Descendente (GD)</h3>
-                [cite_start]<p>Se implementó el algoritmo de GD de forma manual, estableciendo una tasa de aprendizaje $\alpha=0.001$ y 5000 iteraciones[cite: 115].</p>
-                <div class="code-block">
-                    <p><em>Listing 2: Código de Ejecución Gradiente Descendente (Resumen)</em></p>
-                    <pre><code>set.seed(123)
+    <p><strong>Resultados OLS:</strong></p>
+    <ul>
+        <li>Intercepto: −1.6789</li>
+        <li>Pendiente: 2.6174</li>
+        <li>Tiempo: 0.003 s</li>
+    </ul>
+
+    <h3>2.2. Código Gradiente Descendente (Iterativo)</h3>
+    <pre><code>set.seed(123)
 talla <- rnorm(1000, 15, 1.5)
-peso <- 2.5 * talla + rnorm(1000, 0, 2)
+peso  <- 2.5 * talla + rnorm(1000, 0, 2)
 n <- length(talla)
 
-beta0 <- 0
-beta1 <- 0
-alpha <- 0.001
-iteraciones <- 5000
+beta0 <- 0; beta1 <- 0
+alpha <- 0.001; iteraciones <- 5000
 
-tiempo_gd <- system.time({
-    for(i in 1:iteraciones) {
-        y_pred <- beta0 + beta1 * talla
-        error <- peso - y_pred
+for (i in 1:iteraciones) {
+  y_pred <- beta0 + beta1 * talla
+  error <- peso - y_pred
+  grad_b0 <- (-2/n) * sum(error)
+  grad_b1 <- (-2/n) * sum(talla * error)
+  beta0 <- beta0 - alpha * grad_b0
+  beta1 <- beta1 - alpha * grad_b1
+}
 
-        # Gradientes
-        grad_b0 <- (-2/n) * sum(error)
-        grad_b1 <- (-2/n) * sum(talla * error)
+beta0; beta1;  # -0.0052 ; 2.5071
+</code></pre>
 
-        # Actualización
-        beta0 <- beta0 - alpha * grad_b0
-        beta1 <- beta1 - alpha * grad_b1
-    }
-})
+    <p><strong>Resultados GD:</strong></p>
+    <ul>
+        <li>Intercepto: −0.0052</li>
+        <li>Pendiente: 2.5071</li>
+        <li>Tiempo: 0.165 s</li>
+        <li>Iteraciones: 5000 (α = 0.001)</li>
+    </ul>
+</section>
 
-# Resultados
-# Intercepto: -0.0052
-# Pendiente: 2.5071
-# Tiempo: 0.165 s</code></pre>
-                </div>
-                [cite_start]<p><strong>Resultados:</strong> Intercepto: $-0.0052$, Pendiente: $2.5071$, Tiempo: $0.165$ s[cite: 28].</p>
-            </section>
+<hr>
 
-            <hr>
+<section>
+    <h2>3. Comparación y Análisis</h2>
+    <table border="1" style="border-collapse: collapse; width:100%; text-align:center;">
+        <tr>
+            <th>Método</th>
+            <th>Tipo</th>
+            <th>Ventajas</th>
+            <th>Desventajas</th>
+            <th>Tiempo (s)</th>
+            <th>Pendiente Estimada</th>
+        </tr>
+        <tr>
+            <td><strong>OLS</strong></td>
+            <td>Directo / Analítico</td>
+            <td>Rápido, exacto, estable numéricamente</td>
+            <td>No escala bien con millones de datos</td>
+            <td>0.003</td>
+            <td>2.6174</td>
+        </tr>
+        <tr>
+            <td><strong>GD</strong></td>
+            <td>Iterativo / Aproximado</td>
+            <td>Escalable a grandes datasets o modelos complejos</td>
+            <td>Depende de α y número de iteraciones; más lento</td>
+            <td>0.165</td>
+            <td>2.5071</td>
+        </tr>
+    </table>
 
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
+    <p><strong>Conclusión de la comparación:</strong></p>
+    <ul>
+        <li>OLS fue aproximadamente <strong>55 veces más rápido</strong> que GD en este experimento.</li>
+        <li>Ambos métodos estimaron una pendiente cercana al valor real (2.5).</li>
+        <li>OLS es preferible para <strong>problemas pequeños o de tamaño moderado</strong>.</li>
+        <li>GD es más útil en <strong>grandes volúmenes de datos o modelos sin solución analítica</strong>.</li>
+    </ul>
+</section>
 
-                <h3>6.4. Comparación de tiempos y coeficientes</h3>
-                <ul>
-                    <li>**Tiempos:** $\text{OLS}=0.003$ s; $\text{GD}=0.165$ s. [cite_start]**OLS fue aproximadamente 55 veces más rápido** en este experimento de dimensión moderada[cite: 167].</li>
-                    [cite_start]<li>**Coeficientes:** Ambas estimaciones están cercanas al valor verdadero $(\beta_{1}=2.5)$[cite: 168]; [cite_start]OLS resultó ligeramente más cercano a la solución analítica exacta en este caso[cite: 169].</li>
-                    [cite_start]<li>**MSE final (aprox):** El MSE de GD mostró un descenso lento pero estable a lo largo de las 5000 iteraciones[cite: 171].</li>
-                </ul>
+<hr>
 
-                <h2>7. Resultados Globales y Estimaciones</h2>
-                [cite_start]<p>De acuerdo con los experimentos realizados[cite: 173]:</p>
-                <ul>
-                    [cite_start]<li>El método **OLS** resuelve el problema de forma **directa y eficiente** cuando el número de observaciones y variables es moderado[cite: 174].</li>
-                    [cite_start]<li>El **Gradiente Descendente** es útil para problemas donde la solución analítica es costosa o inexistente [cite: 175][cite_start]; su tiempo depende fuertemente del número de iteraciones y del tamaño del *dataset*[cite: 176, 179].</li>
-                    <li>Se recomienda **OLS para modelos lineales sencillos**; [cite_start]**GD** (o variantes como SGD) para **grandes volúmenes de datos o modelos complejos**[cite: 180].</li>
-                </ul>
-            </section>
+<section>
+    <h2>4. Conclusiones Generales</h2>
+    <ul>
+        <li>El método OLS obtuvo resultados más precisos en menor tiempo.</li>
+        <li>El Gradiente Descendente logró aproximarse, pero requirió más recursos computacionales.</li>
+        <li>Ambos métodos son fundamentales en Programación Numérica y Aprendizaje Automático.</li>
+        <li>La elección del método depende del tamaño de los datos y del tipo de problema.</li>
+    </ul>
+</section>
 
-            <hr>
+<hr>
 
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
+<section>
+    <h2>5. Referencias</h2>
+    <ol>
+        <li>Burden, R. & Faires, J. (2011). <em>Numerical Analysis</em>. Brooks/Cole.</li>
+        <li>Nocedal, J. & Wright, S. (2006). <em>Numerical Optimization</em>. Springer.</li>
+        <li>James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). <em>An Introduction to Statistical Learning</em>. Springer.</li>
+        <li>R Core Team (2024). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation, Vienna.</li>
+    </ol>
+</section>
 
-                <h2>8. Conclusiones</h2>
-                <ul>
-                    [cite_start]<li>Para el caso estudiado (1000 observaciones, 1 predictor), **OLS fue más eficiente y preciso**[cite: 182].</li>
-                    [cite_start]<li>**Gradiente Descendente** requiere ajuste de hiperparámetros ($\alpha$, número de iteraciones) y suele ser más lento en problemas pequeños, pero tiene ventajas en **escalabilidad y en problemas sin solución cerrada**[cite: 183].</li>
-                    [cite_start]<li>En Programación Numérica es clave elegir el método que balancee precisión, costo computacional y estabilidad numérica[cite: 184].</li>
-                </ul>
-
-                <h2>9. Bibliografía</h2>
-                <ol>
-                    <li>Burden, R. L., & Faires, J. D. (2011). [cite_start]*Numerical Analysis.* Brooks/Cole[cite: 186].</li>
-                    <li>Nocedal, J., & Wright, S. (2006). [cite_start]*Numerical Optimization.* Springer[cite: 187].</li>
-                    <li>James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). [cite_start]*An Introduction to Statistical Learning.* Springer[cite: 188].</li>
-                    <li>R Core Team (2024). R: A language and environment for statistical computing. [cite_start]R Foundation for Statistical Computing, Vienna, Austria[cite: 189].</li>
-                </ol>
-            </section>
-
-            <hr>
-
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
-
-                <h2>10. Anexos</h2>
-                <h3>10.1. Código fuente (R) completo</h3>
-                <p>Se incluyen a continuación los scripts utilizados. [cite_start]Copiar y ejecutar en RStudio o una consola de R para reproducir los resultados y gráficos presentados[cite: 192, 193].</p>
-
-                <h4>OLS (Mínimos Cuadrados Ordinarios)</h4>
-                <div class="code-block">
-                    <p><em>Listing 3: Script Completo OLS</em></p>
-                    <pre><code># OLS - 1000 observaciones
-set.seed(123)
-talla <- rnorm(1000, 15, 1.5)
-peso <- 2.5 * talla + rnorm(1000, 0, 2)
-datos <- data.frame(talla, peso)
-
-tiempo_ols <- system.time({
-    modelo_ols <- lm(peso ~ talla, data = datos)
-})
-
-cat("-- RESULTADOS OLS\n")
-cat("Intercepto (β0):", coef(modelo_ols)[1], "\n")
-cat("Pendiente (β1):", coef(modelo_ols)[2], "\n")
-cat("Tiempo total:", tiempo_ols["elapsed"], "segundos\n")
-summary(modelo_ols)
-
-plot(datos$talla, datos$peso, pch = 19, col = "steelblue",
-      main = "Relación entre Peso y Talla (OLS)",
-      xlab = "Talla", ylab = "Peso")
-abline(modelo_ols, col = "red", lwd = 2)</code></pre>
-                </div>
-            </section>
-
-            <hr>
-
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
-                <h3>10.2. Salida de Consola y Gráficos (OLS)</h3>
-                <p>Gráfico de la regresión lineal OLS sobre los datos simulados.</p>
-                [cite_start]<p class="figure-caption">Figura 1: Captura de pantalla de la salida de la consola para el algoritmo de Mínimos Cuadrados[cite: 231].</p>
-
-                <h4>Gradiente Descendente (Gradient Descent)</h4>
-                <div class="code-block">
-                    <p><em>Listing 4: Script Completo Gradiente Descendente</em></p>
-                    <pre><code># Gradient Descent 1000 observaciones
-set.seed(123)
-talla <- rnorm(1000, 15, 1.5)
-peso <- 2.5 * talla + rnorm(1000, 0, 2)
-n <- length(talla)
-
-beta0 <- 0
-beta1 <- 0
-alpha <- 0.001
-iteraciones <- 5000
-
-# Función de Costo (MSE)
-costo <- function(b0, b1, x, y) mean((y - (b0 + b1 * x))^2)
-
-tiempo_gd <- system.time({
-    for (i in 1:iteraciones) {
-        y_pred <- beta0 + beta1 * talla
-        error <- peso - y_pred
-
-        # Gradientes
-        grad_b0 <- (-2 / n) * sum(error)
-        grad_b1 <- (-2 / n) * sum(talla * error)
-
-        # Actualización
-        beta0 <- beta0 - alpha * grad_b0
-        beta1 <- beta1 - alpha * grad_b1
-
-        if (i %% 1000 == 0) cat("Iteración:", i, " Costo:",
-                                costo(beta0, beta1, talla, peso), "\n")
-    }
-})
-
-cat("-- RESULTADOS GRADIENT DESCENT\n")
-cat("Intercepto (β0):", beta0, "\n")
-cat("Pendiente (β1):", beta1, "\n")
-cat("Tiempo total:", tiempo_gd["elapsed"], "segundos\n")
-
-plot(talla, peso, pch = 19, col = "darkgreen",
-      main = "Relación entre Peso y Talla (Gradient Descent)",
-      xlab = "Talla", ylab = "Peso")
-abline(a = beta0, b = beta1, col = "yellow", lwd = 2)</code></pre>
-                </div>
-            </section>
-            
-            <hr>
-
-            <section>
-                <div class="content-header">
-                    <p>Universidad Nacional del Altiplano de Puno</p>
-                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
-                </div>
-
-                <h3>10.3. Salida de Consola y Gráficos (GD)</h3>
-                <p>Gráfico de la regresión lineal estimada por Gradiente Descendente.</p>
-                [cite_start]<p class="figure-caption">Figura 2: Captura de pantalla de la salida de la consola para el algoritmo de Gradiente Descendente en R[cite: 306].</p>
-            </section>
         </main>
 
         <footer>
