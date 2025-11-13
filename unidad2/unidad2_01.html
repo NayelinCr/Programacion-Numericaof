@@ -1,265 +1,970 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unidad 2 · Actividad 01</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Unidad 2 · Actividad 01: Índice H y Métodos Numéricos</title>
 
-  <!-- Fuente moderna -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
-      color: #f0e6ff;
-      display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
+            color: #f0e6ff;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-    /* ===== SIDEBAR ===== */
-    .sidebar {
-      width: 250px;
-      background: rgba(45, 30, 70, 0.95);
-      backdrop-filter: blur(8px);
-      padding: 2rem 1rem;
-      box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease;
-    }
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 250px;
+            background: rgba(45, 30, 70, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 2rem 1rem;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
 
-    .sidebar h2 {
-      font-size: 1.2rem;
-      color: #e3ccff;
-      text-align: center;
-      margin-bottom: 2rem;
-      letter-spacing: 0.8px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    }
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: #e3ccff;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.8px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        }
 
-    .sidebar a {
-      color: #cdb4ff;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.6rem 1rem;
-      margin: 0.3rem 0;
-      border-radius: 8px;
-      transition: all 0.3s;
-      display: block;
-    }
+        .sidebar a {
+            color: #cdb4ff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1rem;
+            margin: 0.3rem 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: block;
+        }
 
-    .sidebar a:hover {
-      background: #b388ff;
-      color: #2a2037;
-      transform: translateX(4px);
-    }
+        .sidebar a:hover {
+            background: #b388ff;
+            color: #2a2037;
+            transform: translateX(4px);
+        }
 
-    .sidebar a.active {
-      background: #b388ff;
-      color: #2a2037;
-    }
+        .sidebar a.active {
+            background: #b388ff;
+            color: #2a2037;
+        }
 
-    .toggle-btn {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #b388ff;
-      color: #2a2037;
-      border: none;
-      padding: 0.6rem 0.9rem;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-    }
+        .toggle-btn {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: #b388ff;
+            color: #2a2037;
+            border: none;
+            padding: 0.6rem 0.9rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+        }
 
-    .sidebar.hide {
-      transform: translateX(-100%);
-    }
+        .sidebar.hide {
+            transform: translateX(-100%);
+        }
 
-    /* ===== CONTENIDO PRINCIPAL ===== */
-    .content {
-      flex: 1;
-      margin-left: 250px;
-      padding: 2rem;
-      transition: margin-left 0.3s;
-    }
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem;
+            transition: margin-left 0.3s;
+        }
 
-    .content.full {
-      margin-left: 0;
-    }
+        .content.full {
+            margin-left: 0;
+        }
 
-    header {
-      background: linear-gradient(135deg, #4a2e68, #7e57c2);
-      color: white;
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.45);
-      position: relative;
-    }
+        header {
+            background: linear-gradient(135deg, #4a2e68, #7e57c2);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+            position: relative;
+        }
 
-    .estado {
-      position: absolute;
-      top: 1.2rem;
-      right: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      background: rgba(61, 43, 86, 0.9);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-      backdrop-filter: blur(5px);
-    }
+        .estado {
+            position: absolute;
+            top: 1.2rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+            background: rgba(61, 43, 86, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
 
-    .burbuja {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #b388ff;
-      box-shadow: 0 0 6px #b388ff;
-    }
+        .burbuja {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #b388ff;
+            box-shadow: 0 0 6px #b388ff;
+        }
 
-    main {
-      background: rgba(56, 40, 78, 0.95);
-      padding: 2.2rem;
-      margin-top: 2rem;
-      border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(3px);
-      transition: transform 0.2s ease;
-    }
+        main {
+            background: rgba(56, 40, 78, 0.95);
+            padding: 2.2rem;
+            margin-top: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            transition: transform 0.2s ease;
+        }
 
-    main:hover {
-      transform: scale(1.01);
-    }
+        main:hover {
+            transform: scale(1.01);
+        }
 
-    h1 {
-      margin: 0.4rem 0 0;
-      font-size: 1.9rem;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-    }
+        h1 {
+            margin: 0.4rem 0 0;
+            font-size: 1.9rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
 
-    h2 {
-      color: #d7baff;
-      border-bottom: 2px solid #b388ff;
-      display: inline-block;
-      padding-bottom: 0.4rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    }
+        h2 {
+            color: #d7baff;
+            border-bottom: 2px solid #b388ff;
+            display: inline-block;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        h3 {
+             color: #cdb4ff;
+             font-size: 1.1rem;
+             margin-top: 1.5rem;
+             border-bottom: 1px dashed #6f4c9c;
+             padding-bottom: 0.3rem;
+        }
 
-    section {
-      margin-bottom: 2rem;
-    }
+        section {
+            margin-bottom: 2rem;
+        }
 
-    pre {
-      background: #2f2043;
-      border-radius: 12px;
-      padding: 1rem;
-      overflow-x: auto;
-      font-family: 'Fira Code', monospace;
-      color: #e9ddff;
-      border: 1px solid #4e3872;
-      box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
-    }
+        pre {
+            background: #2f2043;
+            border-radius: 12px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            color: #e9ddff;
+            border: 1px solid #4e3872;
+            box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
+        }
 
-    a {
-      color: #d6b6ff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
+        a {
+            color: #d6b6ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
 
-    a:hover {
-      color: #f1e0ff;
-      text-decoration: underline;
-    }
+        a:hover {
+            color: #f1e0ff;
+            text-decoration: underline;
+        }
 
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      padding: 1rem 0;
-      background: #3a2951;
-      color: #e5d0ff;
-      font-size: 0.9rem;
-      border-top: 1px solid #4e3872;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-    }
-  </style>
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem 0;
+            background: #3a2951;
+            color: #e5d0ff;
+            font-size: 0.9rem;
+            border-top: 1px solid #4e3872;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+        }
+        
+        /* Estilos específicos para las tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: #3a2951;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #4e3872;
+        }
+        th {
+            background: #4a2e68;
+            color: #fff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #3c2a52;
+        }
+        tr:hover {
+            background: #503d6d;
+        }
+        
+        /* Estilos específicos para fórmulas y acotaciones */
+        .formula {
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 1.15rem;
+            background: #3c2a52;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #4e3872;
+        }
+        
+        .acotaciones {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #2f2043;
+            border-radius: 8px;
+            border-left: 5px solid #b388ff;
+        }
+        .acotaciones h3 {
+            margin-top: 0;
+            color: #f0e6ff;
+            border-bottom: none;
+        }
+        .acotaciones ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            padding-left: 0;
+        }
+    </style>
+    
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+      }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 
 <body>
-  <!-- Botón Toggle -->
-  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <h2>Unidad 1</h2>
-    <a href="unidad2_01.html" class="active">Actividad 01</a>
-    <a href="unidad2_02.html">Actividad 02</a>
-    <a href="unidad2_03.html">Actividad 03</a>
-    <a href="unidad2_04.html">Actividad 04</a>
-    <a href="unidad2_05.html">Actividad 05</a>
-    <a href="unidad2_06.html">Actividad 06</a>
-    <a href="../index.html">🏠 Volver al inicio</a>
-    <a href="../unidad1/unidad1.html">➡ Ir a Unidad 1</a>
+    <aside class="sidebar" id="sidebar">
+        <h2>Unidad 2</h2>
+        <a href="unidad2_01.html" class="active">Actividad 01</a>
+        <a href="unidad2_02.html">Actividad 02</a>
+        <a href="unidad2_03.html">Actividad 03</a>
+        <a href="unidad2_04.html">Actividad 04</a>
+        <a href="unidad2_05.html">Actividad 05</a>
+        <a href="unidad2_06.html">Actividad 06</a>
+        <a href="../index.html">🏠 Volver al inicio</a>
+        <a href="../unidad1/unidad1.html">➡ Ir a Unidad 1</a>
+    </aside>
 
+    <div class="content" id="content">
+        <header>
+            <h1>Actividad 01 · Índice H + Programación de 4 Métodos</h1>
+            <p>04/09/2025</p>
+            <div class="estado">
+                <div class="burbuja"></div>
+                <span>Completada</span>
+            </div>
+        </header>
 
-  </aside>
+        <main>
+            <section>
+                <h2>Descripción de la Actividad</h2>
+                <p>1. Investigación de **Índice H** sobre docentes de la Facultad de Ingeniería Estadística e Informática.</p>
+                <p>2. Programación de 4 métodos para encontrar raíces: **Método de Bisección, Método de la Secante, Método de Punto Fijo** y **Método de Regula Falsi**.</p>
+            </section>
+            
+             <section>
+                <h2>Informe de la Actividad</h2>
+                <ul>
+                    <li>📄 <a href="https://drive.google.com/file/d/1k1VK4O3_V_jAH001ZmJ_ewWoGTId91Ky/view?usp=sharing" target="_blank">Informe (PDF)</a></li>
+                </ul>
+            </section>
+          
+            <section>
+                <h2>Desarrollo de la Actividad</h2>
+                
+                <h2>📊 Índice H</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Afiliación</th>
+                            <th>SCOPUS ID</th>
+                            <th>ORCID</th>
+                            <th>Citas</th>
+                            <th>Documentos</th>
+                            <th>Índice H</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CANQUI-FLORES, BERNABÉ</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>57224302525</td>
+                            <td>CONECTADO</td>
+                            <td>20 (DE 19 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>8</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>PEREZ QUISPE, SAMUEL DONATO</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>QUISPE YAPO, EDGARDO</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>ROQUE CLAROS, ROBERTO ELVIS</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>LLUEN VALLEJOS, CÉSAR AUGUSTO</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>AZAÑERO DE AGUIRRE, EMMA OFELINDA</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>APAZA-TAROULI, ALEJANDRO</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>57222436215</td>
+                            <td>0000-0003-1622-8662</td>
+                            <td>6 (DE 6 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>5</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>TUMI-FIGUEROA, ERNESTO NAYER</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>57000361700</td>
+                            <td>CONECTADO</td>
+                            <td>23 (DE 23 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>6</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>COYLA-CCAMA, LEONEL</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58636847770</td>
+                            <td>CONECTADO</td>
+                            <td>1 (DE 1 DOCUMENTO)</td>
+                            <td>N/A</td>
+                            <td>5</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>MORILLOS VALDERRAMA, SANTOS OCTAVIO</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>SALAS PILCO, MARÍA MAURA</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>QUISPE MAMANI, GOOFREDO</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>1 (DE 1 DOCUMENTO)</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                            <td>ENCONTRADO (PARCIAL)</td>
+                        </tr>
+                        <tr>
+                            <td>GONZALES, LEONID ALÉMAN</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58648491200</td>
+                            <td>0000-0002-4072-6370</td>
+                            <td>0 (DE 1 DOCUMENTO)</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>IBAÑEZ-QUISPE, VLADIMIRO</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>57201819773</td>
+                            <td>0000-0002-0277-4945</td>
+                            <td>52 (DE 52 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>21</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>CARPIO VARGAS, EDGAR ELOY</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>57222111755</td>
+                            <td>0000-0001-6457-4537</td>
+                            <td>26 (DE 25 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>9</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>TITO LIPA, JOSE PÁNFILO</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58688221000</td>
+                            <td>0000-0002-3572-5682</td>
+                            <td>0 (DE 0 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>GONZALES ACHATA, ALFREDO ERNESTO</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>PUMA HUAMANI, BETO</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>ALVAREZ ROZAS, TERESA PAOLA</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>HUATA-PANCA, PERCY</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>57357711000</td>
+                            <td>0000-0002-1624-9526</td>
+                            <td>14 (DE 12 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>QUISPE CARITA, ANGEL JAVIER</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>JUDIREZ-VARGAS, JUAN CARLOS CARLOS</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58681177000</td>
+                            <td>CONECTADO</td>
+                            <td>2 (DE 2 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>VILLASANTE-SARAVIA, FREDDY HERIC</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58671288200</td>
+                            <td>0000-0002-8859-9008</td>
+                            <td>7 (DE 7 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>PARI-CONDORI, ELQUI YEYE</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58394599000</td>
+                            <td>0000-0003-3248-0754</td>
+                            <td>1 (DE 1 DOCUMENTO)</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>CHOQUEJAJUA-ACER, REMO</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58649131500</td>
+                            <td>CONECTADO</td>
+                            <td>2 (DE 2 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>8</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>MENDOZA-MOLLOCONDO, CHARLES IGNACIO</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>57562769000</td>
+                            <td>0000-0002-4766-2701</td>
+                            <td>17 (DE 16 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>APAZA CUTIPA, RENZO</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>LÓPEZ CUEVA, MILTON ANTONIO</td>
+                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                            <td>58671948800</td>
+                            <td>CONECTADO</td>
+                            <td>2 (DE 2 DOCUMENTOS)</td>
+                            <td>N/A</td>
+                            <td>6</td>
+                            <td>ENCONTRADO</td>
+                        </tr>
+                        <tr>
+                            <td>VARGAS VALVERDE, CONFESOR MILAN</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>NO ENCONTRADO</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
 
-  <!-- Contenido -->
-  <div class="content" id="content">
-    <header>
-      <h1>Actividad 01 · Gradientes comparación </h1>
-      <p>04/09/2025</p>
-      <div class="estado">
-        <div class="burbuja"></div>
-        <span>Completada</span>
-      </div>
-    </header>
+                <h2>💻 Programación de 4 Métodos Numéricos</h2>
 
-    <main>
-      <section>
-        <h2>Descripcion de la Actividad</h2>
-        <p>Defina con sus propias palabras, programación Numérica y mencione al menos 2 aplicaciones desde la Ingeniería Estadística e Informática.</p>
-      </section>
+                <h2 id="newton">1. Método de Newton-Raphson</h2>
+                <h3>Definición</h3>
+                <p>Es un procedimiento iterativo que utiliza la **derivada de la función** para aproximar las raíces de ecuaciones no lineales. Su rapidez de convergencia (convergencia cuadrática) lo hace muy utilizado en ingeniería y matemáticas aplicadas.</p>
 
-      <section>
-        <h2>Desarrollo de la actividad</h2>
+                <h3>Fórmula</h3>
+                <div class="formula">
+                    $$x_{n+1}=x_{n}-\frac{f(x_{n})}{f^{\prime}(x_{n})}$$
+                </div>
+
+                <div class="acotaciones">
+                    <h3>Acotaciones</h3>
+                    <ul>
+                        <li>Convergencia rápida si la aproximación inicial está cerca de la raíz verdadera.</li>
+                        <li>Requiere que la función sea derivable en el intervalo considerado.</li>
+                        <li>Puede fallar o divergir si la derivada en el punto inicial es cero o cercana a cero.</li>
+                    </ul>
+                </div>
+
+                <h3>1.1. Código en Python</h3>
+                <div class="code-snippet">
+                    <pre><code>
+
+import math
+
+# Función a resolver: f(x) = e^x - 3x
+def f(x):
+    return math.exp(x) - 3*x
+
+# Derivada: f’(x) = e^x - 3
+def df(x):
+    return math.exp(x) - 3
+
+def newton_raphson(x0, tol=1e-6, max_iter=100):
+    """
+    Aproxima la raíz de f(x) usando el método de Newton-Raphson.
     
-      </section>
+    x0: valor inicial
+    tol: tolerancia para convergencia
+    max_iter: número máximo de iteraciones
+    """
+    xn = x0
+    for n in range(max_iter):
+        f_val = f(xn)
+        df_val = df(xn)
+        
+        if abs(df_val) < 1e-12:
+            print("Derivada cercana a cero. No se puede continuar.")
+            return None
+            
+        xn1 = xn - f_val/df_val
+        
+        print(f"Iteración {n+1}: x = {xn1:.8f}, f(x) = {f(xn1):.8f}")
+        
+        if abs(xn1 - xn) < tol:
+            print(f"\nLa raíz aproximada es: {xn1:.8f}")
+            return xn1
+            
+        xn = xn1
+        
+    print("No se alcanzó la tolerancia requerida.")
+    return xn
 
-      <section>
-        <h2>Informe de la Actividad</h2>
-        <ul>
-          <li>📄 <a href="https://drive.google.com/file/d/1k1VK4O3_V_jAH001ZmJ_ewWoGTId91Ky/view?usp=sharing" target="_blank">Informe (PDF)</a></li>
-        </ul>
-      </section>
-    </main>
+# Buscamos la raíz de f(x)=e^x - 3x empezando desde x0=1.0
+x0 = 1.0
+newton_raphson(x0)</code></pre>
+                </div>
+                
+                <hr>
+                
+                <h2 id="biseccion">2. Método de Bisección</h2>
+                <h3>Definición</h3>
+                <p>Procedimiento iterativo que localiza una raíz de una **función continua** dividiendo repetidamente un intervalo en mitades. Aprovecha el **Teorema del Valor Intermedio**, garantizando convergencia cuando $f(a) \cdot f(b) < 0$.</p>
 
-    <footer>
-      © 2025 Nayelin · Portafolio Programación Numérica 💜
-    </footer>
-  </div>
+                <h3>Fórmula</h3>
+                <div class="formula">
+                    $$x_{n} = \frac{a_n + b_n}{2}$$
+                </div>
 
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      sidebar.classList.toggle('hide');
-      content.classList.toggle('full');
-    }
-  </script>
+                <div class="acotaciones">
+                    <h3>Acotaciones</h3>
+                    <ul>
+                        <li>Siempre converge si la función es continua y hay un cambio de signo en los extremos del intervalo.</li>
+                        <li>No requiere cálculo de derivadas.</li>
+                        <li>La convergencia es lineal, por lo que es más lento comparado con métodos basados en derivadas.</li>
+                    </ul>
+                </div>
+
+                <h3>2.1. Código en Python</h3>
+                <div class="code-snippet">
+                    <pre><code>import math
+
+# Función a resolver: f(x) = cos(x) - x
+def f(x):
+    return math.cos(x) - x
+
+def biseccion(a, b, tol=1e-6, max_iter=100):
+    """
+    Encuentra la raíz de f(x) en el intervalo [a, b] usando el
+    método de Bisección.
+    
+    a, b: extremos del intervalo
+    tol: tolerancia para convergencia
+    max_iter: número máximo de iteraciones
+    """
+    if f(a) * f(b) >= 0:
+        print("El método no es aplicable: f(a) y f(b) deben tener signos opuestos.")
+        return None
+        
+    for n in range(1, max_iter+1):
+        m = (a + b)/2
+        fm = f(m)
+        
+        print(f"Iteración {n}: a={a:.6f}, b={b:.6f}, m={m:.6f}, f(m)={fm:.6f}")
+        
+        if abs(fm) < tol or (b - a)/2 < tol:
+            print(f"\nLa raíz aproximada es: {m:.6f}")
+            return m
+            
+        if f(a)*fm < 0:
+            b = m
+        else:
+            a = m
+            
+    print("No se alcanzó la tolerancia requerida.")
+    return m
+
+# Buscamos la raíz de f(x)=cos(x)-x en el intervalo [0, 1]
+a, b = 0, 1
+biseccion(a, b)</code></pre>
+                </div>
+                
+                <hr>
+
+                <h2 id="secante">3. Método de la Secante</h2>
+                <h3>Definición</h3>
+                <p>Aproxima la raíz de una función usando la **línea secante** entre dos puntos consecutivos. Se basa en aproximar la derivada por una diferencia finita, lo que evita calcular $f'(x)$ explícitamente.</p>
+
+                <h3>Fórmula</h3>
+                <div class="formula">
+                    $$x_{n+1}=x_{n}-f(x_{n})\frac{x_{n}-x_{n-1}}{f(x_{n})-f(x_{n-1})}$$
+                </div>
+
+                <div class="acotaciones">
+                    <h3>Acotaciones</h3>
+                    <ul>
+                        <li>Convergencia superlineal si la aproximación inicial es cercana a la raíz.</li>
+                        <li>Útil cuando la derivada es difícil de calcular, aunque es menos estable que Newton-Raphson.</li>
+                        <li>Requiere que $f(x_{n}) \ne f(x_{n-1})$ para evitar divisiones por cero.</li>
+                    </ul>
+                </div>
+
+                <h3>3.1. Código en Python</h3>
+                <div class="code-snippet">
+                    <pre><code>import math
+
+# Función a resolver: f(x) = e^(-x) - x
+def f(x):
+    return math.exp(-x) - x
+
+def secante(x0, x1, tol=1e-6, max_iter=100):
+    """
+    Aproxima la raíz de f(x) usando el método de la Secante.
+    
+    x0, x1: valores iniciales
+    tol: tolerancia para convergencia
+    max_iter: número máximo de iteraciones
+    """
+    for n in range(1, max_iter+1):
+        f0, f1 = f(x0), f(x1)
+        
+        if abs(f1 - f0) < 1e-12:
+            print("División por cero. No se puede continuar.")
+            return None
+            
+        x2 = x1 - f1*(x1 - x0)/(f1 - f0)
+        
+        print(f"Iter {n}: x0={x0:.6f}, x1={x1:.6f}, x2={x2:.6f}, f(x2)={f(x2):.6f}")
+        
+        if abs(x2 - x1) < tol:
+            print(f"\nLa raíz aproximada es: {x2:.6f}")
+            return x2
+            
+        x0, x1 = x1, x2
+        
+    print("No se alcanzó la tolerancia requerida.")
+    return x2
+
+# Buscamos la raíz de f(x)=e^(-x)-x con valores iniciales x0=0 y x1=1
+x0, x1 = 0, 1
+secante(x0, x1)</code></pre>
+                </div>
+                
+                <hr>
+
+                <h2 id="punto-fijo">4. Método de Punto Fijo</h2>
+                <h3>Definición</h3>
+                <p>Convierte la ecuación $f(x)=0$ en la forma $x=g(x)$ y busca un **punto que permanezca invariable** bajo $g(x)$, utilizando iteraciones sucesivas.</p>
+
+                <h3>Fórmula</h3>
+                <div class="formula">
+                    $$x_{n+1}=g(x_{n})$$
+                </div>
+
+                <div class="acotaciones">
+                    <h3>Acotaciones</h3>
+                    <ul>
+                        <li>Converge si $|g'(x)| < 1$ en la vecindad de la raíz.</li>
+                        <li>No requiere derivadas, pero depende de una buena elección de $g(x)$.</li>
+                        <li>La convergencia puede ser lenta o no ocurrir si la función no es adecuada.</li>
+                    </ul>
+                </div>
+
+                <h3>4.1. Código en Python</h3>
+                <div class="code-snippet">
+                    <pre><code>import math
+
+# Función g(x) para el método de Punto Fijo
+# Buscamos la raíz de x = cos(x), así que g(x) = cos(x)
+def g(x):
+    return math.cos(x)
+
+def punto_fijo(x0, tol=1e-6, max_iter=100):
+    """
+    Aproxima la raíz de x = g(x) usando el método de Punto Fijo.
+    
+    x0: valor inicial
+    tol: tolerancia para convergencia
+    max_iter: número máximo de iteraciones
+    """
+    # Se corrigió el f-string para alinear la cabecera
+    print(f"{'Iter':<5}{'x':<12}{'g(x)':<12}{'Error':<12}")
+    print("-"*45)
+    
+    for n in range(1, max_iter+1):
+        x1 = g(x0)
+        error = abs(x1 - x0)
+        
+        print(f"{n:<5}{x1:<12.8f}{g(x1):<12.8f}{error:<12.8f}")
+        
+        if error < tol:
+            print(f"\nLa raíz aproximada es: {x1:.8f}")
+            return x1
+            
+        x0 = x1
+        
+    print("No se alcanzó la tolerancia requerida.")
+    return x1
+
+# Valor inicial distinto para mostrar convergencia desde otro punto
+x0 = 0.7
+punto_fijo(x0)</code></pre>
+                </div>
+                
+                <hr>
+
+                <h2 id="regula-falsi">5. Método de Regula Falsi (Falsa Posición)</h2>
+                <h3>Definición</h3>
+                <p>Método que combina la bisección con **interpolación lineal** para encontrar raíces de funciones continuas. Asegura que siempre exista un cambio de signo en el intervalo seleccionado.</p>
+
+                <h3>Fórmula</h3>
+                <div class="formula">
+                    $$x_{n} = a_n - f(a_n)\frac{b_n - a_n}{f(b_n) - f(a_n)}$$
+                </div>
+
+                <div class="acotaciones">
+                    <h3>Acotaciones</h3>
+                    <ul>
+                        <li>Más rápido que la bisección para funciones que cambian de signo pronunciadamente.</li>
+                        <li>Mantiene siempre un intervalo que contiene la raíz.</li>
+                        <li>Puede converger lentamente si la función es casi lineal en el intervalo.</li>
+                    </ul>
+                </div>
+
+                <h3>5.1. Código en Python</h3>
+                <div class="code-snippet">
+                    <pre><code>import math
+
+# Función a resolver: f(x) = x^3 - 2x - 5
+def f(x):
+    return x**3 - 2*x - 5
+
+def regula_falsi(a, b, tol=1e-6, max_iter=100):
+    """
+    Encuentra la raíz de f(x) en [a,b] usando el método Regula Falsi.
+    
+    a, b: extremos del intervalo
+    tol: tolerancia para convergencia
+    max_iter: número máximo de iteraciones
+    """
+    if f(a)*f(b) >= 0:
+        print("No se cumple el teorema del valor intermedio.")
+        return None
+
+    # Se corrigió el f-string para alinear la cabecera
+    print(f"{'Iter':<5}{'a':<12}{'b':<12}{'x':<12}{'f(x)':<12}")
+    print("-"*55)
+    
+    for n in range(1, max_iter+1):
+        # Fórmula de Regula Falsi
+        x = b - f(b)*(a - b)/(f(a) - f(b))
+        fx = f(x)
+        
+        print(f"{n:<5}{a:<12.6f}{b:<12.6f}{x:<12.6f}{fx:<12.6f}")
+        
+        if abs(fx) < tol:
+            print(f"\nLa raíz aproximada es: {x:.6f}")
+            return x
+            
+        if f(a)*fx < 0:
+            b = x
+        else:
+            a = x
+            
+    print("No se alcanzó la tolerancia requerida.")
+    return x
+
+# Buscamos la raíz de f(x)=x^3-2x-5 en el intervalo [2, 3]
+a, b = 2, 3
+regula_falsi(a, b)</code></pre>
+                </div>
+            </section>
+
+           
+        </main>
+
+        <footer>
+            © 2025 Nayelin · Portafolio Programación Numérica 💜
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+            sidebar.classList.toggle('hide');
+            content.classList.toggle('full');
+        }
+    </script>
 </body>
 </html>
