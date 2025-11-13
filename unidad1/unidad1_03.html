@@ -233,13 +233,292 @@
         <h2> Descripción de la Actividad </h2>
         <p>Resolver los ejercicios planteados en la unidad 1 aplicando conceptos de programación numérica.</p>
       </section>
-
-      <section>
+    <section>
         <h2>Informe de la Actividad </h2>
         <ul>
           <li>📄 <a href="https://drive.google.com/file/d/1veaiFxUiYwAatQy58BZDauvwVGSi8UL8/view?usp=sharing" target="_blank">Informe (PDF)</a></li>
         </ul>
       </section>
+      
+     <section>
+        <h2> Desarrollo de la Actividad </h2>
+        
+    <h1>1. Ejercicio 1</h1>
+<p>Un desarrollador tiene 15 horas semanales para dedicar al desarrollo de software de front-end (x) y back-end (y). Además: 
+    <ul>
+        <li>Debe dedicar al menos 5 horas al desarrollo de front-end para cumplir con los entregables del cliente.</li>
+        <li>El tiempo total no puede exceder 15 horas por restricciones de tiempo del sprint.</li>
+    </ul>
+    Formule las restricciones, represéntelas gráficamente e identifique las combinaciones posibles de tiempo a invertir en cada actividad.
+</p>
+
+<h3>1.1.1. Restricciones</h3>
+<ol>
+    <li>x &ge; 5 (mínimo 5 horas de front-end).</li>
+    <li>x + y &le; 15 (tiempo total máximo).</li>
+    <li>x &ge; 0, y &ge; 0 (no hay tiempo negativo).</li>
+</ol>
+<h3>1.1.2. Formulación matemática</h3>
+<div class="math-block">
+{
+x &ge; 5
+x + y &le; 15
+x &ge; 0
+y &ge; 0
+}
+</div>
+<h3>1.1.3. Representación gráfica</h3>
+<p>Para graficar, transformamos las restricciones en rectas:
+    <ul>
+        <li>x=5 (recta vertical).</li>
+        <li>y=-x+15 (recta con pendiente -1).</li>
+        <li>Ejes coordenados.</li>
+    </ul>
+</p>
+<p class="note">(1) La región factible es el área en el primer cuadrante, a la derecha de la recta x=5 y debajo de la recta y=-x+15.</p>
+<p class="note">Figura 1: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
+
+<hr>
+
+<h1>2. Ejercicio 2</h1>
+<p>Un ingeniero de datos administra dos tipos de servidores en la nube: Servidores A y Servidores B. El costo por hora de Servidor A es S/3 y de Servidor B es S/5. El presupuesto máximo semanal asignado para mantener los servidores es de S/20. Determine cuantas horas puede mantener activos cada tipo de servidor, formule el sistema de ecuaciones y represéntelo gráficamente.</p>
+<h3>2.1. Planteamiento del problema</h3>
+<p>Un ingeniero de datos administra dos tipos de servidores en la nube:
+    <ul>
+        <li>Servidores A &rarr; costo de 3 soles/hora</li>
+        <li>Servidores B &rarr; costo de 5 soles/hora</li>
+    </ul>
+    El presupuesto semanal máximo asignado es de 20 soles.
+</p>
+<p><strong>Definimos:</strong>
+    <ul>
+        <li>x: número de horas activas de servidores A.</li>
+        <li>y: número de horas activas de servidores B.</li>
+    </ul>
+</p>
+<h2>2.2. Formulación matemática</h2>
+<h3>2.2.1. Restricciones</h3>
+<ol>
+    <li>Restricción de costo: 3x + 5y &le; 20</li>
+</ol>
+<h3>2.2.2. No se puede asignar tiempo negativo</h3>
+<p>x &ge; 0, y &ge; 0</p>
+<h2>2.3. Transformación para graficar</h2>
+<p>La restricción principal es:
+    <div class="math-block">
+        3x + 5y &le; 20 &rArr; 5y &le; 20 - 3x &rArr; y &le; (20/5) - (3/5)x &rArr; y &le; -0.6x + 4
+    </div>
+</p>
+<p>La recta límite: y = -0.6x + 4</p>
+<h2>2.4. Representación gráfica</h2>
+<ul>
+    <li>La recta y = -0.6x + 4 divide el plano.</li>
+    <li>La región factible está debajo de la recta, en el primer cuadrante.</li>
+    <li>Es un triángulo con vértices aproximados:
+        <ul>
+            <li>(0,0)</li>
+            <li>(20/3, 0) &asymp; (6.67, 0)</li>
+            <li>(0, 4)</li>
+        </ul>
+    </li>
+</ul>
+<p class="note">Figura 2: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
+<h2>2.5. Interpretación de la solución gráfica</h2>
+<ul>
+    <li>Cualquier punto dentro de la región factible son combinaciones posibles de horas activas de Servidores A y B que cumplen con el presupuesto.</li>
+    <li>Ejemplos de soluciones factibles:
+        <ul>
+            <li>x=4, y=1 &rarr; costo = 3(4) + 5(1) = 17 &le; 20.</li>
+            <li>x=2, y=2 &rarr; costo = 3(2) + 5(2) = 16 &le; 20.</li>
+        </ul>
+    </li>
+    <li>Puntos fuera de la región implican que el presupuesto semanal se excede.</li>
+</ul>
+
+<hr>
+
+<h1>3. Ejercicio 3</h1>
+<p>Un administrador de proyectos tecnológicos organiza su tiempo entre reuniones con stakeholders (x) y trabajo en la documentación técnica (y). Las reuniones requieren al menos 4 horas semanales y la documentación al menos 6 horas. Si dispone de 12 horas para ambas actividades, determine la región factible y analice las combinaciones posibles de tiempo.</p>
+<h3>3.1. Planteamiento del problema</h3>
+<p>Un administrador organiza su tiempo entre reuniones con stakeholders (x) y trabajo en documentación técnica (y).
+    <ul>
+        <li>Las reuniones requieren al menos 4 horas semanales.</li>
+        <li>La documentación requiere al menos 6 horas semanales.</li>
+        <li>Dispone de 12 horas en total para ambas actividades.</li>
+    </ul>
+</p>
+<h2>3.2. Formulación matemática</h2>
+<div class="math-block">
+(2)
+{
+x &ge; 4
+y &ge; 6
+x + y &le; 12
+x &ge; 0, y &ge; 0
+}
+<div class="note">(Obs.: las últimas dos son las no-negatividades; con las primeras queda implícito que estamos en primer cuadrante.)</div>
+</div>
+<h2>3.3. Transformación para graficar</h2>
+<ul>
+    <li>La restricción de suma se transforma en la recta límite: x + y &le; 12 &rArr; y &le; -x + 12</li>
+</ul>
+<p>Para graficar dibujamos:
+    <ul>
+        <li>la recta y = -x + 12</li>
+        <li>la recta vertical x = 4</li>
+        <li>la recta horizontal y = 6</li>
+    </ul>
+</p>
+<p class="note">La región factible queda en el primer cuadrante, a la derecha de x=4, arriba de y=6 y debajo de y=-x+12.</p>
+<h2>3.4. Vértices de la región factible (exactos)</h2>
+<p>Intersecciones relevantes:</p>
+<ul>
+    <li>x=4 y y=6 &rarr; punto <strong>(4, 6)</strong>.</li>
+    <li>x=4 con x + y = 12 &rarr; y = 8 &rarr; <strong>(4, 8)</strong>.</li>
+    <li>y=6 con x + y = 12 &rarr; x = 6 &rarr; <strong>(6, 6)</strong>.</li>
+</ul>
+<p>Entonces la región factible es el triángulo con vértices (4,6), (4,8), (6, 6).</p>
+<p class="note">Figura 3: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
+<h2>3.5. Interpretación</h2>
+<ul>
+    <li>El administrador debe dedicar como mínimo 4 horas a reuniones y 6 horas a documentación.</li>
+    <li>Sólo tiene un margen pequeño para mover horas entre actividades: por ejemplo:
+        <ul>
+            <li>(4,6) usa 10 horas en total (queda 2 horas sin usar).</li>
+            <li>(5,7) usa 12 horas (ajusta ambas y agota el tiempo).</li>
+            <li>(6,6) usa 12 horas (más reuniones, mínima doc).</li>
+            <li>(4,8) usa 12 horas (más documentación, mínima reuniones).</li>
+        </ul>
+    </li>
+    <li>Cualquier punto fuera del triángulo viola al menos una restricción (no cumple mínimos o excede 12 horas).</li>
+</ul>
+
+<hr>
+
+<h1>4. Ejercicio 4</h1>
+<p>Una empresa de desarrollo de videojuegos produce dos tipos de assets: Modelos 3D (P1) y Texturas (P2). Cada modelo 3D requiere 2 horas de trabajo y cada textura requiere 3 horas. El equipo de arte tiene un total de 18 horas disponibles semanalmente. Formule las restricciones, represéntelas gráficamente y determine cuántos assets de cada tipo pueden producirse en función del tiempo disponible.</p>
+<h3>4.1. Planteamiento</h3>
+<ul>
+    <li>x = cantidad de Modelos 3D (P1).</li>
+    <li>y = cantidad de Texturas (P2).</li>
+    <li>Cada modelo 3D requiere 2 horas.</li>
+    <li>Cada textura requiere 3 horas.</li>
+    <li>Horas disponibles por semana: 18 horas.</li>
+</ul>
+<h2>4.2. Formulación matemática</h2>
+<p>y no negatividad:</p>
+<div class="math-block">
+2x + 3y &le; 18
+x &ge; 0, y &ge; 0
+</div>
+<p class="note">(Si la producción exige números enteros, x, y &isin; ℤ&ge;0; si no, se permite solución continua.)</p>
+<h2>4.3. Transformación para graficar</h2>
+<p>Despejando y:</p>
+<div class="math-block">
+3y &le; 18 - 2x &rArr; y &le; (-2/3)x + 6
+</div>
+<p>Recta límite: y = (-2/3)x + 6.</p>
+<p>Interceptos (puntos donde corta ejes):</p>
+<ul>
+    <li>Si x=0 &rarr; y=6.</li>
+    <li>Si y=0 &rarr; 2x=18 &rArr; x=9.</li>
+</ul>
+<h2>4.4. Región factible (gráfica)</h2>
+<ul>
+    <li>Es el área en el primer cuadrante, por debajo de la recta y = (-2/3)x + 6.</li>
+    <li>Vértices del polígono factible: (0,0), (9,0), (0,6). (Si consideramos solo la desigualdad y ejes, la región es el triángulo formado por esos vértices.)</li>
+</ul>
+<p class="note">Figura 4: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
+<h2>4.5. Interpretación / ejemplos de soluciones</h2>
+<ul>
+    <li>Combinaciones válidas (ejemplos):
+        <ul>
+            <li>(x,y)=(0,6) &rarr; 0 modelos, 6 texturas (3&middot;6=18 horas).</li>
+            <li>(9,0) &rarr; 9 modelos, 0 texturas (2&middot;9=18 horas).</li>
+            <li>(3,4) &rarr; 3 modelos (6 h) + 4 texturas (12 h) = 18 h.</li>
+            <li>(2,3) &rarr; 2&middot;2 + 3&middot;3 = 4 + 9 = 13 horas (factible y sobra tiempo).</li>
+        </ul>
+    </li>
+    <li>Si se requieren cantidades enteras, las soluciones factibles son los pares enteros dentro del triángulo (por ejemplo (1,5) &rarr; 2&middot;1 + 3&middot;5 = 17 &le; 18; (4,4) no: 2&middot;4 + 3&middot;4 = 20 &gt; 18).</li>
+</ul>
+
+<hr>
+
+<h1>5. Ejercicio 5</h1>
+<p>Una startup de hardware dispone de un máximo de 50 unidades de componentes electrónicos. Para ensamblar un dispositivo tipo A se necesitan 5 unidades y para un dispositivo tipo B se necesitan 10 unidades. Determine cuántos dispositivos de cada tipo puede ensamblar sin exceder las 50 unidades de componentes. Formule el problema, resuélvalo gráficamente y explique las posibles combinaciones de producción. *Nota: El planteamiento en el documento parece ser de un problema diferente al enunciado principal del Ejercicio 5. Se presenta el planteamiento del documento.*</p>
+<h3>5.1. Planteamiento</h3>
+<p>Una fábrica produce dos productos:
+    <ul>
+        <li>x = unidades del producto A.</li>
+        <li>y = unidades del producto B.</li>
+    </ul>
+</p>
+<p><strong>Recursos disponibles por semana:</strong>
+    <ul>
+        <li>Material: 48 unidades.
+            <ul>
+                <li>Cada A consume 4 unidades de material.</li>
+                <li>Cada B consume 6 unidades de material.</li>
+            </ul>
+        </li>
+        <li>Mano de obra: 12 horas.
+            <ul>
+                <li>Cada A consume 1 hora.</li>
+                <li>Cada B consume 2 horas.</li>
+            </ul>
+        </li>
+    </ul>
+</p>
+<p>Además, no se producen cantidades negativas: x &ge; 0, y &ge; 0</p>
+<h2>5.2. Formulación matemática</h2>
+<p>Restricciones:</p>
+<div class="math-block">
+(3)
+{
+4x + 6y &le; 48 (material)
+x + 2y &le; 12 (mano de obra)
+x &ge; 0, y &ge; 0
+}
+</div>
+<h2>5.3. Transformación para graficar</h2>
+<p>Despejando y para ambas rectas:</p>
+<ul>
+    <li>De 4x + 6y &le; 48 &rArr; y &le; (-4/6)x + 8 &rArr; y &le; (-2/3)x + 8. Recta límite: y = -0.6667x + 8.</li>
+    <li>De x + 2y &le; 12 &rArr; y &le; (-1/2)x + 6. Recta límite: y = -0.5x + 6.</li>
+</ul>
+<h2>5.4. Vértices de la región factible (cálculo)</h2>
+<p>Intersecciones importantes:</p>
+<ul>
+    <li><strong>Intersección con ejes:</strong>
+        <ul>
+            <li>Si x=0: de la primera recta y&le;8, de la segunda y&le;6 &rarr; el límite es y&le;6. Entonces el vértice en el eje y es <strong>(0, 6)</strong>.</li>
+            <li>Si y=0: de la primera 4x&le;48 &rArr; x&le;12, de la segunda x&le;12 &rarr; vértice en eje x es <strong>(12, 0)</strong>.</li>
+        </ul>
+    </li>
+    <li><strong>Intersección entre las dos rectas:</strong>
+        <ul>
+            <li>Resolver 4x + 6y = 48 y x + 2y = 12.</li>
+            <li>De la segunda x = 12 - 2y. Sustituyendo: 4(12 - 2y) + 6y = 48 &rArr; 48 - 8y + 6y = 48 &rArr; -2y = 0 &rArr; y = 0 &rArr; x = 12.</li>
+        </ul>
+    </li>
+</ul>
+<p>Esa intersección es <strong>(12, 0)</strong> (ya coincide con el punto en el eje x).</p>
+<p>Por tanto, la región factible acotada es el triángulo con vértices: <strong>(0,0), (12, 0), (0,6)</strong>.</p>
+<p class="note">Figura 5: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
+<h2>5.5. Interpretación</h2>
+<ul>
+    <li>La región factible contiene todas las combinaciones de producción (x, y) que no superan ni el material ni la mano de obra disponibles.</li>
+    <li>Ejemplos de soluciones factibles:
+        <ul>
+            <li>(0,6): usa 0 A y 6 B &rarr; material=6&middot;6=36&le;48, mano de obra =2&middot;6=12.</li>
+            <li>(12,0): usa 12 A y 0 B &rarr; material=4&middot;12=48, mano de obra =1&middot;12=12.</li>
+            <li>(6,3): material = 4&middot;6 + 6&middot;3 = 24 + 18 = 42 &lt; 48; mano de obra = 6 + 2&middot;3 = 12 (en la frontera).</li>
+        </ul>
+    </li>
+    <li>Si se requieren cantidades enteras, las soluciones válidas son los pares enteros dentro del triángulo (por ejemplo (5,2), (8, 1), etc.).</li>
+    <li>Cualquier punto fuera del triángulo viola al menos una restricción (falta material o mano de obra).</li>
+</ul>
+     
     </main>
 
     <footer>
