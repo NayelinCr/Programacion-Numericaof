@@ -1,356 +1,646 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unidad 2 · Actividad 03</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Unidad 2 · Actividad 03: Comparación OLS vs. Gradiente Descendente</title>
 
-  <!-- Fuentes modernas -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
-      color: #f0e6ff;
-      display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
+            color: #f0e6ff;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-    /* ===== SIDEBAR ===== */
-    .sidebar {
-      width: 250px;
-      background: rgba(45, 30, 70, 0.95);
-      backdrop-filter: blur(8px);
-      padding: 2rem 1rem;
-      box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease;
-    }
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 250px;
+            background: rgba(45, 30, 70, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 2rem 1rem;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
 
-    .sidebar h2 {
-      font-size: 1.2rem;
-      color: #e3ccff;
-      text-align: center;
-      margin-bottom: 2rem;
-      letter-spacing: 0.8px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    }
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: #e3ccff;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.8px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        }
 
-    .sidebar a {
-      color: #cdb4ff;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.6rem 1rem;
-      margin: 0.3rem 0;
-      border-radius: 8px;
-      transition: all 0.3s;
-      display: block;
-    }
+        .sidebar a {
+            color: #cdb4ff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1rem;
+            margin: 0.3rem 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: block;
+        }
 
-    .sidebar a:hover {
-      background: #b388ff;
-      color: #2a2037;
-      transform: translateX(4px);
-    }
+        .sidebar a:hover {
+            background: #b388ff;
+            color: #2a2037;
+            transform: translateX(4px);
+        }
 
-    .sidebar a.active {
-      background: #b388ff;
-      color: #2a2037;
-    }
+        .sidebar a.active {
+            background: #b388ff;
+            color: #2a2037;
+        }
 
-    .toggle-btn {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #b388ff;
-      color: #2a2037;
-      border: none;
-      padding: 0.6rem 0.9rem;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-    }
+        .toggle-btn {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: #b388ff;
+            color: #2a2037;
+            border: none;
+            padding: 0.6rem 0.9rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+        }
 
-    .sidebar.hide {
-      transform: translateX(-100%);
-    }
+        .sidebar.hide {
+            transform: translateX(-100%);
+        }
 
-    /* ===== CONTENIDO PRINCIPAL ===== */
-    .content {
-      flex: 1;
-      margin-left: 250px;
-      padding: 2rem;
-      transition: margin-left 0.3s;
-    }
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem;
+            transition: margin-left 0.3s;
+        }
 
-    .content.full {
-      margin-left: 0;
-    }
+        .content.full {
+            margin-left: 0;
+        }
 
-    header {
-      background: linear-gradient(135deg, #4a2e68, #7e57c2);
-      color: white;
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.45);
-      position: relative;
-    }
+        header {
+            background: linear-gradient(135deg, #4a2e68, #7e57c2);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+            position: relative;
+        }
 
-    .estado {
-      position: absolute;
-      top: 1.2rem;
-      right: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      background: rgba(61, 43, 86, 0.9);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-      backdrop-filter: blur(5px);
-    }
+        .estado {
+            position: absolute;
+            top: 1.2rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+            background: rgba(61, 43, 86, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
 
-    .burbuja {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #b388ff;
-      box-shadow: 0 0 6px #b388ff;
-    }
+        .burbuja {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #b388ff;
+            box-shadow: 0 0 6px #b388ff;
+        }
 
-    main {
-      background: rgba(56, 40, 78, 0.95);
-      padding: 2.2rem;
-      margin-top: 2rem;
-      border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      backdrop-filter: blur(3px);
-      transition: transform 0.2s ease;
-    }
+        main {
+            background: rgba(56, 40, 78, 0.95);
+            padding: 2.2rem;
+            margin-top: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
+            transition: transform 0.2s ease;
+        }
 
-    main:hover {
-      transform: scale(1.01);
-    }
+        main:hover {
+            transform: scale(1.01);
+        }
 
-    h1 {
-      margin: 0.4rem 0 0;
-      font-size: 1.9rem;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
+        h1 {
+            margin: 0.4rem 0 0;
+            font-size: 1.9rem;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
 
-    h2 {
-      color: #d7baff;
-      border-bottom: 2px solid #b388ff;
-      display: inline-block;
-      padding-bottom: 0.4rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-    }
+        h2 {
+            color: #d7baff;
+            border-bottom: 2px solid #b388ff;
+            display: inline-block;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
 
-    section {
-      margin-bottom: 2rem;
-    }
+        h3 {
+            color: #cdb4ff;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
 
-    pre {
-      background: #2f2043;
-      border-radius: 12px;
-      padding: 1rem;
-      overflow-x: auto;
-      font-family: 'Fira Code', monospace;
-      color: #e9ddff;
-      border: 1px solid #4e3872;
-      box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
-    }
+        h4 {
+            color: #cdb4ff;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
 
-    a {
-      color: #d6b6ff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
+        section {
+            margin-bottom: 2rem;
+        }
 
-    a:hover {
-      color: #f1e0ff;
-      text-decoration: underline;
-    }
+        pre {
+            background: #2f2043;
+            border-radius: 12px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            color: #e9ddff;
+            border: 1px solid #4e3872;
+            box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
+            line-height: 1.3;
+        }
 
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      padding: 1rem 0;
-      background: #3a2951;
-      color: #e5d0ff;
-      font-size: 0.9rem;
-      border-top: 1px solid #4e3872;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
-      border-radius: 10px;
-    }
-  </style>
+        a {
+            color: #d6b6ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #f1e0ff;
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem 0;
+            background: #3a2951;
+            color: #e5d0ff;
+            font-size: 0.9rem;
+            border-top: 1px solid #4e3872;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+            border-radius: 10px;
+        }
+        
+        /* Estilos para ecuaciones y captions */
+        .equation {
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 1.15rem;
+        }
+        .figure-caption {
+            font-style: italic;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #cdb4ff;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        
+        .content-header {
+            margin-top: 1rem;
+        }
+
+    </style>
+    
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+      }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 
 <body>
-  <!-- Botón Toggle -->
-  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <h2>Unidad 1</h2>
-    <a href="unidad2_01.html">Actividad 01</a>
-    <a href="unidad2_02.html">Actividad 02</a>
-    <a href="unidad2_03.html" class="active">Actividad 03</a>
-    <a href="unidad2_04.html">Actividad 04</a>
-    <a href="unidad2_05.html">Actividad 05</a>
-    <a href="unidad2_06.html">Actividad 06</a>
-    <a href="../index.html">🏠 Volver al inicio</a>
-    <a href="../unidad1/unidad1.html">➡ Ir a Unidad 1</a>
+    <aside class="sidebar" id="sidebar">
+        <h2>Unidad 1</h2>
+        <a href="unidad2_01.html">Actividad 01</a>
+        <a href="unidad2_02.html">Actividad 02</a>
+        <a href="unidad2_03.html" class="active">Actividad 03</a>
+        <a href="unidad2_04.html">Actividad 04</a>
+        <a href="unidad2_05.html">Actividad 05</a>
+        <a href="unidad2_06.html">Actividad 06</a>
+        <a href="../index.html">🏠 Volver al inicio</a>
+        <a href="../unidad1/unidad1.html">➡ Ir a Unidad 1</a>
+    </aside>
 
-  </aside>
+    <div class="content" id="content">
+        <header>
+            <h1>Actividad 03 · Comparación OLS vs. Gradiente Descendente</h1>
+            <p>16/10/2025</p>
+            <div class="estado">
+                <div class="burbuja"></div>
+                <span>Completada</span>
+            </div>
+        </header>
 
-  <!-- Contenido -->
-  <div class="content" id="content">
-    <header>
-      <h1>Actividad 03 · Graficadora de Funciones Matematicas</h1>
-      <p>06/09/2025</p>
-      <div class="estado">
-        <div class="burbuja"></div>
-        <span>Completada</span>
-      </div>
-    </header>
+        <main>
+            <section>
+                <h2>Descripción de la Actividad</h2>
+                <p>Programa en Python que permite graficar funciones lineales y restricciones dentro de un plano cartesiano textual. (Nota: El contenido del informe adjunto se centra en la comparación OLS vs. Gradiente Descendente para Regresión Lineal).</p>
+            </section>
 
-    <main>
-      <section>
-        <h2>Descripción de la Actividad</h2>
-        <p>Programa en Python que permite graficar funciones lineales y restricciones dentro de un plano cartesiano textual.</p>
-      </section>
+            <section>
+                <h2>Informe de la Actividad</h2>
+                <ul>
+                    <li>📄 <a href="#">Informe (PDF)</a></li>
+                </ul>
+            </section>
 
-      <section>
-        <h2>Desarrollo de la Actividad</h2>
-        <h3>Código en Python</h3>
-        <pre><code>class Restriccion:
-    def __init__(self, expresion):
-        """
-        La expresión debe ser una función lambda con x,y.
-        Ejemplo: Restriccion(lambda x,y: x + y <= 15)
-        """
-        self.expresion = expresion
+            <section>
+                <h2>Desarrollo de la Actividad</h2>
+                
+                <h2>1. Resumen</h2>
+                [cite_start]<p>Este informe presenta la **comparación computacional y numérica** entre dos métodos para estimar una regresión lineal simple: **Mínimos Cuadrados Ordinarios (OLS)** y **Gradiente Descendente (GD)**[cite: 24].</p>
+                [cite_start]<p>El estudio se realizó en R usando **datos simulados** (1000 observaciones) con la relación verdadera: $\text{peso} = 2.5 \times \text{talla} + \text{error}$[cite: 25]. [cite_start]Se midieron tiempos de ejecución y se compararon los coeficientes estimados[cite: 26].</p>
+                
+                <p>Resultados clave:</p>
+                <ul>
+                    [cite_start]<li>**OLS (lm):** Intercepto $\approx -1.6789$, Pendiente $\approx 2.6174$, Tiempo $\approx 0.003$ s[cite: 27].</li>
+                    [cite_start]<li>**Gradiente Descendente:** Intercepto $\approx -0.0052$, Pendiente $\approx 2.5071$, Tiempo $\approx 0.165$ s (5000 iteraciones, $\alpha=0.001$)[cite: 28].</li>
+                </ul>
+                [cite_start]<p>Conclusión breve: para este problema (1000 observaciones, 1 variable), **OLS es mucho más rápido** y entrega la solución analítica exacta[cite: 29]. [cite_start]**GD** requiere iteraciones y es más lento, aunque converge a una solución cercana[cite: 30]. [cite_start]Sin embargo, **GD escala mejor** en ciertos escenarios grandes o modelos sin solución analítica[cite: 31].</p>
+            </section>
 
-    def cumple(self, x, y):
-        return self.expresion(x, y)
+            <hr>
 
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
+                
+                <h2>2. Introducción</h2>
+                [cite_start]<p>En la asignatura de Programación Numérica se estudian técnicas para resolver problemas matemáticos de forma eficiente en computador[cite: 36]. [cite_start]Este trabajo tiene como propósito comparar dos aproximaciones para estimar una regresión lineal simple: el **método cerrado de Mínimos Cuadrados** y un **método iterativo basado en gradiente**[cite: 38]. [cite_start]La comparación se hace tanto desde el punto de vista numérico (coeficientes, error) como computacional (tiempo de ejecución)[cite: 39].</p>
 
-class FuncionLineal:
-    def __init__(self, m, b, simbolo="*"):
-        self.m = m
-        self.b = b
-        self.simbolo = simbolo
+                <h2>3. Marco Teórico</h2>
+                <h3>3.1. Introducción al cálculo numérico</h3>
+                [cite_start]<p>El cálculo numérico estudia algoritmos para aproximar soluciones de problemas matemáticos mediante operaciones finitas[cite: 42]. [cite_start]Se preocupa por la estabilidad, precisión y eficiencia de los métodos[cite: 43].</p>
 
-    def evaluar(self, x):
-        return round(self.m * x + self.b)
+                <h3>3.2. Conceptos fundamentales (error, convergencia)</h3>
+                <ul>
+                    [cite_start]<li>**Error absoluto y relativo:** medidas de la diferencia entre la solución aproximada y la verdadera[cite: 45].</li>
+                    [cite_start]<li>**Convergencia:** proceso por el cual un algoritmo iterativo se aproxima a una solución [cite: 46][cite_start]; depende del paso, la condición del problema y la tolerancia[cite: 47].</li>
+                    [cite_start]<li>**Estabilidad numérica:** cómo se amplifican los errores de redondeo en las operaciones[cite: 48].</li>
+                </ul>
 
+                <h3>3.3. Métodos directos vs iterativos</h3>
+                <ul>
+                    [cite_start]<li>**Métodos directos (Ej. OLS con ecuaciones normales):** Producen una solución en un número finito de pasos y suelen implicar operaciones matriciales completas[cite: 50].</li>
+                    [cite_start]<li>**Métodos iterativos (Ej. Gradiente Descendente):** Generan una sucesión que converge a la solución [cite: 51][cite_start]; son útiles cuando la matriz es muy grande o dispersa[cite: 52].</li>
+                </ul>
 
-class PlanoCartesiano:
-    def __init__(self, xmin=-1, xmax=20, ymin=-1, ymax=20):
-        self.xmin = xmin
-        self.xmax = xmax
-        self.ymin = ymin
-        self.ymax = ymax
+                <h3>3.4. Gradiente Descendente</h3>
+                [cite_start]<p>El Gradiente Descendente minimiza una función objetivo (por ejemplo, el error cuadrático medio) actualizando parámetros en la dirección opuesta al gradiente[cite: 54].</p>
+                <p>Para la regresión lineal con parámetros $\beta=(\beta_{0},\beta_{1})$, las actualizaciones son:</p>
+                <div class="equation">
+                    $$\beta_{0}\leftarrow\beta_{0}-\alpha\frac{\partial J}{\partial\beta_{0}}$$
+                    $$\beta_{1}\leftarrow\beta_{1}-\alpha\frac{\partial J}{\partial\beta_{1}}$$
+                </div>
+                [cite_start]<p>Donde $J$ es el MSE (Error Cuadrático Medio) y $\alpha$ es la tasa de aprendizaje[cite: 59]. [cite_start]La elección de $\alpha$ y del número de iteraciones es crítica para la convergencia[cite: 60].</p>
+            </section>
 
-    def graficar(self, funciones, restricciones=[]):
-        for y in range(self.ymax, self.ymin - 1, -1):
-            linea = ""
-            for x in range(self.xmin, self.xmax + 1):
-                simbolo = " "
-                if restricciones and all(r.cumple(x, y) for r in restricciones):
-                    simbolo = "."
-                for f in funciones:
-                    if f.evaluar(x) == y:
-                        simbolo = f.simbolo
-                if x == 0 and y == 0:
-                    simbolo = "O"
-                elif x == 0 and simbolo == " ":
-                    simbolo = "|"
-                elif y == 0 and simbolo == " ":
-                    simbolo = "-"
-                linea += simbolo
-            print(linea)
+            <hr>
 
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
 
-def parsear_funcion(expr):
-    expr = expr.replace(" ", "").lower()
-    if expr.startswith("y="):
-        expr = expr[2:]
-    if "x" in expr:
-        partes = expr.split("x")
-        m_str = partes[0]
-        b_str = partes[1] if len(partes) > 1 else "0"
-        if m_str in ["", "+"]:
-            m = 1
-        elif m_str == "-":
-            m = -1
-        else:
-            m = float(m_str)
-        b = float(b_str) if b_str != "" else 0
-    else:
-        m = 0
-        b = float(expr)
-    return m, b
+                <h3>3.5. Mínimos Cuadrados (OLS) y solución analítica</h3>
+                [cite_start]<p>Para regresión lineal simple, OLS (Ordinary Least Squares) obtiene la **solución cerrada** resolviendo $(X^{\prime}X)\beta=X^{\prime}Y$[cite: 62], lo que conduce a la fórmula:</p>
+                <div class="equation">
+                    $$\beta=(X^{\prime}X)^{-1}X^{\prime}Y$$
+                </div>
+                [cite_start]<p>Este enfoque es exacto (en aritmética real) y muy eficiente para problemas de dimensión moderada[cite: 64].</p>
 
+                <h2>4. Objetivos</h2>
+                <h3>4.1. Objetivo General</h3>
+                [cite_start]<p>Comparar, desde la perspectiva de Programación Numérica, el rendimiento computacional y la precisión de OLS frente a Gradiente Descendente al estimar una regresión lineal simple[cite: 67].</p>
 
-funciones = []
-restricciones = []
+                <h3>4.2. Objetivos Específicos</h3>
+                <ul>
+                    [cite_start]<li>Implementar ambos métodos en R usando datos simulados[cite: 69].</li>
+                    [cite_start]<li>Medir tiempos de ejecución usando `system.time()` y `profvis()`[cite: 70].</li>
+                    [cite_start]<li>Comparar coeficientes estimados y errores (MSE)[cite: 71].</li>
+                    [cite_start]<li>Redactar conclusiones sobre cuándo elegir cada método[cite: 72].</li>
+                </ul>
 
-n = int(input("¿Cuántas funciones quieres graficar? "))
-for i in range(n):
-    f_str = input(f"Ingrese función {i+1} en forma y=mx+b: ")
-    m, b = parsear_funcion(f_str)
-    funciones.append(FuncionLineal(m, b, simbolo="*"))
+                <h2>5. Metodología</h2>
+                <h3>5.1. Tipo de estudio</h3>
+                [cite_start]<p>Estudio experimental y comparativo mediante simulación numérica[cite: 75].</p>
 
-m = int(input("¿Cuántas restricciones quieres ingresar? "))
-print("Usa 'x' y 'y'. Ejemplo: x+y<=15, x>=5, y>=0")
-for i in range(m):
-    expr = input(f"Ingrese restricción {i+1}: ")
-    try:
-        restricciones.append(Restriccion(eval(f"lambda x,y: {expr}")))
-    except:
-        print(f"Restricción inválida: {expr}. Usa operadores como <=, >=, ==, <, >")
-        exit()
+                <h3>5.2. Fuente de datos</h3>
+                [cite_start]<p>Datos simulados en R: $talla\sim N(15,1,5)$, $peso=2,5\times talla+N(0,2)$; se usaron **1000 observaciones**[cite: 77].</p>
 
-plano = PlanoCartesiano()
-plano.graficar(funciones, restricciones)
-</code></pre>
-      </section>
+                <h3>5.3. Población y variable de estudio</h3>
+                [cite_start]<p>Población simulada representativa de la relación entre "talla" (predictora) y "peso" (respuesta)[cite: 79].</p>
+            </section>
 
-      <section>
-        <h2>Informe de la Actividad</h2>
-        <ul>
-          <li>📄 <a href="#">Informe (PDF)</a></li>
-        </ul>
-      </section>
-    </main>
+            <hr>
 
-    <footer>
-      © 2025 Nayelin · Portafolio Programación Numérica 💜
-    </footer>
-  </div>
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
 
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      sidebar.classList.toggle('hide');
-      content.classList.toggle('full');
+                <h3>5.4. Implementación computacional</h3>
+                [cite_start]<p>Se implementaron los algoritmos en R. Para OLS se utilizó la función nativa `lm()`[cite: 83]. [cite_start]Para GD se implementó el bucle iterativo con **5000 iteraciones** y tasa de aprendizaje $\alpha=0.001$[cite: 84].</p>
+
+                <h3>5.5. Procesamiento y métricas de comparación</h3>
+                <ul>
+                    <li>**Tiempos:** `system.time()` para tiempo total; [cite_start]`profvis()` para análisis por línea (opcional)[cite: 86].</li>
+                    [cite_start]<li>**Precisión:** Coeficientes estimados y MSE final[cite: 87].</li>
+                    [cite_start]<li>**Visual:** Gráficos de dispersión con la recta ajustada[cite: 88].</li>
+                </ul>
+
+                <h2>6. Experimentos y Resultados</h2>
+                <h3>6.1. Preparación de datos</h3>
+                [cite_start]<p>Se generaron **1000 observaciones** con `set.seed (123)` para garantizar la reproducibilidad de los resultados[cite: 91]. [cite_start]La relación verdadera simulada fue $peso = 2.5 \times talla + error$[cite: 92].</p>
+
+                <h3>6.2. Ejecución: Mínimos Cuadrados Ordinarios (OLS)</h3>
+                [cite_start]<p>Se utilizó la función nativa `lm()` de R para la solución analítica de OLS[cite: 95].</p>
+                <div class="code-block">
+                    <p><em>Listing 1: Código de Ejecución OLS (Resumen)</em></p>
+                    <pre><code>set.seed(123)
+talla <- rnorm(1000, 15, 1.5)
+peso <- 2.5 * talla + rnorm(1000, 0, 2)
+datos <- data.frame(talla, peso)
+
+tiempo_ols <- system.time({
+    modelo_ols <- lm(peso ~ talla, data = datos)
+})
+
+# Resultados
+coef(modelo_ols) # Intercepto: -1.6789
+                 # Pendiente: 2.6174
+# Tiempo: 0.003 s</code></pre>
+                </div>
+                [cite_start]<p><strong>Resultados:</strong> Intercepto: $-1.6789$, Pendiente: $2.6174$, Tiempo: $0.003$ s[cite: 27].</p>
+
+                <h3>6.3. Ejecución: Gradiente Descendente (GD)</h3>
+                [cite_start]<p>Se implementó el algoritmo de GD de forma manual, estableciendo una tasa de aprendizaje $\alpha=0.001$ y 5000 iteraciones[cite: 115].</p>
+                <div class="code-block">
+                    <p><em>Listing 2: Código de Ejecución Gradiente Descendente (Resumen)</em></p>
+                    <pre><code>set.seed(123)
+talla <- rnorm(1000, 15, 1.5)
+peso <- 2.5 * talla + rnorm(1000, 0, 2)
+n <- length(talla)
+
+beta0 <- 0
+beta1 <- 0
+alpha <- 0.001
+iteraciones <- 5000
+
+tiempo_gd <- system.time({
+    for(i in 1:iteraciones) {
+        y_pred <- beta0 + beta1 * talla
+        error <- peso - y_pred
+
+        # Gradientes
+        grad_b0 <- (-2/n) * sum(error)
+        grad_b1 <- (-2/n) * sum(talla * error)
+
+        # Actualización
+        beta0 <- beta0 - alpha * grad_b0
+        beta1 <- beta1 - alpha * grad_b1
     }
-  </script>
+})
+
+# Resultados
+# Intercepto: -0.0052
+# Pendiente: 2.5071
+# Tiempo: 0.165 s</code></pre>
+                </div>
+                [cite_start]<p><strong>Resultados:</strong> Intercepto: $-0.0052$, Pendiente: $2.5071$, Tiempo: $0.165$ s[cite: 28].</p>
+            </section>
+
+            <hr>
+
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
+
+                <h3>6.4. Comparación de tiempos y coeficientes</h3>
+                <ul>
+                    <li>**Tiempos:** $\text{OLS}=0.003$ s; $\text{GD}=0.165$ s. [cite_start]**OLS fue aproximadamente 55 veces más rápido** en este experimento de dimensión moderada[cite: 167].</li>
+                    [cite_start]<li>**Coeficientes:** Ambas estimaciones están cercanas al valor verdadero $(\beta_{1}=2.5)$[cite: 168]; [cite_start]OLS resultó ligeramente más cercano a la solución analítica exacta en este caso[cite: 169].</li>
+                    [cite_start]<li>**MSE final (aprox):** El MSE de GD mostró un descenso lento pero estable a lo largo de las 5000 iteraciones[cite: 171].</li>
+                </ul>
+
+                <h2>7. Resultados Globales y Estimaciones</h2>
+                [cite_start]<p>De acuerdo con los experimentos realizados[cite: 173]:</p>
+                <ul>
+                    [cite_start]<li>El método **OLS** resuelve el problema de forma **directa y eficiente** cuando el número de observaciones y variables es moderado[cite: 174].</li>
+                    [cite_start]<li>El **Gradiente Descendente** es útil para problemas donde la solución analítica es costosa o inexistente [cite: 175][cite_start]; su tiempo depende fuertemente del número de iteraciones y del tamaño del *dataset*[cite: 176, 179].</li>
+                    <li>Se recomienda **OLS para modelos lineales sencillos**; [cite_start]**GD** (o variantes como SGD) para **grandes volúmenes de datos o modelos complejos**[cite: 180].</li>
+                </ul>
+            </section>
+
+            <hr>
+
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
+
+                <h2>8. Conclusiones</h2>
+                <ul>
+                    [cite_start]<li>Para el caso estudiado (1000 observaciones, 1 predictor), **OLS fue más eficiente y preciso**[cite: 182].</li>
+                    [cite_start]<li>**Gradiente Descendente** requiere ajuste de hiperparámetros ($\alpha$, número de iteraciones) y suele ser más lento en problemas pequeños, pero tiene ventajas en **escalabilidad y en problemas sin solución cerrada**[cite: 183].</li>
+                    [cite_start]<li>En Programación Numérica es clave elegir el método que balancee precisión, costo computacional y estabilidad numérica[cite: 184].</li>
+                </ul>
+
+                <h2>9. Bibliografía</h2>
+                <ol>
+                    <li>Burden, R. L., & Faires, J. D. (2011). [cite_start]*Numerical Analysis.* Brooks/Cole[cite: 186].</li>
+                    <li>Nocedal, J., & Wright, S. (2006). [cite_start]*Numerical Optimization.* Springer[cite: 187].</li>
+                    <li>James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). [cite_start]*An Introduction to Statistical Learning.* Springer[cite: 188].</li>
+                    <li>R Core Team (2024). R: A language and environment for statistical computing. [cite_start]R Foundation for Statistical Computing, Vienna, Austria[cite: 189].</li>
+                </ol>
+            </section>
+
+            <hr>
+
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
+
+                <h2>10. Anexos</h2>
+                <h3>10.1. Código fuente (R) completo</h3>
+                <p>Se incluyen a continuación los scripts utilizados. [cite_start]Copiar y ejecutar en RStudio o una consola de R para reproducir los resultados y gráficos presentados[cite: 192, 193].</p>
+
+                <h4>OLS (Mínimos Cuadrados Ordinarios)</h4>
+                <div class="code-block">
+                    <p><em>Listing 3: Script Completo OLS</em></p>
+                    <pre><code># OLS - 1000 observaciones
+set.seed(123)
+talla <- rnorm(1000, 15, 1.5)
+peso <- 2.5 * talla + rnorm(1000, 0, 2)
+datos <- data.frame(talla, peso)
+
+tiempo_ols <- system.time({
+    modelo_ols <- lm(peso ~ talla, data = datos)
+})
+
+cat("-- RESULTADOS OLS\n")
+cat("Intercepto (β0):", coef(modelo_ols)[1], "\n")
+cat("Pendiente (β1):", coef(modelo_ols)[2], "\n")
+cat("Tiempo total:", tiempo_ols["elapsed"], "segundos\n")
+summary(modelo_ols)
+
+plot(datos$talla, datos$peso, pch = 19, col = "steelblue",
+      main = "Relación entre Peso y Talla (OLS)",
+      xlab = "Talla", ylab = "Peso")
+abline(modelo_ols, col = "red", lwd = 2)</code></pre>
+                </div>
+            </section>
+
+            <hr>
+
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
+                <h3>10.2. Salida de Consola y Gráficos (OLS)</h3>
+                <p>Gráfico de la regresión lineal OLS sobre los datos simulados.</p>
+                [cite_start]<p class="figure-caption">Figura 1: Captura de pantalla de la salida de la consola para el algoritmo de Mínimos Cuadrados[cite: 231].</p>
+
+                <h4>Gradiente Descendente (Gradient Descent)</h4>
+                <div class="code-block">
+                    <p><em>Listing 4: Script Completo Gradiente Descendente</em></p>
+                    <pre><code># Gradient Descent 1000 observaciones
+set.seed(123)
+talla <- rnorm(1000, 15, 1.5)
+peso <- 2.5 * talla + rnorm(1000, 0, 2)
+n <- length(talla)
+
+beta0 <- 0
+beta1 <- 0
+alpha <- 0.001
+iteraciones <- 5000
+
+# Función de Costo (MSE)
+costo <- function(b0, b1, x, y) mean((y - (b0 + b1 * x))^2)
+
+tiempo_gd <- system.time({
+    for (i in 1:iteraciones) {
+        y_pred <- beta0 + beta1 * talla
+        error <- peso - y_pred
+
+        # Gradientes
+        grad_b0 <- (-2 / n) * sum(error)
+        grad_b1 <- (-2 / n) * sum(talla * error)
+
+        # Actualización
+        beta0 <- beta0 - alpha * grad_b0
+        beta1 <- beta1 - alpha * grad_b1
+
+        if (i %% 1000 == 0) cat("Iteración:", i, " Costo:",
+                                costo(beta0, beta1, talla, peso), "\n")
+    }
+})
+
+cat("-- RESULTADOS GRADIENT DESCENT\n")
+cat("Intercepto (β0):", beta0, "\n")
+cat("Pendiente (β1):", beta1, "\n")
+cat("Tiempo total:", tiempo_gd["elapsed"], "segundos\n")
+
+plot(talla, peso, pch = 19, col = "darkgreen",
+      main = "Relación entre Peso y Talla (Gradient Descent)",
+      xlab = "Talla", ylab = "Peso")
+abline(a = beta0, b = beta1, col = "yellow", lwd = 2)</code></pre>
+                </div>
+            </section>
+            
+            <hr>
+
+            <section>
+                <div class="content-header">
+                    <p>Universidad Nacional del Altiplano de Puno</p>
+                    <p>«Año de la recuperación y consolidación de la economía peruana»</p>
+                </div>
+
+                <h3>10.3. Salida de Consola y Gráficos (GD)</h3>
+                <p>Gráfico de la regresión lineal estimada por Gradiente Descendente.</p>
+                [cite_start]<p class="figure-caption">Figura 2: Captura de pantalla de la salida de la consola para el algoritmo de Gradiente Descendente en R[cite: 306].</p>
+            </section>
+        </main>
+
+        <footer>
+            © 2025 Nayelin · Portafolio Programación Numérica 💜
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+            sidebar.classList.toggle('hide');
+            content.classList.toggle('full');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<script>
+  // Elimina todas las etiquetas [cite_start] y [cite: ...] al cargar la página
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.innerHTML = document.body.innerHTML
+      .replace(/\[cite_start\]/g, "")
+      .replace(/\[cite:\s*\d+\]/g, "");
+  });
+</script>
+
 </body>
 </html>
