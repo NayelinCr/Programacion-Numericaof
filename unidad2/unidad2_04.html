@@ -220,8 +220,8 @@
   <!-- Contenido -->
   <div class="content" id="content">
     <header>
-      <h1>Actividad 04 · Resolución de Ejercicios</h1>
-      <p>11/09/2025</p>
+      <h1>Actividad 04 · Aplicación de Metodos Iterativos [Ejercicio Supervivencia]</h1>
+      <p>29/10/2025</p>
       <div class="estado">
         <div class="burbuja"></div>
         <span>Completada</span>
@@ -231,13 +231,146 @@
     <main>
       <section>
         <h2> Descripción de la Actividad </h2>
-        <p>Resolver los ejercicios planteados en la unidad 1 aplicando conceptos de programación numérica.</p>
+        <p> Programar en lenguaje R un codig para dar solucion al ejercicio de supervivencia </p>
       </section>
 
+    <section>
+      <h2> Desarrollo de la actividad </h2>
+      <br>
+        <h2>Introduccion</h2>
+        <p> La presente actividad corresponde a la simulación de una dinámica grupal realizada durante la clase de Programación Numérica. El objetivo principal es aplicar un método iterativo de simulación que modele un sistema de combinaciones aleatorias de caramelos, siguiendo reglas definidas por el docente, en un
+contexto denominado “Ejercicio de Supervivencia”.
+La dinámica consiste en la formación de dos grupos de nueve integrantes, donde
+a cada participante se le asignan al azar dos caramelos del tipo A, B o C. El grupo
+que logre que todos sus miembros obtengan un chupetín gana. El intercambio o
+combinación de caramelos sigue reglas específicas, las cuales serán modeladas
+mediante un algoritmo iterativo en R.</p>
+          
+      
+      
+      <h2>Planteamiento del Problema</h2>
+        
+        <ul>
+        <li>Se tienen dos grupos de 9 participantes. </li>
+        <li>Cada participante recibe dos caramelos aleatorios (A, B o C). </li>
+        <li>Las reglas de combinación son las siguientes:
+          <ol>
+            <li>A + B + C = 1 chupetín (y viceversa). </li>
+            <li> (A + B + C) + (A + B + C) = 2 chupetines + 1 caramelo aleatorio. </li>
+            
+          </ol>
+        </li>
+
+      </ul>
+      <p>El objetivo de la simulación es determinar si un grupo logra que todos sus integrantes obtengan al menos un chupetín, y cuántas iteraciones se requieren en
+promedio para lograrlo. </p> 
+        
+      <h2> Metodología </h2>
+      <p> El proceso se simula utilizando un enfoque iterativo, donde:</p>
+      <ol>
+      <li>Se inicializan aleatoriamente los caramelos de cada participante.</li>
+      <li> En cada iteración, se revisa si alguna combinación A+B+C puede transformarse en chupetín.</li>
+      <li> Se repite el proceso hasta que todos los integrantes del grupo tengan al menos un chupetín o hasta alcanzar un número máximo de iteraciones.</li>
+      </ol>
+      <h2> Codigo en R </h2>
+        <p> A continuación, se muestra el código R que implementa la simulación descrita:</p>
+      <pre>
+        <code>
+          # Simulaci n de la din mica de supervivencia
+          set.seed(123) # Para reproducibilidad
+          # Funcion para generar un grupo de jugadores
+          generar_grupo <- function(n) {
+          caramelos <- sample(c("A", "B", "C"), size = 2 * n, replace = TRUE)
+          matrix(caramelos, ncol = 2, byrow = TRUE)
+           }
+          
+           # F u n c i n para verificar si un jugador puede formar un chupet n
+           tiene_chupetin <- function(caramelos_jugador) {
+           all(c("A", "B", "C") %in% caramelos_jugador)
+           }
+          
+           # F u n c i n principal de simulaci n
+           simular_dinamica <- function(n = 9, max_iter = 1000) {
+          grupo <- generar_grupo(n)
+           chupetines <- rep(FALSE, n)
+           iter <- 0
+          
+           while(!all(chupetines) && iter < max_iter) {
+           iter <- iter + 1
+           for (i in 1:n) {
+           # Combinar aleatoriamente caramelos con otros jugadores
+           jugador <- grupo[i, ]
+           otro <- grupo[sample(1:n, 1), ]
+           combinacion <- unique(c(jugador, otro))
+          
+           # Aplicar la regla A+B+C -> chupet n
+           if (all(c("A", "B", "C") %in% combinacion)) {
+           chupetines[i] <- TRUE
+           }
+           }
+           }
+          
+          return(list(iteraciones = iter, gano = all(chupetines)))
+          }
+          
+           # Ejecutar simulaci n para dos grupos
+           grupo1 <- simular_dinamica()
+           grupo2 <- simular_dinamica()
+          
+           print(grupo1)
+           print(grupo2)
+        
+        </code>
+      </pre>
+    
+    
+      <h2> Resultados </h2>
+      <p>La simulación permite obtener los siguientes resultados esperados: </p>
+      <ol>
+        <li> Cantidad promedio de iteraciones necesarias para que un grupo logre que
+todos sus integrantes obtengan un chupetín.</li>
+        <li> Probabilidad de éxito de cada grupo tras múltiples repeticiones del experimento </li>
+      </ol>
+    <h4> Ejemplo de Ejeccuion </h4>:
+      <pre> 
+      <code>
+    set.seed(321)
+    resultados <- replicate(100, simular_dinamica()$gano)
+    mean(resultados)
+    # Resultado aproximado: 0.47
+       
+      </code>
+      </pre>
+<p>Esto indica que, bajo las condiciones establecidas, existe una probabilidad cercana al 47 % de que un grupo logre completar la condición de “supervivencia”. </p>
+
+      <h2>  Conclusiones </h2>
+      <ol>
+        <li>La dinámica de combinación de caramelos puede ser modelada exitosamente mediante un proceso iterativo en R.</li>
+        <li>Este ejercicio demuestra el poder de la simulación como herramienta para
+analizar problemas con alta aleatoriedad. </li>
+        <li> Se observa que la probabilidad de éxito depende fuertemente de la aleatoriedad inicial de los caramelos y de la interacción entre jugadores.</li>
+      </ol>    
+
+
+        <h2>Referencias</h2>
+            <ul>
+                <li>
+                    Gilat, A. (2021). 
+                    <cite>Numerical Methods for Engineers and Scientists</cite>. 
+                    Wiley.
+                </li>
+                <li>
+                    Spiegel, M. R. (2017). 
+                    <cite>Estadística y Métodos Numéricos</cite>. 
+                    McGraw-Hill.
+                </li>
+            </ul>
+
+    
       <section>
         <h2>Informe de la Actividad </h2>
         <ul>
-          <li>📄 <a href="https://drive.google.com/file/d/1veaiFxUiYwAatQy58BZDauvwVGSi8UL8/view?usp=sharing" target="_blank">Informe (PDF)</a></li>
+          <li>📄 <a href="https://drive.google.com/file/d/1dxIvP4n8iiP-5JMsOKOMx02b82uXHyYk/view?usp=drive_link" target="_blank">Informe (PDF)</a></li>
         </ul>
       </section>
     </main>
