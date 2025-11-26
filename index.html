@@ -1,366 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portafolio – Programación Numérica – Nayelin Cutipa</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portafolio – Programación Numérica · Nayelin Cutipa</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* ===== BASE GENERAL ===== */
-    * { box-sizing: border-box; transition: all 0.3s ease-in-out; }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top, #2a2037, #1a1525 70%);
-      color: #f3e8ff;
-      line-height: 1.7;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3 { margin: 0; font-weight: 700; }
-    a { text-decoration: none; color: inherit; }
-
-    /* ===== HERO ===== */
-    .hero {
-      position: relative;
-      height: 75vh;
-      min-height: 480px;
-      background: linear-gradient(135deg, rgba(58,41,81,0.85), rgba(90,62,145,0.85)),
-                  url("https://img.freepik.com/fotos-premium/espacio-trabajo-escritorio-femenino-tulipanes-teclado-lentes-agenda-clips-dorados-violeta_1429-5209.jpg?semt=ais_hybrid&w=740&q=80")
-                  center/cover no-repeat fixed;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(30,27,43,0.6);
-      backdrop-filter: blur(5px);
-      z-index: 1;
-    }
-
-    .hero .content {
-      position: relative;
-      z-index: 2;
-      text-shadow: 0 3px 12px rgba(0,0,0,0.5);
-      animation: fadeInUp 1.2s ease-out;
-    }
-
-    .hero h1 {
-      font-size: 4rem;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: 2px;
-      margin-bottom: 0.5rem;
-      animation: fadeInText 2s ease-in-out;
-    }
-
-    @keyframes fadeInText {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero h2 {
-      font-size: 1.2rem;
-      color: #e2d5ff;
-      font-weight: 500;
-    }
-
-    /* ===== LOGOS ===== */
-    .logos {
-      position: absolute;
-      top: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 40px;
-      z-index: 3;
-    }
-
-    .logos a img {
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      background-color: rgba(255,255,255,0.25);
-      box-shadow: 0 0 15px rgba(255,255,255,0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .logos a img:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 30px rgba(179,136,255,0.7);
-    }
-
-    /* ===== BURBUJAS INFO ===== */
-    .info-burbujas {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      z-index: 3;
-    }
-
-    .burbuja {
-      background: rgba(61,43,86,0.9);
-      color: #e5d0ff;
-      padding: 12px 20px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      transition: all 0.3s ease;
-      animation: bubbleUp 3s ease-in-out infinite alternate;
-    }
-
-    .burbuja:hover {
-      background: #b388ff;
-      color: #2a2037;
-      transform: translateY(-4px);
-      box-shadow: 0 0 20px #b388ff;
-    }
-
-    @keyframes bubbleUp {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
-    }
-
-    /* ===== SECCIONES ===== */
-    section {
-      display: flex;
-      justify-content: center;
-      padding: 3rem 1rem;
-    }
-
-    .burbuja-grande {
-      width: 100%;
-      max-width: 950px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 2.5rem 3rem;
-      color: #e5d0ff;
-      box-shadow: 0 10px 35px rgba(179,136,255,0.15);
-      backdrop-filter: blur(8px);
-      line-height: 1.8;
-      animation: fadeInUp 1s ease;
-    }
-
-    .burbuja-grande h3 {
-      color: #d5b4ff;
-      font-size: 1.3rem;
-      margin-bottom: 0.6rem;
-      border-left: 4px solid #b388ff;
-      padding-left: 10px;
-    }
-
-    .burbuja-grande p {
-      margin: 0.8rem 0;
-      text-align: justify;
-      font-size: 1rem;
-    }
-
-    /* ===== UNIDADES ===== */
-    .unidades {
-      flex-direction: column;
-      align-items: center;
-      background: #1e1b2b;
-    }
-
-    .burbuja-unidades {
-      width: 100%;
-      max-width: 950px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 2.5rem 3rem;
-      text-align: center;
-      box-shadow: 0 10px 35px rgba(179,136,255,0.2);
-      backdrop-filter: blur(8px);
-    }
-
-    .burbuja-unidades h3 {
-      color: #d5b4ff;
-      font-size: 1.3rem;
-      border-left: 4px solid #b388ff;
-      padding-left: 10px;
-      display: inline-block;
-      margin-bottom: 0.8rem;
-    }
-
-    .burbuja-unidades p {
-      color: #e5d0ff;
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .unidades-botones {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    /* ===== BOTONES COMO BURBUJAS (GRANDES) ===== */
-    .unidades-botones .unidad-boton {
-      display: inline-block;
-      background: rgba(61,43,86,0.9);
-      color: #e5d0ff;
-      padding: 18px 28px;
-      border-radius: 999px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      min-width: 180px;
-      text-align: center;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
-      transition: all 0.3s ease;
-      animation: bubbleUp 3s ease-in-out infinite alternate;
-    }
-
-    .unidades-botones .unidad-boton:hover {
-      background: #b388ff;
-      color: #2a2037;
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 0 25px #b388ff;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #3a2951;
-      color: #e5d0ff;
-      text-align: center;
-      padding: 1.5rem 0;
-      font-size: 0.95rem;
-      border-top: 1px solid #4e3872;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-    }
-
-    /* ===== BOTÓN ARRIBA ===== */
-    #btnArriba {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 14px;
-      background-color: #4a2e68;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      display: none;
-      z-index: 50;
-    }
-
-    #btnArriba:hover {
-      background-color: #b388ff;
-      color: #2a2037;
-      transform: translateY(-3px);
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.8rem; }
-      .burbuja-grande, .burbuja-unidades { padding: 2rem; }
-      .unidades-botones .unidad-boton { padding: 16px 24px; font-size: 1rem; min-width: 160px; }
-    }
-
-    @media (max-width: 480px) {
-      .hero h1 { font-size: 2rem; }
-      .hero h2 { font-size: 1rem; }
-      .unidades-botones { flex-direction: column; gap: 16px; }
-      .unidades-botones .unidad-boton { width: 100%; max-width: 300px; padding: 16px 24px; font-size: 1rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="content">
-      <h1>PROGRAMACIÓN NUMÉRICA</h1>
-      <h2>Portafolio de Nayelin Brisbany Cutipa Ramos</h2>
-    </div>
-
-    <!-- LOGOS -->
-    <div class="logos">
-      <a href="https://portal.unap.edu.pe/" target="_blank" title="Universidad Nacional del Altiplano">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Logo_UNAP.png/250px-Logo_UNAP.png" alt="Logo UNAP">
-      </a>
-      <a href="https://finesi.edu.pe/v1/" target="_blank" title="Facultad de Ingeniería Estadística e Informática">
-        <img src="https://www.odinlaboratory.com/frontend/images/FinesiLogo.png" alt="Logo Finesi">
-      </a>
-    </div>
-
-    <!-- BURBUJAS INFO -->
-    <div class="info-burbujas">
-      <div class="burbuja">👩‍🏫 Docente: Ing. Torres Cruz Fred</div>
-      <div class="burbuja">👩‍🎓 Alumna: Cutipa Ramos Nayelin Brisbany</div>
-      <div class="burbuja">📘 Curso: Programación Numérica</div>
-      <div class="burbuja">📅 Semestre: IV - 2025-II</div>
-      <a href="https://portal.unap.edu.pe/" target="_blank" class="burbuja">🏛️ Universidad Nacional del Altiplano</a>
-      <a href="https://finesi.edu.pe/v1/" target="_blank" class="burbuja">🏫 Facultad: Ingeniería Estadística e Informática</a>
+  <!-- NAVBAR -->
+  <header>
+    <div class="navbar">
+      <h1 class="logo">🌸 Portafolio Numérico</h1>
+      <ul class="nav-links">
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#unidades">Unidades</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#sobre">Sobre mí</a></li>
+      </ul>
     </div>
   </header>
 
-  <!-- SOBRE EL CURSO -->
-  <section>
-    <div class="burbuja-grande">
-      <h3>💻 Sobre el Curso</h3>
-      <p>Este portafolio Académico documenta el aprendizaje progresivo y las implementaciones desarrolladas en el curso de <strong>Programación Numérica</strong>, centrado en el uso de algoritmos computacionales para resolver problemas matemáticos complejos.</p>
-    </div>
-  </section>
+  <!-- HERO PRINCIPAL -->
+  <section id="hero" class="hero">
+    <div class="overlay"></div>
+    <div class="content">
+      <h2 style="font-size: 2.7rem; font-weight:700; margin-bottom:10px;">
+        PORTAFOLIO DE PROGRAMACIÓN NUMÉRICA
+      </h2>
+      <p style="font-size:1.2rem; opacity:0.9;">
+        Universidad Nacional del Altiplano · Ingeniería Estadística e Informática · 2025
+      </p>
 
-  <!-- PROPÓSITO -->
-  <section>
-    <div class="burbuja-grande">
-      <h3> Propósito</h3>
-      <p>El propósito de este repositorio digital es demostrar la capacidad de aplicar principios matemáticos, análisis numérico y programación estructurada en la resolución de problemas de ingeniería, consolidando competencias técnicas y analíticas en C++ y Python.</p>
-    </div>
-  </section>
-
-  <!-- UNIDADES -->
-  <section class="unidades">
-    <div class="burbuja-unidades">
-      <h3>📚 Unidades y Temas</h3>
-      <p>Sección destinada a las evidencias prácticas, proyectos y análisis realizados en cada unidad temática del curso.</p>
-      <div class="unidades-botones">
-        <a href="unidad1/unidad1.html" class="unidad-boton">UNIDAD 1</a>
-        <a href="unidad2/unidad2.html" class="unidad-boton">UNIDAD 2</a>
+      <div class="buttons" style="margin-top:30px;">
+        <a class="btn" href="#unidades">📚 Ver Unidades</a>
+        <a class="btn" href="#proyectos">💻 Proyectos</a>
+        <a class="btn" href="#sobre">👤 Sobre mí</a>
       </div>
     </div>
   </section>
 
+  <!-- SECCIÓN ¿QUÉ ES ESTE PORTAFOLIO? -->
+  <section class="menu fade-up" id="sobre" style="padding-top:120px;">
+    <h2>¿Qué encontrarás aquí?</h2>
+    <p style="max-width:750px; margin:0 auto; font-size:1.1rem;">
+      Este portafolio reúne el desarrollo completo de los temas, actividades y proyectos
+      trabajados durante el curso de <strong>Programación Numérica</strong>. Incluye código,
+      informes académicos, métodos iterativos, optimización, análisis de resultados y
+      aplicaciones reales desde la perspectiva de la Ingeniería Estadística e Informática.
+    </p>
+  </section>
+
+  <!-- SECCIÓN DE UNIDADES EN TARJETAS -->
+  <section id="unidades" class="menu fade-up">
+    <h2>Unidades Académicas</h2>
+    <ul>
+      <li><a href="unidad1/unidad1.html">📦 Unidad 1 · Fundamentos de Programación Numérica</a></li>
+      <li><a href="unidad2/unidad2.html">📦 Unidad 2 · Métodos Iterativos y Optimización</a></li>
+      <!-- Si agregas más unidades solo duplícalas -->
+    </ul>
+  </section>
+
+  <!-- SECCIÓN PROYECTOS -->
+  <section id="proyectos" class="menu fade-up">
+    <h2>Proyectos Destacados</h2>
+    <ul>
+      <li><a href="unidad1/unidad1_02.html">📊 Graficadora de Funciones</a></li>
+      <li><a href="unidad1/unidad1_05.html">⚙️ Método Newton-Raphson</a></li>
+      <li><a href="unidad2/unidad2_02.html">🔁 Gradiente Descendente</a></li>
+    </ul>
+  </section>
+
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 Nayelin Brisbany Cutipa Ramos · Portafolio Programación Numérica 💜</p>
+    <p>© 2025 Nayelin Brisbany Cutipa Ramos · Portafolio de Programación Numérica 💜</p>
   </footer>
 
-  <!-- BOTÓN ARRIBA -->
-  <button id="btnArriba" title="Volver arriba">⬆</button>
+  <!-- BOTONES FLOTANTES -->
+  <button id="btnArriba">⬆️</button>
+  <button id="btnTema"><span>☀️</span> Modo Oscuro</button>
 
-  <script>
-    const btnArriba = document.getElementById("btnArriba");
-    window.addEventListener("scroll", () => {
-      btnArriba.style.display = window.scrollY > 200 ? "block" : "none";
-    });
-    btnArriba.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
-
+  <script src="js/main.js"></script>
 </body>
 </html>
