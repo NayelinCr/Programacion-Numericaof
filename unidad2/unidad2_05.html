@@ -220,7 +220,7 @@
   <!-- Contenido -->
   <div class="content" id="content">
     <header>
-      <h1>Actividad 04 · Desarrollo de Algoritmos</h1>
+      <h1>Actividad 04 · Lectura 30 - 10 -2025 </h1>
       <p>13/09/2025</p>
       <div class="estado">
         <div class="burbuja"></div>
@@ -231,14 +231,127 @@
     <main>
       <section>
         <h2>Descripción</h2>
-        <p>Implementación y análisis de algoritmos propuestos en la unidad 1 aplicando técnicas de programación numérica.</p>
+        <p>Hacer un resumen de el documento enviado al grupo de whatsapp </p>
       </section>
 
+      
+    <section>
+        <h2>Desarrollo de la Actividad </h2>
+      <br>
+      <h2> Planteamiento </h2>
+        <p> El artículo “Optimal Single-Path Information Propagation in Gradient-Based Algo-
+rithms” presenta el algoritmo BIS (Bounded Information Speed), el cual mejora
+la propagación de información en redes distribuidas mediante un control explí-
+cito de la velocidad mínima de transmisión entre nodos.
+Para comprender su funcionamiento, se plantea una simulación sencilla que ilus-
+tra la diferencia entre un gradiente clásico y el gradiente BIS. En este ejemplo
+se construye una red aleatoria de nodos en un plano bidimensional. Cada nodo
+calcula su distancia a una fuente central (gradiente clásico) y luego se aplica el
+concepto del BIS, limitando la velocidad de propagación de la información con
+un parámetro v.
+La comparación visual mostrará cómo el BIS suaviza las transiciones y controla
+mejor la propagación, logrando una distribución más estable de la información
+en la red</p>
+
+      <h2> Código en R </h2>
+      <p> A continuación se muestra el código utilizado para realizar la simulación:</p>
+      <pre>
+        <code> 
+        # ==========================================
+          2 # Simulaci n del algoritmo BIS Gradient
+          3 # ==========================================
+          1
+          4
+          if(!require(ggplot2)) install.packages("ggplot2")
+          if(!require(gridExtra)) install.packages("gridExtra")
+          7 library(ggplot2)
+          8 library(gridExtra)
+          5
+          6
+          9
+          # 1. Generaci n de la red
+          set.seed(123)
+          12 n <- 50
+          13 nodes <- data.frame(
+          14
+          id = 1:n,
+          15
+          x = runif(n, 0, 10),
+          16
+          y = runif(n, 0, 10)
+          17 )
+          10
+          11
+          18
+          # Nodo fuente
+          20 source <- c(5, 5)
+          19
+          21
+          22
+          # 2. C l c u l o de gradientes
+            nodes$dist_classic <- sqrt((nodes$x - source[1])^2 + (nodes$y -
+          source[2])^2)
+          24 v <- 0.8
+          25 nodes$dist_BIS <- pmax(nodes$dist_classic * v, nodes$dist_classic -
+          1)
+          23
+          26
+          # 3. Visualizaci n comparativa
+          p1 <- ggplot(nodes, aes(x, y, color = dist_classic)) +
+          29
+          geom_point(size = 3) +
+          30
+          scale_color_viridis_c() +
+          31
+          ggtitle("Gradiente c l s i c o ") +
+          32
+          theme_minimal()
+          27
+          28
+          33
+          p2 <- ggplot(nodes, aes(x, y, color = dist_BIS)) +
+          35
+          geom_point(size = 3) +
+          36
+          scale_color_viridis_c() +
+          37
+          ggtitle("Gradiente BIS (v limitada)") +
+          38
+          theme_minimal()
+          34
+          39
+          40
+          grid.arrange(p1, p2, ncol = 2)
+  
+      </code>
+      </pre>
+
+      <h2> Resultados </h2>
+            <p> El resultado visual muestra dos mapas de color:</p>
+            <ol>
+              <li>En el gradiente clásico, los valores aumentan sin control según la distancia
+a la fuente.</li>
+              <li> En el gradiente BIS, la velocidad de propagación está acotada por v = 0,8,
+generando una distribución más homogénea y estable.</li>
+            </ol>
+
+            <p> IMAGEN------</p>
+
+      <H2>Conclusión del experimento</H2>      
+            <p>La simulación demuestra que el algoritmo BIS logra un equilibrio entre rapidez,
+precisión y estabilidad en la propagación de información, tal como se describe
+en el artículo original. Este comportamiento controlado lo hace especialmente
+útil en entornos donde las condiciones de comunicación cambian constantemen-
+te, como en sistemas de sensores o redes IoT distribuidas. </p>
+      </section> 
+       
+            
+      
       <section>
         <h2>Evidencias</h2>
         <ul>
-          <li>📄 <a href="#">Informe (PDF)</a></li>
-          <li>💻 <a href="#">Código fuente (Python)</a></li>
+          <li>📄 <a href="https://drive.google.com/file/d/1FLg1Wm1U-oDS7wscBTcueAuZ0edm_nfg/view?usp=sharing">Informe (PDF)</a></li>
+          <li>💻 <a href="#">Resumen manual</a></li>
         </ul>
       </section>
     </main>
