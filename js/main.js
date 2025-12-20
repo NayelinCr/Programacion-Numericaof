@@ -1,88 +1,89 @@
-/* 🎀 Script principal del Portafolio de Nayelin (versión final optimizada)
-   🌸 Funcionalidades:
-   - Botón "Volver arriba" con animación suave.
-   - Desplazamiento fluido entre secciones.
-   - Modo oscuro / claro con almacenamiento de preferencia.
-   - Animaciones de entrada al hacer scroll.
-   - Efecto de aparición inicial en el contenido.
-*/
-
 document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector('header');
   const btnArriba = document.getElementById("btnArriba");
-  const linksSuaves = document.querySelectorAll('a[href^="#"]');
   const btnTema = document.getElementById("btnTema");
-
-  /* 🌙 Recuperar el tema guardado */
-  const temaGuardado = localStorage.getItem("tema");
-  if (temaGuardado === "oscuro") {
-    document.body.classList.add("oscuro");
-    if (btnTema) btnTema.innerHTML = "🌙 Modo Claro";
-  }
-
-  /* 🌷 Mostrar/ocultar botón "Volver arriba" */
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 250) {
-      btnArriba?.classList.add("mostrar");
+  
+  // Scroll en el navbar
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
     } else {
-      btnArriba?.classList.remove("mostrar");
+      header.classList.remove('scrolled');
+    }
+    
+    // Botón volver arriba
+    if (window.scrollY > 300) {
+      btnArriba.classList.add("mostrar");
+    } else {
+      btnArriba.classList.remove("mostrar");
     }
   });
-
-  /* 🩵 Acción del botón "Volver arriba" */
+  
+  // Click en volver arriba
   btnArriba?.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-
-  /* 💫 Desplazamiento suave entre secciones */
-  linksSuaves.forEach(link => {
-    link.addEventListener("click", e => {
-      const destino = document.querySelector(link.getAttribute("href"));
-      if (destino) {
-        e.preventDefault();
-        destino.scrollIntoView({ behavior: "smooth" });
+  
+  // Scroll suave para todos los enlaces internos
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = link.getAttribute("href");
+      const target = document.querySelector(href);
+      
+      if (target) {
+        // Calcular la posición con offset para el navbar
+        const headerHeight = 80;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+        
+        // Actualizar enlaces activos
+        document.querySelectorAll('.nav-links a').forEach(a => {
+          a.classList.remove('active');
+        });
+        
+        // Marcar como activo si es del navbar
+        const navLink = document.querySelector(`.nav-links a[href="${href}"]`);
+        if (navLink) {
+          navLink.classList.add('active');
+        }
       }
     });
   });
-
-  /* 🌗 Alternar entre modo oscuro y claro */
+  
+  // Toggle tema
   btnTema?.addEventListener("click", () => {
-    document.body.classList.toggle("oscuro");
-    const esOscuro = document.body.classList.contains("oscuro");
-    btnTema.innerHTML = esOscuro ? "🌙 Modo Claro" : "☀️ Modo Oscuro";
-    localStorage.setItem("tema", esOscuro ? "oscuro" : "claro");
-
-    // ✨ Animación del botón
-    btnTema.animate(
-      [{ transform: "scale(1.1)" }, { transform: "scale(1)" }],
-      { duration: 300, easing: "ease-out" }
-    );
+    const isLight = btnTema.innerHTML.includes("Claro");
+    btnTema.innerHTML = isLight ? 
+      "<span>☀️</span><span>Modo Claro</span>" : 
+      "<span>🌙</span><span>Modo Oscuro</span>";
+    localStorage.setItem("tema", isLight ? "oscuro" : "claro");
+    // Aquí podrías agregar lógica para cambiar variables CSS si implementas modo claro real en el futuro
   });
-
-  /* 🪄 Animación inicial al cargar contenido */
-  const contenido = document.querySelector(".content");
-  if (contenido) {
-    contenido.style.opacity = 0;
-    contenido.style.transform = "translateY(20px)";
-    setTimeout(() => {
-      contenido.style.transition = "all 0.8s ease-out";
-      contenido.style.opacity = 1;
-      contenido.style.transform = "translateY(0)";
-    }, 300);
+  
+  // Recuperar tema
+  const temaGuardado = localStorage.getItem("tema");
+  if (temaGuardado === "claro") {
+    btnTema.innerHTML = "<span>🌙</span><span>Modo Oscuro</span>";
   }
-
-  /* 🌼 Animaciones al hacer scroll (para secciones, tarjetas, proyectos, etc.) */
-  const elementosAnimados = document.querySelectorAll(
-    "section, .card, .proyecto, .contenedor"
-  );
-
-  const observer = new IntersectionObserver((entradas) => {
-    entradas.forEach((entrada) => {
-      if (entrada.isIntersecting) {
-        entrada.target.classList.add("visible");
+  
+  // Animaciones de scroll (Intersection Observer)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
       }
     });
-  }, { threshold: 0.2 });
-
-  elementosAnimados.forEach((el) => observer.observe(el));
+  }, { 
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  });
+  
+  document.querySelectorAll(".fade-up").forEach(el => {
+    observer.observe(el);
+  });
 });
-
