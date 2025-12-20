@@ -1,106 +1,373 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 00 · Unidad 1 - Nayelin Cutipa</title>
-    
-    <link rel="stylesheet" href="../css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-</head>
-<body>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unidad 1 · Actividad 00</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== VARIABLES (Misma paleta que Unidad 1 y 2) ===== */
+    :root {
+      --primary: #a78bfa;
+      --primary-dark: #7c3aed;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg-dark: #0f0a1f;
+      --bg-darker: #0a0614;
+      --text: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: rgba(167, 139, 250, 0.2);
+      --glow: rgba(167, 139, 250, 0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-darker);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== FONDO TÉCNICO ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(167, 139, 250, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.03) 2px, transparent 2px);
+      background-size: 100px 100px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
+      animation: ambient 30s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes ambient {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, -5%) scale(1.1); }
+    }
+
+    /* ===== SIDEBAR PREMIUM ===== */
+    .sidebar {
+      width: 260px;
+      background: rgba(15, 10, 31, 0.85);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+
+    .sidebar h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .sidebar a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .sidebar a:hover {
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .sidebar a.active {
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(15, 10, 31, 0.8);
+      backdrop-filter: blur(10px);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 1100;
+      display: none; /* Oculto en escritorio */
+      transition: all 0.3s ease;
+    }
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .content {
+      flex: 1;
+      margin-left: 260px;
+      padding: 3rem 4rem;
+      position: relative;
+      z-index: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .content.full { margin-left: 0; }
+
+    /* Header de la Actividad */
+    header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+      position: relative;
+    }
+
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Badge de Estado */
+    .estado {
+      position: absolute;
+      top: 0; right: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .burbuja {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--glow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    /* Secciones de Contenido */
+    main {
+      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section { margin-bottom: 3rem; }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '//';
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+    }
+
+    h3 {
+      color: var(--primary);
+      margin: 1.5rem 0 1rem;
+      font-size: 1.2rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    /* Estilo para Referencias */
+    .referencias p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      padding: 1rem;
+      background: rgba(15, 10, 31, 0.4);
+      border-radius: 8px;
+      border-left: 3px solid var(--secondary);
+    }
+
+    /* Botón de Enlace (PDF) */
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--text);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .btn-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+    }
+
+    ul { list-style: none; }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); width: 280px; }
+      .sidebar.show { transform: translateX(0); }
+      .toggle-btn { display: block; }
+      .content { margin-left: 0; padding: 2rem 1.5rem; }
+      header h1 { font-size: 2rem; }
+      .estado { position: relative; margin-top: 1rem; display: inline-flex; }
+    }
+  </style>
+</head>
+
+<body>
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+  <aside class="sidebar" id="sidebar">
+    <h2>Unidad 1</h2>
+    <a href="unidad1_00.html" class="active">Actividad 00</a>
+    <a href="unidad1_01.html">Actividad 01</a>
+    <a href="unidad1_02.html">Actividad 02</a>
+    <a href="unidad1_03.html">Actividad 03</a>
+    <a href="unidad1_04.html">Actividad 04</a>
+    <a href="unidad1_05.html">Actividad 05</a>
+    
+    <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
+        <a href="../index.html">🏠 Volver al inicio</a>
+        <a href="../unidad2/unidad2.html" style="color: var(--secondary);">➡ Ir a Unidad 2</a>
+    </div>
+  </aside>
+
+  <div class="content" id="content">
     <header>
-        <nav class="navbar">
-            <div class="logo-container">
-                <a href="../index.html" style="text-decoration:none; display:flex; gap:10px; align-items:center;">
-                    <div class="logo-symbol">N</div>
-                    <div class="logo-text">Volver al <span>Inicio</span></div>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="unidad1.html" class="active">Unidad 1</a></li>
-                <li><a href="../unidad2/unidad2.html">Unidad 2</a></li>
-            </ul>
-        </nav>
+      <h1>Actividad 00 · Introducción</h1>
+      <p>04/09/2025</p>
+      <div class="estado">
+        <div class="burbuja"></div>
+        <span>Completada</span>
+      </div>
     </header>
 
-    <div class="layout-unidad">
-        
-        <aside class="sidebar">
-            <h3>Navegación</h3>
-            <ul>
-                <li><a href="unidad1.html">🔙 Portada Unidad 1</a></li>
-                <li><a href="unidad1_00.html" class="activo">00. Introducción</a></li>
-                <li><a href="unidad1_01.html">01. Identificador Variables</a></li>
-                <li><a href="unidad1_02.html">02. Graficadora Funciones</a></li>
-                <li><a href="unidad1_03.html">03. Restricciones</a></li>
-                <li><a href="unidad1_04.html">04. Métodos Iterativos</a></li>
-                <li><a href="unidad1_05.html">05. Newton-Raphson</a></li>
-            </ul>
-        </aside>
+    <main>
+      <section>
+        <h2>Descripción de la Actividad</h2>
+        <p>Defina con sus propias palabras, programación Numérica y mencione al menos 2 aplicaciones desde la Ingeniería Estadística e Informática.</p>
+      </section>
 
-        <main class="contenido-principal fade-up">
-            
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
-                <div>
-                    <span class="section-label">// 04/09/2025</span>
-                    <h1 class="section-title">Actividad 00: Introducción</h1>
-                    <p class="section-description">Definición y aplicaciones en Ingeniería Estadística e Informática</p>
-                </div>
-                
-                <div style="background: rgba(167, 139, 250, 0.15); padding: 8px 16px; border-radius: 50px; border: 1px solid var(--primary); display: flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 600; font-size: 0.9rem;">
-                    <div style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);"></div>
-                    Completada
-                </div>
-            </div>
+      <section>
+        <h2>Desarrollo de la actividad</h2>
+        <h3>Programación Numérica</h3>
+        <p>La programación numérica es una rama de la informática y las matemáticas que se centra en el desarrollo de algoritmos y métodos computacionales para resolver problemas mediante cálculos aproximados. Su principal objetivo es encontrar soluciones cuando los métodos analíticos tradicionales no son suficientes o son demasiado complicados de aplicar, especialmente en problemas que involucran grandes cantidades de datos, ecuaciones complejas o funciones difíciles de evaluar directamente. Esta disciplina permite que los problemas matemáticos, estadísticos y de ingeniería sean resueltos de manera más rápida y precisa, automatizando cálculos que serían muy tediosos si se hicieran a mano [1].</p>
 
-            <hr style="border: 0; border-top: 1px solid var(--border); margin: 2rem 0;">
+        <p>En el área de Ingeniería Estadística, la programación numérica tiene aplicaciones fundamentales. Por ejemplo, se utiliza en la estimación de parámetros de modelos estadísticos complejos, como regresiones múltiples o análisis de series temporales, donde se requiere procesar grandes cantidades de datos y ajustar modelos a observaciones reales. También se aplica en la simulación estadística, empleando métodos como Monte Carlo para generar escenarios y predecir probabilidades o comportamientos de variables aleatorias, lo que es especialmente útil para tomar decisiones en condiciones de incertidumbre [1].</p>
 
-            <div class="sobre-content">
-                <h3>1. Descripción de la Actividad</h3>
-                <p style="margin-bottom: 2rem;">
-                    Defina con sus propias palabras, Programación Numérica y mencione al menos 2 aplicaciones desde la Ingeniería Estadística e Informática.
-                </p>
+        <p>En el ámbito de Informática, la programación numérica se utiliza para resolver problemas prácticos que requieren procesamiento de datos a gran escala. Por ejemplo, en el procesamiento de imágenes y señales, los algoritmos numéricos permiten filtrar, mejorar y transformar información digital, lo que es esencial en aplicaciones como visión por computadora, fotografía digital y análisis de audio. Además, se aplica en la optimización de algoritmos y recursos computacionales, facilitando tareas como la planificación de rutas, el balanceo de carga en servidores o la distribución eficiente de recursos en sistemas complejos, mejorando el rendimiento y reduciendo costos operativos [1].</p>
 
-                <h3>2. Desarrollo</h3>
-                
-                <h4 style="color: var(--text); margin-top: 1.5rem;">Programación Numérica</h4>
-                <p>
-                    La programación numérica es una rama de la informática y las matemáticas que se centra en el desarrollo de algoritmos y métodos computacionales para resolver problemas mediante cálculos aproximados. Su principal objetivo es encontrar soluciones cuando los métodos analíticos tradicionales no son suficientes o son demasiado complicados de aplicar, especialmente en problemas que involucran grandes cantidades de datos, ecuaciones complejas o funciones difíciles de evaluar directamente. Esta disciplina permite que los problemas matemáticos, estadísticos y de ingeniería sean resueltos de manera más rápida y precisa, automatizando cálculos que serían muy tediosos si se hicieran a mano [1].
-                </p>
+        <p>En resumen, la programación numérica es una herramienta clave para ingenieros y científicos, ya que convierte problemas matemáticos complejos en soluciones computacionales prácticas, agilizando el análisis de datos y la toma de decisiones en múltiples áreas de la ingeniería y la informática.</p>
 
-                <h4 style="color: var(--text); margin-top: 1.5rem;">Aplicación en Ingeniería Estadística</h4>
-                <p>
-                    En el área de Ingeniería Estadística, la programación numérica tiene aplicaciones fundamentales. Por ejemplo, se utiliza en la estimación de parámetros de modelos estadísticos complejos, como regresiones múltiples o análisis de series temporales, donde se requiere procesar grandes cantidades de datos y ajustar modelos a observaciones reales. También se aplica en la simulación estadística, empleando métodos como Monte Carlo para generar escenarios y predecir probabilidades o comportamientos de variables aleatorias, lo que es especialmente útil para tomar decisiones en condiciones de incertidumbre [1].
-                </p>
+        <h2>Referencias</h2>
+        <div class="referencias">
+            <p>[1] Burden, R. L., & Faires, J. D. (2016). <em>Numerical Analysis</em> (10th ed.). Cengage Learning.</p>
+        </div>
+      </section>
 
-                <h4 style="color: var(--text); margin-top: 1.5rem;">Aplicación en Informática</h4>
-                <p>
-                    En el ámbito de Informática, la programación numérica se utiliza para resolver problemas prácticos que requieren procesamiento de datos a gran escala. Por ejemplo, en el procesamiento de imágenes y señales, los algoritmos numéricos permiten filtrar, mejorar y transformar información digital, lo que es esencial en aplicaciones como visión por computadora, fotografía digital y análisis de audio. Además, se aplica en la optimización de algoritmos y recursos computacionales, facilitando tareas como la planificación de rutas, el balanceo de carga en servidores o la distribución eficiente de recursos en sistemas complejos, mejorando el rendimiento y reduciendo costos operativos [1].
-                </p>
+      <section>
+        <h2>Informe de la Actividad</h2>
+        <ul>
+          <li>
+            <a href="https://drive.google.com/file/d/1k1VK4O3_V_jAH001ZmJ_ewWoGTId91Ky/view?usp=sharing" target="_blank" class="btn-link">
+                <span>📄</span> Ver Informe (PDF)
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
 
-                <hr style="border: 0; border-top: 1px dashed var(--border); margin: 2rem 0;">
+    <footer>
+      © 2025 Nayelin · Portafolio Programación Numérica 
+    </footer>
+  </div>
 
-                <h3>3. Referencias Bibliográficas</h3>
-                <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
-                    [1] Burden, R. L., & Faires, J. D. (2016). <em>Numerical Analysis</em> (10th ed.). Cengage Learning.
-                </p>
-
-                <div style="margin-top: 3rem; text-align: center;">
-                    <a href="https://drive.google.com/file/d/1k1VK4O3_V_jAH001ZmJ_ewWoGTId91Ky/view?usp=sharing" target="_blank" class="btn-primary">
-                        📄 Ver Informe Completo (PDF)
-                    </a>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <button id="btnArriba" title="Volver arriba">↑</button>
-    <button id="btnTema" title="Cambiar tema">
-        <span>☀️</span><span>Modo Claro</span>
-    </button>
-
-    <script src="../js/main.js"></script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      // En móvil simplemente añadimos/quitamos la clase show
+      sidebar.classList.toggle('show');
+    }
+  </script>
 </body>
 </html>
