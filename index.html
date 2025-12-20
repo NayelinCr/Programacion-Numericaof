@@ -3,77 +3,862 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portafolio – Programación Numérica · Nayelin Cutipa</title>
+  <title>Nayelin Cutipa · Portafolio de Programación Numérica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <link rel="stylesheet" href="css/main.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    :root {
+      --primary: #a78bfa;
+      --primary-dark: #7c3aed;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg-dark: #0f0a1f;
+      --bg-darker: #0a0614;
+      --text: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: rgba(167, 139, 250, 0.2);
+      --glow: rgba(167, 139, 250, 0.5);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-darker);
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Malla de fondo técnica */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(167, 139, 250, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.03) 2px, transparent 2px),
+        linear-gradient(rgba(167, 139, 250, 0.01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.01) 1px, transparent 1px);
+      background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+      background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.7;
+    }
+
+    /* Gradientes ambientales sutiles */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.04) 0%, transparent 50%);
+      animation: ambient 30s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes ambient {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-5%, -5%) scale(1.1); }
+      66% { transform: translate(5%, 5%) scale(0.95); }
+    }
+
+    /* Navbar Premium */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(15, 10, 31, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    header.scrolled {
+      background: rgba(10, 6, 20, 0.85);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .navbar {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-symbol {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 16px var(--glow);
+      position: relative;
+    }
+
+    .logo-symbol::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+      filter: blur(8px);
+    }
+
+    .logo-symbol:hover::before {
+      opacity: 1;
+    }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .logo-text span {
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.625rem 1.25rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: block;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(167, 139, 250, 0.1);
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      background: rgba(167, 139, 250, 0.15);
+    }
+
+    /* Hero Section Elegante */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 2rem 4rem;
+      background: 
+        linear-gradient(135deg, rgba(15, 10, 31, 0.95), rgba(10, 6, 20, 0.9)),
+        url("https://img.freepik.com/fotos-premium/espacio-trabajo-escritorio-femenino-tulipanes-teclado-lentes-agenda-clips-dorados-violeta_1429-5209.jpg?semt=ais_hybrid&w=740&q=80") center/cover no-repeat fixed;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(167, 139, 250, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      font-weight: 400;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--primary);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(167, 139, 250, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    /* Sección Sobre con diseño premium */
+    .sobre-section {
+      padding: 8rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(167, 139, 250, 0.1);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-description {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .sobre-content {
+      background: rgba(15, 10, 31, 0.4);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 4rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sobre-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .sobre-content p {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .sobre-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Grid de Unidades Profesional */
+    .unidades-section {
+      padding: 8rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .unidades-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2rem;
+    }
+
+    .unidad-card {
+      background: rgba(15, 10, 31, 0.4);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .unidad-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+    }
+
+    .unidad-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .unidad-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 60px rgba(124, 58, 237, 0.3);
+    }
+
+    .unidad-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .unidad-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(236, 72, 153, 0.2));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .unidad-meta {
+      flex: 1;
+    }
+
+    .unidad-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.25rem;
+    }
+
+    .unidad-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .unidad-description {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .unidad-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(167, 139, 250, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+      align-self: flex-end;
+    }
+
+    .unidad-card:hover .unidad-arrow {
+      background: var(--primary);
+      transform: translateX(4px);
+    }
+
+    /* Footer Premium */
+    footer {
+      background: rgba(10, 6, 20, 0.8);
+      backdrop-filter: blur(20px);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    footer p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* Botones Flotantes Refinados */
+    .floating-buttons {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 999;
+    }
+
+    .btn-float {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: rgba(15, 10, 31, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-float:hover {
+      transform: translateY(-4px);
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+    }
+
+    #btnArriba {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #btnArriba.mostrar {
+      opacity: 1;
+      pointer-events: auto;
+      animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #btnTema {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      width: auto;
+      height: 56px;
+      padding: 0 1.5rem;
+      border-radius: 16px;
+      background: rgba(15, 10, 31, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    #btnTema:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Animaciones de Scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .navbar {
+        padding: 1rem 2rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 6rem 1.5rem 3rem;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .sobre-content,
+      .unidad-card {
+        padding: 2rem;
+      }
+
+      .unidades-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-buttons {
+        right: 1rem;
+        bottom: 5rem;
+      }
+
+      #btnTema {
+        left: 1rem;
+        bottom: 1rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-
   <!-- NAVBAR -->
   <header>
-    <div class="navbar">
-      <h1 class="logo"> PORTAFOLIO DE ESTUDIANTE </h1>
+    <nav class="navbar">
+      <div class="logo-container">
+        <div class="logo-symbol">N</div>
+        <div class="logo-text">Nayelin <span>Cutipa</span></div>
+      </div>
       <ul class="nav-links">
-        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#hero" class="active">Inicio</a></li>
+        <li><a href="#sobre">Acerca</a></li>
         <li><a href="#unidades">Unidades</a></li>
-        <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#sobre">Sobre mí</a></li>
       </ul>
-    </div>
+    </nav>
   </header>
 
-  <!-- HERO PRINCIPAL -->
+  <!-- HERO -->
   <section id="hero" class="hero">
-    <div class="overlay"></div>
-    <div class="content">
-      <h2 style="font-size: 2.7rem; font-weight:700; margin-bottom:10px;">
-        PORTAFOLIO DE PROGRAMACIÓN NUMÉRICA
-      </h2>
-      <p style="font-size:1.2rem; opacity:0.9;">
-        Universidad Nacional del Altiplano · Ingeniería Estadística e Informática · 2025
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>Ingeniería Estadística e Informática</span>
+      </div>
+      <h1>Portafolio de<br>Programación Numérica</h1>
+      <p class="hero-subtitle">
+        Documentación completa del curso · Métodos numéricos, algoritmos y análisis computacional
       </p>
-
-      <div class="buttons" style="margin-top:30px;">
-        <a class="btn" href="#unidades">📚 Ver Unidades</a>
-        <a class="btn" href="#proyectos">💻 Proyectos</a>
-        <a class="btn" href="#sobre">👤 Sobre mí</a>
+      <div class="hero-cta">
+        <a href="#sobre" class="btn-primary">
+          <span>Explorar Contenido</span>
+          <span>→</span>
+        </a>
+        <a href="#unidades" class="btn-secondary">
+          <span>Ver Unidades</span>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">2</span>
+          <span class="stat-label">Unidades</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">2025</span>
+          <span class="stat-label">Ciclo Académico</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">UNA</span>
+          <span class="stat-label">Puno</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN ¿QUÉ ES ESTE PORTAFOLIO? -->
-  <section class="menu fade-up" id="sobre" style="padding-top:120px;">
-    <h2>¿Qué encontrarás aquí?</h2>
-    <p style="max-width:750px; margin:0 auto; font-size:1.1rem;">
-      Este portafolio reúne el desarrollo completo de los temas, actividades y proyectos
-      trabajados durante el curso de <strong>Programación Numérica</strong>. Incluye código,
-      informes académicos, métodos iterativos, optimización, análisis de resultados y
-      aplicaciones reales desde la perspectiva de la Ingeniería Estadística e Informática.
-    </p>
+  <!-- SOBRE -->
+  <section id="sobre" class="sobre-section fade-up">
+    <div class="section-header">
+      <span class="section-label">// Acerca del Portafolio</span>
+      <h2 class="section-title">¿Qué encontrarás aquí?</h2>
+      <p class="section-description">
+        Un repositorio académico completo con implementaciones, análisis y documentación técnica
+      </p>
+    </div>
+    <div class="sobre-content">
+      <p>
+        Este portafolio reúne el desarrollo completo de los temas, actividades y proyectos
+        trabajados durante el curso de <strong>Programación Numérica</strong>. Incluye código,
+        informes académicos, métodos iterativos, optimización, análisis de resultados y
+        aplicaciones reales desde la perspectiva de la Ingeniería Estadística e Informática.
+      </p>
+    </div>
   </section>
 
-  <!-- SECCIÓN DE UNIDADES EN TARJETAS -->
-  <section id="unidades" class="menu fade-up">
-    <h2>Unidades Académicas</h2>
-    <ul>
-      <li><a href="unidad1/unidad1.html">📦 Unidad 1 · </a></li>
-      <li><a href="unidad2/unidad2.html">📦 Unidad 2 · </a></li>
-      <!-- Si agregas más unidades solo duplícalas -->
-    </ul>
+  <!-- UNIDADES -->
+  <section id="unidades" class="unidades-section fade-up">
+    <div class="section-header">
+      <span class="section-label">// Contenido Académico</span>
+      <h2 class="section-title">Unidades del Curso</h2>
+      <p class="section-description">
+        Explora el contenido organizado por unidades temáticas
+      </p>
+    </div>
+    <div class="unidades-grid">
+      <a href="unidad1/unidad1.html" class="unidad-card">
+        <div class="unidad-header">
+          <div class="unidad-icon">📦</div>
+          <div class="unidad-meta">
+            <div class="unidad-number">Unit 01</div>
+            <h3 class="unidad-title">Primera Unidad</h3>
+          </div>
+        </div>
+        <p class="unidad-description">
+          Explora el contenido, actividades y proyectos de la primera unidad académica del curso
+        </p>
+        <div class="unidad-arrow">→</div>
+      </a>
+      <a href="unidad2/unidad2.html" class="unidad-card">
+        <div class="unidad-header">
+          <div class="unidad-icon">📦</div>
+          <div class="unidad-meta">
+            <div class="unidad-number">Unit 02</div>
+            <h3 class="unidad-title">Segunda Unidad</h3>
+          </div>
+        </div>
+        <p class="unidad-description">
+          Explora el contenido, actividades y proyectos de la segunda unidad académica del curso
+        </p>
+        <div class="unidad-arrow">→</div>
+      </a>
+    </div>
   </section>
-
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 Nayelin Brisbany Cutipa Ramos · Portafolio de Programación Numérica </p>
+    <p>© 2025 Nayelin Brisbany Cutipa Ramos · Universidad Nacional del Altiplano · Programación Numérica</p>
   </footer>
 
   <!-- BOTONES FLOTANTES -->
-  <button id="btnArriba">⬆️</button>
-  <button id="btnTema"><span>☀️</span> Modo Oscuro</button>
+  <div class="floating-buttons">
+    <button id="btnArriba" class="btn-float" title="Volver arriba">↑</button>
+  </div>
+  <button id="btnTema" title="Cambiar tema">
+    <span>☀️</span>
+    <span>Modo Claro</span>
+  </button>
 
-  <script src="js/main.js"></script>
-</body>
-</html>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const header = document.querySelector('header');
+      const btnArriba = document.getElementById("btnArriba
