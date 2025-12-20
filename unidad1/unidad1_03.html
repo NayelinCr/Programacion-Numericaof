@@ -5,205 +5,335 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Unidad 1 · Actividad 03</title>
 
-  <!-- Fuentes modernas -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== VARIABLES (Misma paleta global) ===== */
+    :root {
+      --primary: #a78bfa;
+      --primary-dark: #7c3aed;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg-dark: #0f0a1f;
+      --bg-darker: #0a0614;
+      --text: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: rgba(167, 139, 250, 0.2);
+      --glow: rgba(167, 139, 250, 0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
-      color: #f0e6ff;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-darker);
+      color: var(--text);
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* ===== SIDEBAR ===== */
-    .sidebar {
-      width: 250px;
-      background: rgba(45, 30, 70, 0.95);
-      backdrop-filter: blur(8px);
-      padding: 2rem 1rem;
-      box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+    /* ===== FONDO TÉCNICO ===== */
+    body::before {
+      content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(167, 139, 250, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.03) 2px, transparent 2px);
+      background-size: 100px 100px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
+      animation: ambient 30s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes ambient {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, -5%) scale(1.1); }
+    }
+
+    /* ===== SIDEBAR PREMIUM ===== */
+    .sidebar {
+      width: 260px;
+      background: rgba(15, 10, 31, 0.85);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
     }
 
     .sidebar h2 {
-      font-size: 1.2rem;
-      color: #e3ccff;
-      text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
       margin-bottom: 2rem;
-      letter-spacing: 0.8px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
     }
 
     .sidebar a {
-      color: #cdb4ff;
+      color: var(--text-muted);
       text-decoration: none;
-      font-weight: 600;
-      padding: 0.6rem 1rem;
-      margin: 0.3rem 0;
-      border-radius: 8px;
-      transition: all 0.3s;
-      display: block;
+      font-weight: 500;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
     }
 
     .sidebar a:hover {
-      background: #b388ff;
-      color: #2a2037;
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--primary);
       transform: translateX(4px);
     }
 
     .sidebar a.active {
-      background: #b388ff;
-      color: #2a2037;
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      font-weight: 600;
     }
 
     .toggle-btn {
       position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #b388ff;
-      color: #2a2037;
-      border: none;
-      padding: 0.6rem 0.9rem;
-      border-radius: 8px;
-      font-weight: bold;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(15, 10, 31, 0.8);
+      backdrop-filter: blur(10px);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      border-radius: 12px;
       cursor: pointer;
-      z-index: 10;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-    }
-
-    .sidebar.hide {
-      transform: translateX(-100%);
+      z-index: 1100;
+      display: none;
+      transition: all 0.3s ease;
     }
 
     /* ===== CONTENIDO PRINCIPAL ===== */
     .content {
       flex: 1;
-      margin-left: 250px;
-      padding: 2rem;
-      transition: margin-left 0.3s;
+      margin-left: 260px;
+      padding: 3rem 4rem;
+      position: relative;
+      z-index: 1;
+      transition: margin-left 0.3s ease;
     }
 
-    .content.full {
-      margin-left: 0;
-    }
+    .content.full { margin-left: 0; }
 
+    /* Header de Actividad */
     header {
-      background: linear-gradient(135deg, #4a2e68, #7e57c2);
-      color: white;
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
       position: relative;
     }
 
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    header p {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Badge */
     .estado {
       position: absolute;
-      top: 1.2rem;
-      right: 2rem;
+      top: 0; right: 0;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      background: rgba(61, 43, 86, 0.9);
+      gap: 0.5rem;
       padding: 0.5rem 1rem;
-      border-radius: 50px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-      backdrop-filter: blur(5px);
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
     }
 
     .burbuja {
-      width: 14px;
-      height: 14px;
+      width: 8px; height: 8px;
       border-radius: 50%;
-      background: #b388ff;
-      box-shadow: 0 0 6px #b388ff;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--glow);
+      animation: pulse 2s infinite;
     }
 
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    /* Main Content Styling */
     main {
-      background: rgba(56, 40, 78, 0.95);
-      padding: 2.2rem;
-      margin-top: 2rem;
-      border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      backdrop-filter: blur(3px);
-      transition: transform 0.2s ease;
+      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    main:hover {
-      transform: scale(1.01);
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    h1 {
-      margin: 0.4rem 0 0;
-      font-size: 1.9rem;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
+    section { margin-bottom: 4rem; }
 
+    /* Títulos de sección */
     h2 {
-      color: #d7baff;
-      border-bottom: 2px solid #b388ff;
-      display: inline-block;
-      padding-bottom: 0.4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '//';
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+    }
+
+    /* Subtítulos dentro del contenido (Ejercicios) */
+    h1.ejercicio-titulo, h3 { 
+        color: var(--primary); 
+        margin-top: 2rem; 
+        margin-bottom: 1rem;
+        font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    /* Adaptación para tus h1 de ejercicios */
+    section h1 {
+        font-size: 1.3rem;
+        color: var(--secondary);
+        margin-top: 2.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 0.5rem;
+    }
+
+    p {
+      color: var(--text-muted);
       margin-bottom: 1rem;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+    
+    ul, ol {
+        color: var(--text-muted);
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    li { margin-bottom: 0.5rem; }
+
+    /* Estilos personalizados para tus bloques de matemáticas */
+    .math-block {
+        background: rgba(10, 6, 20, 0.6);
+        padding: 1.5rem;
+        border-radius: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        border-left: 3px solid var(--accent);
+        margin: 1.5rem 0;
+        color: #e2e8f0;
+        white-space: pre-line; /* Respetar saltos de línea */
     }
 
-    section {
-      margin-bottom: 2rem;
+    .note {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-style: italic;
+        background: rgba(236, 72, 153, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        display: block;
+        margin-top: 1rem;
     }
 
-    pre {
-      background: #2f2043;
+    hr {
+        border: 0;
+        border-top: 1px dashed var(--border);
+        margin: 3rem 0;
+    }
+
+    /* Botón enlace */
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--text);
+      padding: 1rem 1.5rem;
       border-radius: 12px;
-      padding: 1rem;
-      overflow-x: auto;
-      font-family: 'Fira Code', monospace;
-      color: #e9ddff;
-      border: 1px solid #4e3872;
-      box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
-    }
-
-    a {
-      color: #d6b6ff;
       text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
       font-weight: 500;
-      transition: color 0.2s ease;
     }
 
-    a:hover {
-      color: #f1e0ff;
-      text-decoration: underline;
+    .btn-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
     }
 
     footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
       text-align: center;
-      margin-top: 2rem;
-      padding: 1rem 0;
-      background: #3a2951;
-      color: #e5d0ff;
+      color: var(--text-muted);
       font-size: 0.9rem;
-      border-top: 1px solid #4e3872;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
-      border-radius: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); width: 280px; }
+      .sidebar.show { transform: translateX(0); }
+      .toggle-btn { display: block; }
+      .content { margin-left: 0; padding: 2rem 1.5rem; }
+      header h1 { font-size: 2rem; }
+      .estado { position: relative; margin-top: 1rem; display: inline-flex; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Botón Toggle -->
   <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <h2>Unidad 1</h2>
     <a href="unidad1_00.html">Actividad 00</a>
@@ -212,12 +342,13 @@
     <a href="unidad1_03.html" class="active">Actividad 03</a>
     <a href="unidad1_04.html">Actividad 04</a>
     <a href="unidad1_05.html">Actividad 05</a>
-    <a href="../index.html">🏠 Volver al inicio</a>
-    <a href="../unidad2/unidad2.html">➡ Ir a Unidad 2</a>
-
+    
+    <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
+        <a href="../index.html">🏠 Volver al inicio</a>
+        <a href="../unidad2/unidad2.html" style="color: var(--secondary);">➡ Ir a Unidad 2</a>
+    </div>
   </aside>
 
-  <!-- Contenido -->
   <div class="content" id="content">
     <header>
       <h1>Actividad 03 · Resolución de Ejercicios</h1>
@@ -230,295 +361,322 @@
 
     <main>
       <section>
-        <h2> Descripción de la Actividad </h2>
+        <h2>Descripción de la Actividad</h2>
         <p>Resolver los ejercicios planteados en la unidad 1 aplicando conceptos de programación numérica.</p>
       </section>
-    <section>
-        <h2>Informe de la Actividad </h2>
+      
+      <section>
+        <h2>Desarrollo de la Actividad</h2>
+        
+        <h1>1. Ejercicio 1</h1>
+        <p>Un desarrollador tiene 15 horas semanales para dedicar al desarrollo de software de front-end (x) y back-end (y). Además: 
+            <ul>
+                <li>Debe dedicar al menos 5 horas al desarrollo de front-end para cumplir con los entregables del cliente.</li>
+                <li>El tiempo total no puede exceder 15 horas por restricciones de tiempo del sprint.</li>
+            </ul>
+            Formule las restricciones, represéntelas gráficamente e identifique las combinaciones posibles de tiempo a invertir en cada actividad.
+        </p>
+
+        <h3>1.1.1. Restricciones</h3>
+        <ol>
+            <li>x &ge; 5 (mínimo 5 horas de front-end).</li>
+            <li>x + y &le; 15 (tiempo total máximo).</li>
+            <li>x &ge; 0, y &ge; 0 (no hay tiempo negativo).</li>
+        </ol>
+        
+        <h3>1.1.2. Formulación matemática</h3>
+        <div class="math-block">
+        {
+        x &ge; 5
+        x + y &le; 15
+        x &ge; 0
+        y &ge; 0
+        }
+        </div>
+        
+        <h3>1.1.3. Representación gráfica</h3>
+        <p>Para graficar, transformamos las restricciones en rectas:
+            <ul>
+                <li>x=5 (recta vertical).</li>
+                <li>y=-x+15 (recta con pendiente -1).</li>
+                <li>Ejes coordenados.</li>
+            </ul>
+        </p>
+        <p class="note">(1) La región factible es el área en el primer cuadrante, a la derecha de la recta x=5 y debajo de la recta y=-x+15.</p>
+        <p class="note">Figura 1: Representación gráfica del Ejercicio 1.</p>
+
+        <hr>
+
+        <h1>2. Ejercicio 2</h1>
+        <p>Un ingeniero de datos administra dos tipos de servidores en la nube: Servidores A y Servidores B. El costo por hora de Servidor A es S/3 y de Servidor B es S/5. El presupuesto máximo semanal asignado para mantener los servidores es de S/20. Determine cuantas horas puede mantener activos cada tipo de servidor, formule el sistema de ecuaciones y represéntelo gráficamente.</p>
+        
+        <h3>2.1. Planteamiento del problema</h3>
+        <p>Un ingeniero de datos administra dos tipos de servidores en la nube:
+            <ul>
+                <li>Servidores A &rarr; costo de 3 soles/hora</li>
+                <li>Servidores B &rarr; costo de 5 soles/hora</li>
+            </ul>
+            El presupuesto semanal máximo asignado es de 20 soles.
+        </p>
+        <p><strong>Definimos:</strong>
+            <ul>
+                <li>x: número de horas activas de servidores A.</li>
+                <li>y: número de horas activas de servidores B.</li>
+            </ul>
+        </p>
+        
+        <h3>2.2. Formulación matemática</h3>
+        <h3>2.2.1. Restricciones</h3>
+        <ol>
+            <li>Restricción de costo: 3x + 5y &le; 20</li>
+        </ol>
+        <h3>2.2.2. No se puede asignar tiempo negativo</h3>
+        <p>x &ge; 0, y &ge; 0</p>
+        
+        <h3>2.3. Transformación para graficar</h3>
+        <p>La restricción principal es:
+            <div class="math-block">
+                3x + 5y &le; 20 &rArr; 5y &le; 20 - 3x &rArr; y &le; (20/5) - (3/5)x &rArr; y &le; -0.6x + 4
+            </div>
+        </p>
+        <p>La recta límite: y = -0.6x + 4</p>
+        
+        <h3>2.4. Representación gráfica</h3>
         <ul>
-          <li>📄 <a href="https://drive.google.com/file/d/1veaiFxUiYwAatQy58BZDauvwVGSi8UL8/view?usp=sharing" target="_blank">Informe (PDF)</a></li>
+            <li>La recta y = -0.6x + 4 divide el plano.</li>
+            <li>La región factible está debajo de la recta, en el primer cuadrante.</li>
+            <li>Es un triángulo con vértices aproximados:
+                <ul>
+                    <li>(0,0)</li>
+                    <li>(20/3, 0) &asymp; (6.67, 0)</li>
+                    <li>(0, 4)</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="note">Figura 2: Representación gráfica del Ejercicio 2.</p>
+        
+        <h3>2.5. Interpretación de la solución gráfica</h3>
+        <ul>
+            <li>Cualquier punto dentro de la región factible son combinaciones posibles de horas activas de Servidores A y B que cumplen con el presupuesto.</li>
+            <li>Ejemplos de soluciones factibles:
+                <ul>
+                    <li>x=4, y=1 &rarr; costo = 3(4) + 5(1) = 17 &le; 20.</li>
+                    <li>x=2, y=2 &rarr; costo = 3(2) + 5(2) = 16 &le; 20.</li>
+                </ul>
+            </li>
+            <li>Puntos fuera de la región implican que el presupuesto semanal se excede.</li>
+        </ul>
+
+        <hr>
+
+        <h1>3. Ejercicio 3</h1>
+        <p>Un administrador de proyectos tecnológicos organiza su tiempo entre reuniones con stakeholders (x) y trabajo en la documentación técnica (y). Las reuniones requieren al menos 4 horas semanales y la documentación al menos 6 horas. Si dispone de 12 horas para ambas actividades, determine la región factible y analice las combinaciones posibles de tiempo.</p>
+        
+        <h3>3.1. Planteamiento del problema</h3>
+        <p>Un administrador organiza su tiempo entre reuniones con stakeholders (x) y trabajo en documentación técnica (y).
+            <ul>
+                <li>Las reuniones requieren al menos 4 horas semanales.</li>
+                <li>La documentación requiere al menos 6 horas semanales.</li>
+                <li>Dispone de 12 horas en total para ambas actividades.</li>
+            </ul>
+        </p>
+        
+        <h3>3.2. Formulación matemática</h3>
+        <div class="math-block">
+        (2)
+        {
+        x &ge; 4
+        y &ge; 6
+        x + y &le; 12
+        x &ge; 0, y &ge; 0
+        }
+        </div>
+        <p class="note">(Obs.: las últimas dos son las no-negatividades; con las primeras queda implícito que estamos en primer cuadrante.)</p>
+        
+        <h3>3.3. Transformación para graficar</h3>
+        <ul>
+            <li>La restricción de suma se transforma en la recta límite: x + y &le; 12 &rArr; y &le; -x + 12</li>
+        </ul>
+        <p>Para graficar dibujamos:
+            <ul>
+                <li>la recta y = -x + 12</li>
+                <li>la recta vertical x = 4</li>
+                <li>la recta horizontal y = 6</li>
+            </ul>
+        </p>
+        <p class="note">La región factible queda en el primer cuadrante, a la derecha de x=4, arriba de y=6 y debajo de y=-x+12.</p>
+        
+        <h3>3.4. Vértices de la región factible (exactos)</h3>
+        <p>Intersecciones relevantes:</p>
+        <ul>
+            <li>x=4 y y=6 &rarr; punto <strong>(4, 6)</strong>.</li>
+            <li>x=4 con x + y = 12 &rarr; y = 8 &rarr; <strong>(4, 8)</strong>.</li>
+            <li>y=6 con x + y = 12 &rarr; x = 6 &rarr; <strong>(6, 6)</strong>.</li>
+        </ul>
+        <p>Entonces la región factible es el triángulo con vértices (4,6), (4,8), (6, 6).</p>
+        <p class="note">Figura 3: Representación gráfica del Ejercicio 3.</p>
+        
+        <h3>3.5. Interpretación</h3>
+        <ul>
+            <li>El administrador debe dedicar como mínimo 4 horas a reuniones y 6 horas a documentación.</li>
+            <li>Sólo tiene un margen pequeño para mover horas entre actividades: por ejemplo:
+                <ul>
+                    <li>(4,6) usa 10 horas en total (queda 2 horas sin usar).</li>
+                    <li>(5,7) usa 12 horas (ajusta ambas y agota el tiempo).</li>
+                    <li>(6,6) usa 12 horas (más reuniones, mínima doc).</li>
+                    <li>(4,8) usa 12 horas (más documentación, mínima reuniones).</li>
+                </ul>
+            </li>
+            <li>Cualquier punto fuera del triángulo viola al menos una restricción (no cumple mínimos o excede 12 horas).</li>
+        </ul>
+
+        <hr>
+
+        <h1>4. Ejercicio 4</h1>
+        <p>Una empresa de desarrollo de videojuegos produce dos tipos de assets: Modelos 3D (P1) y Texturas (P2). Cada modelo 3D requiere 2 horas de trabajo y cada textura requiere 3 horas. El equipo de arte tiene un total de 18 horas disponibles semanalmente. Formule las restricciones, represéntelas gráficamente y determine cuántos assets de cada tipo pueden producirse en función del tiempo disponible.</p>
+        
+        <h3>4.1. Planteamiento</h3>
+        <ul>
+            <li>x = cantidad de Modelos 3D (P1).</li>
+            <li>y = cantidad de Texturas (P2).</li>
+            <li>Cada modelo 3D requiere 2 horas.</li>
+            <li>Cada textura requiere 3 horas.</li>
+            <li>Horas disponibles por semana: 18 horas.</li>
+        </ul>
+        
+        <h3>4.2. Formulación matemática</h3>
+        <p>y no negatividad:</p>
+        <div class="math-block">
+        2x + 3y &le; 18
+        x &ge; 0, y &ge; 0
+        </div>
+        <p class="note">(Si la producción exige números enteros, x, y &isin; ℤ&ge;0; si no, se permite solución continua.)</p>
+        
+        <h3>4.3. Transformación para graficar</h3>
+        <p>Despejando y:</p>
+        <div class="math-block">
+        3y &le; 18 - 2x &rArr; y &le; (-2/3)x + 6
+        </div>
+        <p>Recta límite: y = (-2/3)x + 6.</p>
+        <p>Interceptos (puntos donde corta ejes):</p>
+        <ul>
+            <li>Si x=0 &rarr; y=6.</li>
+            <li>Si y=0 &rarr; 2x=18 &rArr; x=9.</li>
+        </ul>
+        
+        <h3>4.4. Región factible (gráfica)</h3>
+        <ul>
+            <li>Es el área en el primer cuadrante, por debajo de la recta y = (-2/3)x + 6.</li>
+            <li>Vértices del polígono factible: (0,0), (9,0), (0,6). (Si consideramos solo la desigualdad y ejes, la región es el triángulo formado por esos vértices.)</li>
+        </ul>
+        <p class="note">Figura 4: Representación gráfica del Ejercicio 4.</p>
+        
+        <h3>4.5. Interpretación / ejemplos de soluciones</h3>
+        <ul>
+            <li>Combinaciones válidas (ejemplos):
+                <ul>
+                    <li>(x,y)=(0,6) &rarr; 0 modelos, 6 texturas (3&middot;6=18 horas).</li>
+                    <li>(9,0) &rarr; 9 modelos, 0 texturas (2&middot;9=18 horas).</li>
+                    <li>(3,4) &rarr; 3 modelos (6 h) + 4 texturas (12 h) = 18 h.</li>
+                    <li>(2,3) &rarr; 2&middot;2 + 3&middot;3 = 4 + 9 = 13 horas (factible y sobra tiempo).</li>
+                </ul>
+            </li>
+            <li>Si se requieren cantidades enteras, las soluciones factibles son los pares enteros dentro del triángulo (por ejemplo (1,5) &rarr; 2&middot;1 + 3&middot;5 = 17 &le; 18; (4,4) no: 2&middot;4 + 3&middot;4 = 20 &gt; 18).</li>
+        </ul>
+
+        <hr>
+
+        <h1>5. Ejercicio 5</h1>
+        <p>Una startup de hardware dispone de un máximo de 50 unidades de componentes electrónicos. Para ensamblar un dispositivo tipo A se necesitan 5 unidades y para un dispositivo tipo B se necesitan 10 unidades. Determine cuántos dispositivos de cada tipo puede ensamblar sin exceder las 50 unidades de componentes. Formule el problema, resuélvalo gráficamente y explique las posibles combinaciones de producción. *Nota: El planteamiento en el documento parece ser de un problema diferente al enunciado principal del Ejercicio 5. Se presenta el planteamiento del documento.*</p>
+        
+        <h3>5.1. Planteamiento</h3>
+        <p>Una fábrica produce dos productos:
+            <ul>
+                <li>x = unidades del producto A.</li>
+                <li>y = unidades del producto B.</li>
+            </ul>
+        </p>
+        <p><strong>Recursos disponibles por semana:</strong>
+            <ul>
+                <li>Material: 48 unidades.
+                    <ul>
+                        <li>Cada A consume 4 unidades de material.</li>
+                        <li>Cada B consume 6 unidades de material.</li>
+                    </ul>
+                </li>
+                <li>Mano de obra: 12 horas.
+                    <ul>
+                        <li>Cada A consume 1 hora.</li>
+                        <li>Cada B consume 2 horas.</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p>Además, no se producen cantidades negativas: x &ge; 0, y &ge; 0</p>
+        
+        <h3>5.2. Formulación matemática</h3>
+        <p>Restricciones:</p>
+        <div class="math-block">
+        (3)
+        {
+        4x + 6y &le; 48 (material)
+        x + 2y &le; 12 (mano de obra)
+        x &ge; 0, y &ge; 0
+        }
+        </div>
+        
+        <h3>5.3. Transformación para graficar</h3>
+        <p>Despejando y para ambas rectas:</p>
+        <ul>
+            <li>De 4x + 6y &le; 48 &rArr; y &le; (-4/6)x + 8 &rArr; y &le; (-2/3)x + 8. Recta límite: y = -0.6667x + 8.</li>
+            <li>De x + 2y &le; 12 &rArr; y &le; (-1/2)x + 6. Recta límite: y = -0.5x + 6.</li>
+        </ul>
+        
+        <h3>5.4. Vértices de la región factible (cálculo)</h3>
+        <p>Intersecciones importantes:</p>
+        <ul>
+            <li><strong>Intersección con ejes:</strong>
+                <ul>
+                    <li>Si x=0: de la primera recta y&le;8, de la segunda y&le;6 &rarr; el límite es y&le;6. Entonces el vértice en el eje y es <strong>(0, 6)</strong>.</li>
+                    <li>Si y=0: de la primera 4x&le;48 &rArr; x&le;12, de la segunda x&le;12 &rarr; vértice en eje x es <strong>(12, 0)</strong>.</li>
+                </ul>
+            </li>
+            <li><strong>Intersección entre las dos rectas:</strong>
+                <ul>
+                    <li>Resolver 4x + 6y = 48 y x + 2y = 12.</li>
+                    <li>De la segunda x = 12 - 2y. Sustituyendo: 4(12 - 2y) + 6y = 48 &rArr; 48 - 8y + 6y = 48 &rArr; -2y = 0 &rArr; y = 0 &rArr; x = 12.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Esa intersección es <strong>(12, 0)</strong> (ya coincide con el punto en el eje x).</p>
+        <p>Por tanto, la región factible acotada es el triángulo con vértices: <strong>(0,0), (12, 0), (0,6)</strong>.</p>
+        <p class="note">Figura 5: Representación gráfica del Ejercicio 5.</p>
+        
+        <h3>5.5. Interpretación</h3>
+        <ul>
+            <li>La región factible contiene todas las combinaciones de producción (x, y) que no superan ni el material ni la mano de obra disponibles.</li>
+            <li>Ejemplos de soluciones factibles:
+                <ul>
+                    <li>(0,6): usa 0 A y 6 B &rarr; material=6&middot;6=36&le;48, mano de obra =2&middot;6=12.</li>
+                    <li>(12,0): usa 12 A y 0 B &rarr; material=4&middot;12=48, mano de obra =1&middot;12=12.</li>
+                    <li>(6,3): material = 4&middot;6 + 6&middot;3 = 24 + 18 = 42 &lt; 48; mano de obra = 6 + 2&middot;3 = 12 (en la frontera).</li>
+                </ul>
+            </li>
+            <li>Si se requieren cantidades enteras, las soluciones válidas son los pares enteros dentro del triángulo (por ejemplo (5,2), (8, 1), etc.).</li>
+            <li>Cualquier punto fuera del triángulo viola al menos una restricción (falta material o mano de obra).</li>
         </ul>
       </section>
-      
-     <section>
-        <h2> Desarrollo de la Actividad </h2>
-        
-    <h1>1. Ejercicio 1</h1>
-<p>Un desarrollador tiene 15 horas semanales para dedicar al desarrollo de software de front-end (x) y back-end (y). Además: 
-    <ul>
-        <li>Debe dedicar al menos 5 horas al desarrollo de front-end para cumplir con los entregables del cliente.</li>
-        <li>El tiempo total no puede exceder 15 horas por restricciones de tiempo del sprint.</li>
-    </ul>
-    Formule las restricciones, represéntelas gráficamente e identifique las combinaciones posibles de tiempo a invertir en cada actividad.
-</p>
 
-<h3>1.1.1. Restricciones</h3>
-<ol>
-    <li>x &ge; 5 (mínimo 5 horas de front-end).</li>
-    <li>x + y &le; 15 (tiempo total máximo).</li>
-    <li>x &ge; 0, y &ge; 0 (no hay tiempo negativo).</li>
-</ol>
-<h3>1.1.2. Formulación matemática</h3>
-<div class="math-block">
-{
-x &ge; 5
-x + y &le; 15
-x &ge; 0
-y &ge; 0
-}
-</div>
-<h3>1.1.3. Representación gráfica</h3>
-<p>Para graficar, transformamos las restricciones en rectas:
-    <ul>
-        <li>x=5 (recta vertical).</li>
-        <li>y=-x+15 (recta con pendiente -1).</li>
-        <li>Ejes coordenados.</li>
-    </ul>
-</p>
-<p class="note">(1) La región factible es el área en el primer cuadrante, a la derecha de la recta x=5 y debajo de la recta y=-x+15.</p>
-<p class="note">Figura 1: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
-
-<hr>
-
-<h1>2. Ejercicio 2</h1>
-<p>Un ingeniero de datos administra dos tipos de servidores en la nube: Servidores A y Servidores B. El costo por hora de Servidor A es S/3 y de Servidor B es S/5. El presupuesto máximo semanal asignado para mantener los servidores es de S/20. Determine cuantas horas puede mantener activos cada tipo de servidor, formule el sistema de ecuaciones y represéntelo gráficamente.</p>
-<h3>2.1. Planteamiento del problema</h3>
-<p>Un ingeniero de datos administra dos tipos de servidores en la nube:
-    <ul>
-        <li>Servidores A &rarr; costo de 3 soles/hora</li>
-        <li>Servidores B &rarr; costo de 5 soles/hora</li>
-    </ul>
-    El presupuesto semanal máximo asignado es de 20 soles.
-</p>
-<p><strong>Definimos:</strong>
-    <ul>
-        <li>x: número de horas activas de servidores A.</li>
-        <li>y: número de horas activas de servidores B.</li>
-    </ul>
-</p>
-<h3>2.2. Formulación matemática</h3>
-<h3>2.2.1. Restricciones</h3>
-<ol>
-    <li>Restricción de costo: 3x + 5y &le; 20</li>
-</ol>
-<h3>2.2.2. No se puede asignar tiempo negativo</h3>
-<p>x &ge; 0, y &ge; 0</p>
-<h3>2.3. Transformación para graficar</h3>
-<p>La restricción principal es:
-    <div class="math-block">
-        3x + 5y &le; 20 &rArr; 5y &le; 20 - 3x &rArr; y &le; (20/5) - (3/5)x &rArr; y &le; -0.6x + 4
-    </div>
-</p>
-<p>La recta límite: y = -0.6x + 4</p>
-<h3>2.4. Representación gráfica</h3>
-<ul>
-    <li>La recta y = -0.6x + 4 divide el plano.</li>
-    <li>La región factible está debajo de la recta, en el primer cuadrante.</li>
-    <li>Es un triángulo con vértices aproximados:
+      <section>
+        <h2>Informe de la Actividad</h2>
         <ul>
-            <li>(0,0)</li>
-            <li>(20/3, 0) &asymp; (6.67, 0)</li>
-            <li>(0, 4)</li>
+          <li>
+            <a href="https://drive.google.com/file/d/1veaiFxUiYwAatQy58BZDauvwVGSi8UL8/view?usp=sharing" target="_blank" class="btn-link">
+                <span>📄</span> Ver Informe (PDF)
+            </a>
+          </li>
         </ul>
-    </li>
-</ul>
-<p class="note">Figura 2: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
-<h3>2.5. Interpretación de la solución gráfica</h3>
-<ul>
-    <li>Cualquier punto dentro de la región factible son combinaciones posibles de horas activas de Servidores A y B que cumplen con el presupuesto.</li>
-    <li>Ejemplos de soluciones factibles:
-        <ul>
-            <li>x=4, y=1 &rarr; costo = 3(4) + 5(1) = 17 &le; 20.</li>
-            <li>x=2, y=2 &rarr; costo = 3(2) + 5(2) = 16 &le; 20.</li>
-        </ul>
-    </li>
-    <li>Puntos fuera de la región implican que el presupuesto semanal se excede.</li>
-</ul>
-
-<hr>
-
-<h1>3. Ejercicio 3</h1>
-<p>Un administrador de proyectos tecnológicos organiza su tiempo entre reuniones con stakeholders (x) y trabajo en la documentación técnica (y). Las reuniones requieren al menos 4 horas semanales y la documentación al menos 6 horas. Si dispone de 12 horas para ambas actividades, determine la región factible y analice las combinaciones posibles de tiempo.</p>
-<h3>3.1. Planteamiento del problema</h3>
-<p>Un administrador organiza su tiempo entre reuniones con stakeholders (x) y trabajo en documentación técnica (y).
-    <ul>
-        <li>Las reuniones requieren al menos 4 horas semanales.</li>
-        <li>La documentación requiere al menos 6 horas semanales.</li>
-        <li>Dispone de 12 horas en total para ambas actividades.</li>
-    </ul>
-</p>
-<h3>3.2. Formulación matemática</h3>
-<div class="math-block">
-(2)
-{
-x &ge; 4
-y &ge; 6
-x + y &le; 12
-x &ge; 0, y &ge; 0
-}
-<div class="note">(Obs.: las últimas dos son las no-negatividades; con las primeras queda implícito que estamos en primer cuadrante.)</div>
-</div>
-<h3>3.3. Transformación para graficar</h3>
-<ul>
-    <li>La restricción de suma se transforma en la recta límite: x + y &le; 12 &rArr; y &le; -x + 12</li>
-</ul>
-<p>Para graficar dibujamos:
-    <ul>
-        <li>la recta y = -x + 12</li>
-        <li>la recta vertical x = 4</li>
-        <li>la recta horizontal y = 6</li>
-    </ul>
-</p>
-<p class="note">La región factible queda en el primer cuadrante, a la derecha de x=4, arriba de y=6 y debajo de y=-x+12.</p>
-<h3>3.4. Vértices de la región factible (exactos)</h3>
-<p>Intersecciones relevantes:</p>
-<ul>
-    <li>x=4 y y=6 &rarr; punto <strong>(4, 6)</strong>.</li>
-    <li>x=4 con x + y = 12 &rarr; y = 8 &rarr; <strong>(4, 8)</strong>.</li>
-    <li>y=6 con x + y = 12 &rarr; x = 6 &rarr; <strong>(6, 6)</strong>.</li>
-</ul>
-<p>Entonces la región factible es el triángulo con vértices (4,6), (4,8), (6, 6).</p>
-<p class="note">Figura 3: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
-<h3>3.5. Interpretación</h3>
-<ul>
-    <li>El administrador debe dedicar como mínimo 4 horas a reuniones y 6 horas a documentación.</li>
-    <li>Sólo tiene un margen pequeño para mover horas entre actividades: por ejemplo:
-        <ul>
-            <li>(4,6) usa 10 horas en total (queda 2 horas sin usar).</li>
-            <li>(5,7) usa 12 horas (ajusta ambas y agota el tiempo).</li>
-            <li>(6,6) usa 12 horas (más reuniones, mínima doc).</li>
-            <li>(4,8) usa 12 horas (más documentación, mínima reuniones).</li>
-        </ul>
-    </li>
-    <li>Cualquier punto fuera del triángulo viola al menos una restricción (no cumple mínimos o excede 12 horas).</li>
-</ul>
-
-<hr>
-
-<h1>4. Ejercicio 4</h1>
-<p>Una empresa de desarrollo de videojuegos produce dos tipos de assets: Modelos 3D (P1) y Texturas (P2). Cada modelo 3D requiere 2 horas de trabajo y cada textura requiere 3 horas. El equipo de arte tiene un total de 18 horas disponibles semanalmente. Formule las restricciones, represéntelas gráficamente y determine cuántos assets de cada tipo pueden producirse en función del tiempo disponible.</p>
-<h3>4.1. Planteamiento</h3>
-<ul>
-    <li>x = cantidad de Modelos 3D (P1).</li>
-    <li>y = cantidad de Texturas (P2).</li>
-    <li>Cada modelo 3D requiere 2 horas.</li>
-    <li>Cada textura requiere 3 horas.</li>
-    <li>Horas disponibles por semana: 18 horas.</li>
-</ul>
-<h3>4.2. Formulación matemática</h3>
-<p>y no negatividad:</p>
-<div class="math-block">
-2x + 3y &le; 18
-x &ge; 0, y &ge; 0
-</div>
-<p class="note">(Si la producción exige números enteros, x, y &isin; ℤ&ge;0; si no, se permite solución continua.)</p>
-<h3>4.3. Transformación para graficar</h3>
-<p>Despejando y:</p>
-<div class="math-block">
-3y &le; 18 - 2x &rArr; y &le; (-2/3)x + 6
-</div>
-<p>Recta límite: y = (-2/3)x + 6.</p>
-<p>Interceptos (puntos donde corta ejes):</p>
-<ul>
-    <li>Si x=0 &rarr; y=6.</li>
-    <li>Si y=0 &rarr; 2x=18 &rArr; x=9.</li>
-</ul>
-<h3>4.4. Región factible (gráfica)</h3>
-<ul>
-    <li>Es el área en el primer cuadrante, por debajo de la recta y = (-2/3)x + 6.</li>
-    <li>Vértices del polígono factible: (0,0), (9,0), (0,6). (Si consideramos solo la desigualdad y ejes, la región es el triángulo formado por esos vértices.)</li>
-</ul>
-<p class="note">Figura 4: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
-<h3>4.5. Interpretación / ejemplos de soluciones</h3>
-<ul>
-    <li>Combinaciones válidas (ejemplos):
-        <ul>
-            <li>(x,y)=(0,6) &rarr; 0 modelos, 6 texturas (3&middot;6=18 horas).</li>
-            <li>(9,0) &rarr; 9 modelos, 0 texturas (2&middot;9=18 horas).</li>
-            <li>(3,4) &rarr; 3 modelos (6 h) + 4 texturas (12 h) = 18 h.</li>
-            <li>(2,3) &rarr; 2&middot;2 + 3&middot;3 = 4 + 9 = 13 horas (factible y sobra tiempo).</li>
-        </ul>
-    </li>
-    <li>Si se requieren cantidades enteras, las soluciones factibles son los pares enteros dentro del triángulo (por ejemplo (1,5) &rarr; 2&middot;1 + 3&middot;5 = 17 &le; 18; (4,4) no: 2&middot;4 + 3&middot;4 = 20 &gt; 18).</li>
-</ul>
-
-<hr>
-
-<h1>5. Ejercicio 5</h1>
-<p>Una startup de hardware dispone de un máximo de 50 unidades de componentes electrónicos. Para ensamblar un dispositivo tipo A se necesitan 5 unidades y para un dispositivo tipo B se necesitan 10 unidades. Determine cuántos dispositivos de cada tipo puede ensamblar sin exceder las 50 unidades de componentes. Formule el problema, resuélvalo gráficamente y explique las posibles combinaciones de producción. *Nota: El planteamiento en el documento parece ser de un problema diferente al enunciado principal del Ejercicio 5. Se presenta el planteamiento del documento.*</p>
-<h3>5.1. Planteamiento</h3>
-<p>Una fábrica produce dos productos:
-    <ul>
-        <li>x = unidades del producto A.</li>
-        <li>y = unidades del producto B.</li>
-    </ul>
-</p>
-<p><strong>Recursos disponibles por semana:</strong>
-    <ul>
-        <li>Material: 48 unidades.
-            <ul>
-                <li>Cada A consume 4 unidades de material.</li>
-                <li>Cada B consume 6 unidades de material.</li>
-            </ul>
-        </li>
-        <li>Mano de obra: 12 horas.
-            <ul>
-                <li>Cada A consume 1 hora.</li>
-                <li>Cada B consume 2 horas.</li>
-            </ul>
-        </li>
-    </ul>
-</p>
-<p>Además, no se producen cantidades negativas: x &ge; 0, y &ge; 0</p>
-<h3>5.2. Formulación matemática</h3>
-<p>Restricciones:</p>
-<div class="math-block">
-(3)
-{
-4x + 6y &le; 48 (material)
-x + 2y &le; 12 (mano de obra)
-x &ge; 0, y &ge; 0
-}
-</div>
-<h3>5.3. Transformación para graficar</h3>
-<p>Despejando y para ambas rectas:</p>
-<ul>
-    <li>De 4x + 6y &le; 48 &rArr; y &le; (-4/6)x + 8 &rArr; y &le; (-2/3)x + 8. Recta límite: y = -0.6667x + 8.</li>
-    <li>De x + 2y &le; 12 &rArr; y &le; (-1/2)x + 6. Recta límite: y = -0.5x + 6.</li>
-</ul>
-<h3>5.4. Vértices de la región factible (cálculo)</h3>
-<p>Intersecciones importantes:</p>
-<ul>
-    <li><strong>Intersección con ejes:</strong>
-        <ul>
-            <li>Si x=0: de la primera recta y&le;8, de la segunda y&le;6 &rarr; el límite es y&le;6. Entonces el vértice en el eje y es <strong>(0, 6)</strong>.</li>
-            <li>Si y=0: de la primera 4x&le;48 &rArr; x&le;12, de la segunda x&le;12 &rarr; vértice en eje x es <strong>(12, 0)</strong>.</li>
-        </ul>
-    </li>
-    <li><strong>Intersección entre las dos rectas:</strong>
-        <ul>
-            <li>Resolver 4x + 6y = 48 y x + 2y = 12.</li>
-            <li>De la segunda x = 12 - 2y. Sustituyendo: 4(12 - 2y) + 6y = 48 &rArr; 48 - 8y + 6y = 48 &rArr; -2y = 0 &rArr; y = 0 &rArr; x = 12.</li>
-        </ul>
-    </li>
-</ul>
-<p>Esa intersección es <strong>(12, 0)</strong> (ya coincide con el punto en el eje x).</p>
-<p>Por tanto, la región factible acotada es el triángulo con vértices: <strong>(0,0), (12, 0), (0,6)</strong>.</p>
-<p class="note">Figura 5: Representación gráfica del Ejercicio 1 (La gráfica no está incluida en el texto fuente, solo la referencia).</p>
-<h3>5.5. Interpretación</h3>
-<ul>
-    <li>La región factible contiene todas las combinaciones de producción (x, y) que no superan ni el material ni la mano de obra disponibles.</li>
-    <li>Ejemplos de soluciones factibles:
-        <ul>
-            <li>(0,6): usa 0 A y 6 B &rarr; material=6&middot;6=36&le;48, mano de obra =2&middot;6=12.</li>
-            <li>(12,0): usa 12 A y 0 B &rarr; material=4&middot;12=48, mano de obra =1&middot;12=12.</li>
-            <li>(6,3): material = 4&middot;6 + 6&middot;3 = 24 + 18 = 42 &lt; 48; mano de obra = 6 + 2&middot;3 = 12 (en la frontera).</li>
-        </ul>
-    </li>
-    <li>Si se requieren cantidades enteras, las soluciones válidas son los pares enteros dentro del triángulo (por ejemplo (5,2), (8, 1), etc.).</li>
-    <li>Cualquier punto fuera del triángulo viola al menos una restricción (falta material o mano de obra).</li>
-</ul>
-     
+      </section>
     </main>
 
     <footer>
@@ -530,8 +688,7 @@ x &ge; 0, y &ge; 0
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const content = document.getElementById('content');
-      sidebar.classList.toggle('hide');
-      content.classList.toggle('full');
+      sidebar.classList.toggle('show');
     }
   </script>
 </body>
