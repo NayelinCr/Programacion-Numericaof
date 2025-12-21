@@ -1,267 +1,13 @@
 <!doctype html>
 <html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Unidad 2 · Actividad 01: Índice H y Métodos Numéricos</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unidad 2 · Actividad 01: Índice H y Métodos Numéricos</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
-            color: #f0e6ff;
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: 250px;
-            background: rgba(45, 30, 70, 0.95);
-            backdrop-filter: blur(8px);
-            padding: 2rem 1rem;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar h2 {
-            font-size: 1.2rem;
-            color: #e3ccff;
-            text-align: center;
-            margin-bottom: 2rem;
-            letter-spacing: 0.8px;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-        }
-
-        .sidebar a {
-            color: #cdb4ff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.6rem 1rem;
-            margin: 0.3rem 0;
-            border-radius: 8px;
-            transition: all 0.3s;
-            display: block;
-        }
-
-        .sidebar a:hover {
-            background: #b388ff;
-            color: #2a2037;
-            transform: translateX(4px);
-        }
-
-        .sidebar a.active {
-            background: #b388ff;
-            color: #2a2037;
-        }
-
-        .toggle-btn {
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            background: #b388ff;
-            color: #2a2037;
-            border: none;
-            padding: 0.6rem 0.9rem;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-        }
-
-        .sidebar.hide {
-            transform: translateX(-100%);
-        }
-
-        /* ===== CONTENIDO PRINCIPAL ===== */
-        .content {
-            flex: 1;
-            margin-left: 250px;
-            padding: 2rem;
-            transition: margin-left 0.3s;
-        }
-
-        .content.full {
-            margin-left: 0;
-        }
-
-        header {
-            background: linear-gradient(135deg, #4a2e68, #7e57c2);
-            color: white;
-            padding: 1.5rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.45);
-            position: relative;
-        }
-
-        .estado {
-            position: absolute;
-            top: 1.2rem;
-            right: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-weight: 600;
-            background: rgba(61, 43, 86, 0.9);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .burbuja {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #b388ff;
-            box-shadow: 0 0 6px #b388ff;
-        }
-
-        main {
-            background: rgba(56, 40, 78, 0.95);
-            padding: 2.2rem;
-            margin-top: 2rem;
-            border-radius: 18px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(3px);
-            transition: transform 0.2s ease;
-        }
-
-        main:hover {
-            transform: scale(1.01);
-        }
-
-        h1 {
-            margin: 0.4rem 0 0;
-            font-size: 1.9rem;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        }
-
-        h2 {
-            color: #d7baff;
-            border-bottom: 2px solid #b388ff;
-            display: inline-block;
-            padding-bottom: 0.4rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        h3 {
-             color: #cdb4ff;
-             font-size: 1.1rem;
-             margin-top: 1.5rem;
-             border-bottom: 1px dashed #6f4c9c;
-             padding-bottom: 0.3rem;
-        }
-
-        section {
-            margin-bottom: 2rem;
-        }
-
-        pre {
-            background: #2f2043;
-            border-radius: 12px;
-            padding: 1rem;
-            overflow-x: auto;
-            font-family: 'Fira Code', monospace;
-            color: #e9ddff;
-            border: 1px solid #4e3872;
-            box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
-        }
-
-        a {
-            color: #d6b6ff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: #f1e0ff;
-            text-decoration: underline;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1rem 0;
-            background: #3a2951;
-            color: #e5d0ff;
-            font-size: 0.9rem;
-            border-top: 1px solid #4e3872;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
-        }
-        
-        /* Estilos específicos para las tablas */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            background: #3a2951;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        th, td {
-            padding: 0.8rem;
-            text-align: left;
-            border-bottom: 1px solid #4e3872;
-        }
-        th {
-            background: #4a2e68;
-            color: #fff;
-            font-weight: 600;
-        }
-        tr:nth-child(even) {
-            background: #3c2a52;
-        }
-        tr:hover {
-            background: #503d6d;
-        }
-        
-        /* Estilos específicos para fórmulas y acotaciones */
-        .formula {
-            text-align: center;
-            margin: 1.5rem 0;
-            font-size: 1.15rem;
-            background: #3c2a52;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #4e3872;
-        }
-        
-        .acotaciones {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: #2f2043;
-            border-radius: 8px;
-            border-left: 5px solid #b388ff;
-        }
-        .acotaciones h3 {
-            margin-top: 0;
-            color: #f0e6ff;
-            border-bottom: none;
-        }
-        .acotaciones ul {
-            list-style: disc;
-            margin-left: 1.5rem;
-            padding-left: 0;
-        }
-    </style>
-    
-    <script>
+  <script>
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(','\\)']],
@@ -271,384 +17,739 @@
         skipHtmlTags: ['script','noscript','style','textarea','pre','code']
       }
     };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+  <style>
+    /* ===== VARIABLES (Misma paleta global) ===== */
+    :root {
+      --primary: #a78bfa;
+      --primary-dark: #7c3aed;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg-dark: #0f0a1f;
+      --bg-darker: #0a0614;
+      --text: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: rgba(167, 139, 250, 0.2);
+      --glow: rgba(167, 139, 250, 0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-darker);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== FONDO TÉCNICO ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(167, 139, 250, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.03) 2px, transparent 2px);
+      background-size: 100px 100px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
+      animation: ambient 30s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes ambient {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, -5%) scale(1.1); }
+    }
+
+    /* ===== SIDEBAR PREMIUM ===== */
+    .sidebar {
+      width: 260px;
+      background: rgba(15, 10, 31, 0.85);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+
+    .sidebar h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .sidebar a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .sidebar a:hover {
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .sidebar a.active {
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(15, 10, 31, 0.8);
+      backdrop-filter: blur(10px);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 1100;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .content {
+      flex: 1;
+      margin-left: 260px;
+      padding: 3rem 4rem;
+      position: relative;
+      z-index: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .content.full { margin-left: 0; }
+
+    /* Header de Actividad */
+    header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+      position: relative;
+    }
+
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    header p {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Badge */
+    .estado {
+      position: absolute;
+      top: 0; right: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .burbuja {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--glow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    /* Main Content Styling */
+    main {
+      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section { margin-bottom: 3rem; }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '//';
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+    }
+
+    h3 {
+      color: var(--primary);
+      margin: 1.5rem 0 1rem;
+      font-size: 1.2rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    /* ESTILOS DE TABLA (Adaptado al Premium) */
+    .table-container {
+        overflow-x: auto;
+        margin-top: 1rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(10, 6, 20, 0.6);
+    }
+
+    th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+    }
+
+    th {
+        background: rgba(167, 139, 250, 0.1);
+        color: var(--primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+    }
+
+    tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    tr:hover {
+        background: rgba(167, 139, 250, 0.05);
+    }
+
+    /* ESTILOS DE CÓDIGO Y MATEMÁTICAS */
+    pre {
+      background: rgba(10, 6, 20, 0.6);
+      padding: 1.5rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .formula {
+        background: rgba(167, 139, 250, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        margin: 1.5rem 0;
+        border: 1px solid var(--border);
+        font-size: 1.2rem;
+    }
+
+    .acotaciones {
+        background: rgba(236, 72, 153, 0.05);
+        border-left: 4px solid var(--secondary);
+        padding: 1.5rem;
+        border-radius: 0 12px 12px 0;
+        margin: 1.5rem 0;
+    }
+
+    .acotaciones h3 {
+        color: var(--secondary);
+        margin-top: 0;
+    }
+
+    .acotaciones ul {
+        margin-left: 1.5rem;
+        color: var(--text-muted);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border), transparent);
+        margin: 3rem 0;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); width: 280px; }
+      .sidebar.show { transform: translateX(0); }
+      .toggle-btn { display: block; }
+      .content { margin-left: 0; padding: 2rem 1.5rem; }
+      header h1 { font-size: 1.8rem; }
+      .estado { position: relative; margin-top: 1rem; display: inline-flex; }
+    }
+  </style>
 </head>
 
 <body>
-    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-    <aside class="sidebar" id="sidebar">
-        <h2>Unidad 2</h2>
-        <a href="unidad2_01.html" class="active">Actividad 01</a>
-        <a href="unidad2_02.html">Actividad 02</a>
-        <a href="unidad2_03.html">Actividad 03</a>
-        <a href="unidad2_04.html">Actividad 04</a>
-        <a href="unidad2_05.html">Actividad 05</a>
-        <a href="unidad2_06.html">Actividad 06</a>
+  <aside class="sidebar" id="sidebar">
+    <h2>Unidad 2</h2>
+    <a href="unidad2_01.html" class="active">Actividad 01</a>
+    <a href="unidad2_02.html">Actividad 02</a>
+    <a href="unidad2_03.html">Actividad 03</a>
+    <a href="unidad2_04.html">Actividad 04</a>
+    <a href="unidad2_05.html">Actividad 05</a>
+    <a href="unidad2_06.html">Actividad 06</a>
+    <a href="unidad2_07.html">Actividad 07</a>
+    <a href="unidad2_08.html">Actividad 08</a>
+    <a href="unidad2_09.html">Actividad 09</a>
+    
+    <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
         <a href="../index.html">🏠 Volver al inicio</a>
-        <a href="../unidad1/unidad1.html">➡ Ir a Unidad 1</a>
-    </aside>
+        <a href="../unidad1/unidad1.html" style="color: var(--secondary);">➡ Ir a Unidad 1</a>
+    </div>
+  </aside>
 
-    <div class="content" id="content">
-        <header>
-            <h1>Actividad 01 · Índice H + Programación de 4 Métodos</h1>
-            <p>16/10/2025</p>
-            <div class="estado">
-                <div class="burbuja"></div>
-                <span>Completada</span>
-            </div>
-        </header>
+  <div class="content" id="content">
+    <header>
+      <h1>Actividad 01 · Índice H + Programación de 4 Métodos</h1>
+      <p>16/10/2025</p>
+      <div class="estado">
+        <div class="burbuja"></div>
+        <span>Completada</span>
+      </div>
+    </header>
 
-        <main>
-            <section>
-                <h2>Descripción de la Actividad</h2>
-                <p>1. Investigación de Índice H sobre docentes de la Facultad de Ingeniería Estadística e Informática.</p>
-                <p>2. Programación de 4 métodos para encontrar raíces: Método de Bisección, Método de la Secante, Método de Punto Fijo y Método de Regula Falsi.</p>
-            </section>
-            
-             <section>
-                <h2>Informe de la Actividad</h2>
-                <ul>
-                    <li>📄 <a href="https://drive.google.com/file/d/1k1VK4O3_V_jAH001ZmJ_ewWoGTId91Ky/view?usp=sharing" target="_blank">Informe (PDF)</a></li>
-                </ul>
-            </section>
-          
-            <section>
-                <h2>Desarrollo de la Actividad</h2>
-                <br>
-                <h2>📊 Índice H</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Afiliación</th>
-                            <th>SCOPUS ID</th>
-                            <th>ORCID</th>
-                            <th>Citas</th>
-                            <th>Documentos</th>
-                            <th>Índice H</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CANQUI-FLORES, BERNABÉ</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>57224302525</td>
-                            <td>CONECTADO</td>
-                            <td>20 (DE 19 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>8</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>PEREZ QUISPE, SAMUEL DONATO</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>QUISPE YAPO, EDGARDO</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>ROQUE CLAROS, ROBERTO ELVIS</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>LLUEN VALLEJOS, CÉSAR AUGUSTO</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>AZAÑERO DE AGUIRRE, EMMA OFELINDA</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>APAZA-TAROULI, ALEJANDRO</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>57222436215</td>
-                            <td>0000-0003-1622-8662</td>
-                            <td>6 (DE 6 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>5</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>TUMI-FIGUEROA, ERNESTO NAYER</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>57000361700</td>
-                            <td>CONECTADO</td>
-                            <td>23 (DE 23 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>6</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>COYLA-CCAMA, LEONEL</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58636847770</td>
-                            <td>CONECTADO</td>
-                            <td>1 (DE 1 DOCUMENTO)</td>
-                            <td>N/A</td>
-                            <td>5</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>MORILLOS VALDERRAMA, SANTOS OCTAVIO</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>SALAS PILCO, MARÍA MAURA</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>QUISPE MAMANI, GOOFREDO</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>1 (DE 1 DOCUMENTO)</td>
-                            <td>N/A</td>
-                            <td>4</td>
-                            <td>ENCONTRADO (PARCIAL)</td>
-                        </tr>
-                        <tr>
-                            <td>GONZALES, LEONID ALÉMAN</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58648491200</td>
-                            <td>0000-0002-4072-6370</td>
-                            <td>0 (DE 1 DOCUMENTO)</td>
-                            <td>N/A</td>
-                            <td>4</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>IBAÑEZ-QUISPE, VLADIMIRO</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>57201819773</td>
-                            <td>0000-0002-0277-4945</td>
-                            <td>52 (DE 52 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>21</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>CARPIO VARGAS, EDGAR ELOY</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>57222111755</td>
-                            <td>0000-0001-6457-4537</td>
-                            <td>26 (DE 25 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>9</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>TITO LIPA, JOSE PÁNFILO</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58688221000</td>
-                            <td>0000-0002-3572-5682</td>
-                            <td>0 (DE 0 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>3</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>GONZALES ACHATA, ALFREDO ERNESTO</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>PUMA HUAMANI, BETO</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>ALVAREZ ROZAS, TERESA PAOLA</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>HUATA-PANCA, PERCY</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>57357711000</td>
-                            <td>0000-0002-1624-9526</td>
-                            <td>14 (DE 12 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>2</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>QUISPE CARITA, ANGEL JAVIER</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>JUDIREZ-VARGAS, JUAN CARLOS CARLOS</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58681177000</td>
-                            <td>CONECTADO</td>
-                            <td>2 (DE 2 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>3</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>VILLASANTE-SARAVIA, FREDDY HERIC</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58671288200</td>
-                            <td>0000-0002-8859-9008</td>
-                            <td>7 (DE 7 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>2</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>PARI-CONDORI, ELQUI YEYE</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58394599000</td>
-                            <td>0000-0003-3248-0754</td>
-                            <td>1 (DE 1 DOCUMENTO)</td>
-                            <td>N/A</td>
-                            <td>2</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>CHOQUEJAJUA-ACER, REMO</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58649131500</td>
-                            <td>CONECTADO</td>
-                            <td>2 (DE 2 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>8</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>MENDOZA-MOLLOCONDO, CHARLES IGNACIO</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>57562769000</td>
-                            <td>0000-0002-4766-2701</td>
-                            <td>17 (DE 16 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>2</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>APAZA CUTIPA, RENZO</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>LÓPEZ CUEVA, MILTON ANTONIO</td>
-                            <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
-                            <td>58671948800</td>
-                            <td>CONECTADO</td>
-                            <td>2 (DE 2 DOCUMENTOS)</td>
-                            <td>N/A</td>
-                            <td>6</td>
-                            <td>ENCONTRADO</td>
-                        </tr>
-                        <tr>
-                            <td>VARGAS VALVERDE, CONFESOR MILAN</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>NO ENCONTRADO</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr>
+    <main>
+      <section>
+        <h2>Descripción de la Actividad</h2>
+        <p>1. Investigación de Índice H sobre docentes de la Facultad de Ingeniería Estadística e Informática.</p>
+        <p>2. Programación de 4 métodos para encontrar raíces: Método de Bisección, Método de la Secante, Método de Punto Fijo y Método de Regula Falsi.</p>
+      </section>
+      
+      <section>
+        <h2>Informe de la Actividad</h2>
+        <ul>
+          <li>📄 <a href="https://drive.google.com/file/d/1k1VK4O3_V_jAH001ZmJ_ewWoGTId91Ky/view?usp=sharing" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">Informe (PDF)</a></li>
+        </ul>
+      </section>
+      
+      <section>
+        <h2>Desarrollo de la Actividad</h2>
+        <br>
+        <h2>📊 Índice H</h2>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Afiliación</th>
+                        <th>SCOPUS ID</th>
+                        <th>ORCID</th>
+                        <th>Citas</th>
+                        <th>Documentos</th>
+                        <th>Índice H</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CANQUI-FLORES, BERNABÉ</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>57224302525</td>
+                        <td>CONECTADO</td>
+                        <td>20 (DE 19 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>8</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>PEREZ QUISPE, SAMUEL DONATO</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>QUISPE YAPO, EDGARDO</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>ROQUE CLAROS, ROBERTO ELVIS</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>LLUEN VALLEJOS, CÉSAR AUGUSTO</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>AZAÑERO DE AGUIRRE, EMMA OFELINDA</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>APAZA-TAROULI, ALEJANDRO</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>57222436215</td>
+                        <td>0000-0003-1622-8662</td>
+                        <td>6 (DE 6 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>5</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>TUMI-FIGUEROA, ERNESTO NAYER</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>57000361700</td>
+                        <td>CONECTADO</td>
+                        <td>23 (DE 23 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>6</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>COYLA-CCAMA, LEONEL</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58636847770</td>
+                        <td>CONECTADO</td>
+                        <td>1 (DE 1 DOCUMENTO)</td>
+                        <td>N/A</td>
+                        <td>5</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>MORILLOS VALDERRAMA, SANTOS OCTAVIO</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>SALAS PILCO, MARÍA MAURA</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>QUISPE MAMANI, GOOFREDO</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>1 (DE 1 DOCUMENTO)</td>
+                        <td>N/A</td>
+                        <td>4</td>
+                        <td>ENCONTRADO (PARCIAL)</td>
+                    </tr>
+                    <tr>
+                        <td>GONZALES, LEONID ALÉMAN</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58648491200</td>
+                        <td>0000-0002-4072-6370</td>
+                        <td>0 (DE 1 DOCUMENTO)</td>
+                        <td>N/A</td>
+                        <td>4</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>IBAÑEZ-QUISPE, VLADIMIRO</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>57201819773</td>
+                        <td>0000-0002-0277-4945</td>
+                        <td>52 (DE 52 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>21</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>CARPIO VARGAS, EDGAR ELOY</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>57222111755</td>
+                        <td>0000-0001-6457-4537</td>
+                        <td>26 (DE 25 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>9</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>TITO LIPA, JOSE PÁNFILO</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58688221000</td>
+                        <td>0000-0002-3572-5682</td>
+                        <td>0 (DE 0 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>3</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>GONZALES ACHATA, ALFREDO ERNESTO</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>PUMA HUAMANI, BETO</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>ALVAREZ ROZAS, TERESA PAOLA</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>HUATA-PANCA, PERCY</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>57357711000</td>
+                        <td>0000-0002-1624-9526</td>
+                        <td>14 (DE 12 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>2</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>QUISPE CARITA, ANGEL JAVIER</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>JUDIREZ-VARGAS, JUAN CARLOS CARLOS</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58681177000</td>
+                        <td>CONECTADO</td>
+                        <td>2 (DE 2 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>3</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>VILLASANTE-SARAVIA, FREDDY HERIC</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58671288200</td>
+                        <td>0000-0002-8859-9008</td>
+                        <td>7 (DE 7 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>2</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>PARI-CONDORI, ELQUI YEYE</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58394599000</td>
+                        <td>0000-0003-3248-0754</td>
+                        <td>1 (DE 1 DOCUMENTO)</td>
+                        <td>N/A</td>
+                        <td>2</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>CHOQUEJAJUA-ACER, REMO</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58649131500</td>
+                        <td>CONECTADO</td>
+                        <td>2 (DE 2 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>8</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>MENDOZA-MOLLOCONDO, CHARLES IGNACIO</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>57562769000</td>
+                        <td>0000-0002-4766-2701</td>
+                        <td>17 (DE 16 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>2</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>APAZA CUTIPA, RENZO</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>LÓPEZ CUEVA, MILTON ANTONIO</td>
+                        <td>UNIVERSIDAD NACIONAL DEL ALTIPLANO, PUNO, PERÚ</td>
+                        <td>58671948800</td>
+                        <td>CONECTADO</td>
+                        <td>2 (DE 2 DOCUMENTOS)</td>
+                        <td>N/A</td>
+                        <td>6</td>
+                        <td>ENCONTRADO</td>
+                    </tr>
+                    <tr>
+                        <td>VARGAS VALVERDE, CONFESOR MILAN</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NO ENCONTRADO</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <hr>
 
-                <h2>💻 Programación de 4 Métodos Numéricos</h2>
-                <br>
-                <h2 id="newton">1. Método de Newton-Raphson</h2>
-                <h3>Definición</h3>
-                <p>Es un procedimiento iterativo que utiliza la **derivada de la función** para aproximar las raíces de ecuaciones no lineales. Su rapidez de convergencia (convergencia cuadrática) lo hace muy utilizado en ingeniería y matemáticas aplicadas.</p>
+        <h2>💻 Programación de 4 Métodos Numéricos</h2>
+        <br>
+        <h2 id="newton">1. Método de Newton-Raphson</h2>
+        <h3>Definición</h3>
+        <p>Es un procedimiento iterativo que utiliza la **derivada de la función** para aproximar las raíces de ecuaciones no lineales. Su rapidez de convergencia (convergencia cuadrática) lo hace muy utilizado en ingeniería y matemáticas aplicadas.</p>
 
-                <h3>Fórmula</h3>
-                <div class="formula">
-                    $$x_{n+1}=x_{n}-\frac{f(x_{n})}{f^{\prime}(x_{n})}$$
-                </div>
+        <h3>Fórmula</h3>
+        <div class="formula">
+            $$x_{n+1}=x_{n}-\frac{f(x_{n})}{f^{\prime}(x_{n})}$$
+        </div>
 
-                <div class="acotaciones">
-                    <h3>Acotaciones</h3>
-                    <ul>
-                        <li>Convergencia rápida si la aproximación inicial está cerca de la raíz verdadera.</li>
-                        <li>Requiere que la función sea derivable en el intervalo considerado.</li>
-                        <li>Puede fallar o divergir si la derivada en el punto inicial es cero o cercana a cero.</li>
-                    </ul>
-                </div>
+        <div class="acotaciones">
+            <h3>Acotaciones</h3>
+            <ul>
+                <li>Convergencia rápida si la aproximación inicial está cerca de la raíz verdadera.</li>
+                <li>Requiere que la función sea derivable en el intervalo considerado.</li>
+                <li>Puede fallar o divergir si la derivada en el punto inicial es cero o cercana a cero.</li>
+            </ul>
+        </div>
 
-                <h3>1.1. Código en Python</h3>
-                <div class="code-snippet">
-                    <pre><code>
+        <h3>1.1. Código en Python</h3>
+        <div class="code-snippet">
+            <pre><code>
 
 import math
 
@@ -693,31 +794,31 @@ def newton_raphson(x0, tol=1e-6, max_iter=100):
 # Buscamos la raíz de f(x)=e^x - 3x empezando desde x0=1.0
 x0 = 1.0
 newton_raphson(x0)</code></pre>
-                </div>
-                
-                <hr>
-                
-                <h2 id="biseccion">2. Método de Bisección</h2>
-                <h3>Definición</h3>
-                <p>Procedimiento iterativo que localiza una raíz de una **función continua** dividiendo repetidamente un intervalo en mitades. Aprovecha el **Teorema del Valor Intermedio**, garantizando convergencia cuando $f(a) \cdot f(b) < 0$.</p>
+        </div>
+        
+        <hr>
+        
+        <h2 id="biseccion">2. Método de Bisección</h2>
+        <h3>Definición</h3>
+        <p>Procedimiento iterativo que localiza una raíz de una **función continua** dividiendo repetidamente un intervalo en mitades. Aprovecha el **Teorema del Valor Intermedio**, garantizando convergencia cuando $f(a) \cdot f(b) < 0$.</p>
 
-                <h3>Fórmula</h3>
-                <div class="formula">
-                    $$x_{n} = \frac{a_n + b_n}{2}$$
-                </div>
+        <h3>Fórmula</h3>
+        <div class="formula">
+            $$x_{n} = \frac{a_n + b_n}{2}$$
+        </div>
 
-                <div class="acotaciones">
-                    <h3>Acotaciones</h3>
-                    <ul>
-                        <li>Siempre converge si la función es continua y hay un cambio de signo en los extremos del intervalo.</li>
-                        <li>No requiere cálculo de derivadas.</li>
-                        <li>La convergencia es lineal, por lo que es más lento comparado con métodos basados en derivadas.</li>
-                    </ul>
-                </div>
+        <div class="acotaciones">
+            <h3>Acotaciones</h3>
+            <ul>
+                <li>Siempre converge si la función es continua y hay un cambio de signo en los extremos del intervalo.</li>
+                <li>No requiere cálculo de derivadas.</li>
+                <li>La convergencia es lineal, por lo que es más lento comparado con métodos basados en derivadas.</li>
+            </ul>
+        </div>
 
-                <h3>2.1. Código en Python</h3>
-                <div class="code-snippet">
-                    <pre><code>import math
+        <h3>2.1. Código en Python</h3>
+        <div class="code-snippet">
+            <pre><code>import math
 
 # Función a resolver: f(x) = cos(x) - x
 def f(x):
@@ -757,31 +858,31 @@ def biseccion(a, b, tol=1e-6, max_iter=100):
 # Buscamos la raíz de f(x)=cos(x)-x en el intervalo [0, 1]
 a, b = 0, 1
 biseccion(a, b)</code></pre>
-                </div>
-                
-                <hr>
+        </div>
+        
+        <hr>
 
-                <h2 id="secante">3. Método de la Secante</h2>
-                <h3>Definición</h3>
-                <p>Aproxima la raíz de una función usando la **línea secante** entre dos puntos consecutivos. Se basa en aproximar la derivada por una diferencia finita, lo que evita calcular $f'(x)$ explícitamente.</p>
+        <h2 id="secante">3. Método de la Secante</h2>
+        <h3>Definición</h3>
+        <p>Aproxima la raíz de una función usando la **línea secante** entre dos puntos consecutivos. Se basa en aproximar la derivada por una diferencia finita, lo que evita calcular $f'(x)$ explícitamente.</p>
 
-                <h3>Fórmula</h3>
-                <div class="formula">
-                    $$x_{n+1}=x_{n}-f(x_{n})\frac{x_{n}-x_{n-1}}{f(x_{n})-f(x_{n-1})}$$
-                </div>
+        <h3>Fórmula</h3>
+        <div class="formula">
+            $$x_{n+1}=x_{n}-f(x_{n})\frac{x_{n}-x_{n-1}}{f(x_{n})-f(x_{n-1})}$$
+        </div>
 
-                <div class="acotaciones">
-                    <h3>Acotaciones</h3>
-                    <ul>
-                        <li>Convergencia superlineal si la aproximación inicial es cercana a la raíz.</li>
-                        <li>Útil cuando la derivada es difícil de calcular, aunque es menos estable que Newton-Raphson.</li>
-                        <li>Requiere que $f(x_{n}) \ne f(x_{n-1})$ para evitar divisiones por cero.</li>
-                    </ul>
-                </div>
+        <div class="acotaciones">
+            <h3>Acotaciones</h3>
+            <ul>
+                <li>Convergencia superlineal si la aproximación inicial es cercana a la raíz.</li>
+                <li>Útil cuando la derivada es difícil de calcular, aunque es menos estable que Newton-Raphson.</li>
+                <li>Requiere que $f(x_{n}) \ne f(x_{n-1})$ para evitar divisiones por cero.</li>
+            </ul>
+        </div>
 
-                <h3>3.1. Código en Python</h3>
-                <div class="code-snippet">
-                    <pre><code>import math
+        <h3>3.1. Código en Python</h3>
+        <div class="code-snippet">
+            <pre><code>import math
 
 # Función a resolver: f(x) = e^(-x) - x
 def f(x):
@@ -818,31 +919,31 @@ def secante(x0, x1, tol=1e-6, max_iter=100):
 # Buscamos la raíz de f(x)=e^(-x)-x con valores iniciales x0=0 y x1=1
 x0, x1 = 0, 1
 secante(x0, x1)</code></pre>
-                </div>
-                
-                <hr>
+        </div>
+        
+        <hr>
 
-                <h2 id="punto-fijo">4. Método de Punto Fijo</h2>
-                <h3>Definición</h3>
-                <p>Convierte la ecuación $f(x)=0$ en la forma $x=g(x)$ y busca un **punto que permanezca invariable** bajo $g(x)$, utilizando iteraciones sucesivas.</p>
+        <h2 id="punto-fijo">4. Método de Punto Fijo</h2>
+        <h3>Definición</h3>
+        <p>Convierte la ecuación $f(x)=0$ en la forma $x=g(x)$ y busca un **punto que permanezca invariable** bajo $g(x)$, utilizando iteraciones sucesivas.</p>
 
-                <h3>Fórmula</h3>
-                <div class="formula">
-                    $$x_{n+1}=g(x_{n})$$
-                </div>
+        <h3>Fórmula</h3>
+        <div class="formula">
+            $$x_{n+1}=g(x_{n})$$
+        </div>
 
-                <div class="acotaciones">
-                    <h3>Acotaciones</h3>
-                    <ul>
-                        <li>Converge si $|g'(x)| < 1$ en la vecindad de la raíz.</li>
-                        <li>No requiere derivadas, pero depende de una buena elección de $g(x)$.</li>
-                        <li>La convergencia puede ser lenta o no ocurrir si la función no es adecuada.</li>
-                    </ul>
-                </div>
+        <div class="acotaciones">
+            <h3>Acotaciones</h3>
+            <ul>
+                <li>Converge si $|g'(x)| < 1$ en la vecindad de la raíz.</li>
+                <li>No requiere derivadas, pero depende de una buena elección de $g(x)$.</li>
+                <li>La convergencia puede ser lenta o no ocurrir si la función no es adecuada.</li>
+            </ul>
+        </div>
 
-                <h3>4.1. Código en Python</h3>
-                <div class="code-snippet">
-                    <pre><code>import math
+        <h3>4.1. Código en Python</h3>
+        <div class="code-snippet">
+            <pre><code>import math
 
 # Función g(x) para el método de Punto Fijo
 # Buscamos la raíz de x = cos(x), así que g(x) = cos(x)
@@ -879,31 +980,31 @@ def punto_fijo(x0, tol=1e-6, max_iter=100):
 # Valor inicial distinto para mostrar convergencia desde otro punto
 x0 = 0.7
 punto_fijo(x0)</code></pre>
-                </div>
-                
-                <hr>
+        </div>
+        
+        <hr>
 
-                <h2 id="regula-falsi">5. Método de Regula Falsi (Falsa Posición)</h2>
-                <h3>Definición</h3>
-                <p>Método que combina la bisección con **interpolación lineal** para encontrar raíces de funciones continuas. Asegura que siempre exista un cambio de signo en el intervalo seleccionado.</p>
+        <h2 id="regula-falsi">5. Método de Regula Falsi (Falsa Posición)</h2>
+        <h3>Definición</h3>
+        <p>Método que combina la bisección con **interpolación lineal** para encontrar raíces de funciones continuas. Asegura que siempre exista un cambio de signo en el intervalo seleccionado.</p>
 
-                <h3>Fórmula</h3>
-                <div class="formula">
-                    $$x_{n} = a_n - f(a_n)\frac{b_n - a_n}{f(b_n) - f(a_n)}$$
-                </div>
+        <h3>Fórmula</h3>
+        <div class="formula">
+            $$x_{n} = a_n - f(a_n)\frac{b_n - a_n}{f(b_n) - f(a_n)}$$
+        </div>
 
-                <div class="acotaciones">
-                    <h3>Acotaciones</h3>
-                    <ul>
-                        <li>Más rápido que la bisección para funciones que cambian de signo pronunciadamente.</li>
-                        <li>Mantiene siempre un intervalo que contiene la raíz.</li>
-                        <li>Puede converger lentamente si la función es casi lineal en el intervalo.</li>
-                    </ul>
-                </div>
+        <div class="acotaciones">
+            <h3>Acotaciones</h3>
+            <ul>
+                <li>Más rápido que la bisección para funciones que cambian de signo pronunciadamente.</li>
+                <li>Mantiene siempre un intervalo que contiene la raíz.</li>
+                <li>Puede converger lentamente si la función es casi lineal en el intervalo.</li>
+            </ul>
+        </div>
 
-                <h3>5.1. Código en Python</h3>
-                <div class="code-snippet">
-                    <pre><code>import math
+        <h3>5.1. Código en Python</h3>
+        <div class="code-snippet">
+            <pre><code>import math
 
 # Función a resolver: f(x) = x^3 - 2x - 5
 def f(x):
@@ -947,24 +1048,21 @@ def regula_falsi(a, b, tol=1e-6, max_iter=100):
 # Buscamos la raíz de f(x)=x^3-2x-5 en el intervalo [2, 3]
 a, b = 2, 3
 regula_falsi(a, b)</code></pre>
-                </div>
-            </section>
+        </div>
+      </section>
+    </main>
 
-           
-        </main>
+    <footer>
+      © 2025 Nayelin · Portafolio Programación Numérica 
+    </footer>
+  </div>
 
-        <footer>
-            © 2025 Nayelin · Portafolio Programación Numérica 
-        </footer>
-    </div>
-
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content');
-            sidebar.classList.toggle('hide');
-            content.classList.toggle('full');
-        }
-    </script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const content = document.getElementById('content');
+      sidebar.classList.toggle('show');
+    }
+  </script>
 </body>
 </html>
