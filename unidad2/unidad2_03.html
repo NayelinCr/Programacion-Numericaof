@@ -1,245 +1,13 @@
 <!doctype html>
 <html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Unidad 2 · Actividad 03: Comparación OLS vs. Gradiente Descendente</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unidad 2 · Actividad 03: Comparación OLS vs. Gradiente Descendente</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background: linear-gradient(160deg, #1f1630, #2a2037, #3c2a52);
-            color: #f0e6ff;
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: 250px;
-            background: rgba(45, 30, 70, 0.95);
-            backdrop-filter: blur(8px);
-            padding: 2rem 1rem;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar h2 {
-            font-size: 1.2rem;
-            color: #e3ccff;
-            text-align: center;
-            margin-bottom: 2rem;
-            letter-spacing: 0.8px;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-        }
-
-        .sidebar a {
-            color: #cdb4ff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.6rem 1rem;
-            margin: 0.3rem 0;
-            border-radius: 8px;
-            transition: all 0.3s;
-            display: block;
-        }
-
-        .sidebar a:hover {
-            background: #b388ff;
-            color: #2a2037;
-            transform: translateX(4px);
-        }
-
-        .sidebar a.active {
-            background: #b388ff;
-            color: #2a2037;
-        }
-
-        .toggle-btn {
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            background: #b388ff;
-            color: #2a2037;
-            border: none;
-            padding: 0.6rem 0.9rem;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-        }
-
-        .sidebar.hide {
-            transform: translateX(-100%);
-        }
-
-        /* ===== CONTENIDO PRINCIPAL ===== */
-        .content {
-            flex: 1;
-            margin-left: 250px;
-            padding: 2rem;
-            transition: margin-left 0.3s;
-        }
-
-        .content.full {
-            margin-left: 0;
-        }
-
-        header {
-            background: linear-gradient(135deg, #4a2e68, #7e57c2);
-            color: white;
-            padding: 1.5rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.45);
-            position: relative;
-        }
-
-        .estado {
-            position: absolute;
-            top: 1.2rem;
-            right: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-weight: 600;
-            background: rgba(61, 43, 86, 0.9);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .burbuja {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #b388ff;
-            box-shadow: 0 0 6px #b388ff;
-        }
-
-        main {
-            background: rgba(56, 40, 78, 0.95);
-            padding: 2.2rem;
-            margin-top: 2rem;
-            border-radius: 18px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-            backdrop-filter: blur(3px);
-            transition: transform 0.2s ease;
-        }
-
-        main:hover {
-            transform: scale(1.01);
-        }
-
-        h1 {
-            margin: 0.4rem 0 0;
-            font-size: 1.9rem;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-        }
-
-        h2 {
-            color: #d7baff;
-            border-bottom: 2px solid #b388ff;
-            display: inline-block;
-            padding-bottom: 0.4rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-        }
-
-        h3 {
-            color: #cdb4ff;
-            font-size: 1.2rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        h4 {
-            color: #cdb4ff;
-            font-size: 1.1rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        section {
-            margin-bottom: 2rem;
-        }
-
-        pre {
-            background: #2f2043;
-            border-radius: 12px;
-            padding: 1rem;
-            overflow-x: auto;
-            font-family: 'Fira Code', monospace;
-            color: #e9ddff;
-            border: 1px solid #4e3872;
-            box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
-            line-height: 1.3;
-        }
-
-        a {
-            color: #d6b6ff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: #f1e0ff;
-            text-decoration: underline;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1rem 0;
-            background: #3a2951;
-            color: #e5d0ff;
-            font-size: 0.9rem;
-            border-top: 1px solid #4e3872;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
-            border-radius: 10px;
-        }
-        
-        /* Estilos para ecuaciones y captions */
-        .equation {
-            text-align: center;
-            margin: 1.5rem 0;
-            font-size: 1.15rem;
-        }
-        .figure-caption {
-            font-style: italic;
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 0.5rem;
-            color: #cdb4ff;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin: 1rem 0;
-            display: block;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        
-        .content-header {
-            margin-top: 1rem;
-        }
-
-    </style>
-    
-    <script>
+  <script>
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(','\\)']],
@@ -249,88 +17,456 @@
         skipHtmlTags: ['script','noscript','style','textarea','pre','code']
       }
     };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+  <style>
+    /* ===== VARIABLES (Misma paleta global) ===== */
+    :root {
+      --primary: #a78bfa;
+      --primary-dark: #7c3aed;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg-dark: #0f0a1f;
+      --bg-darker: #0a0614;
+      --text: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: rgba(167, 139, 250, 0.2);
+      --glow: rgba(167, 139, 250, 0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-darker);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== FONDO TÉCNICO ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(167, 139, 250, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.03) 2px, transparent 2px);
+      background-size: 100px 100px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
+      animation: ambient 30s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes ambient {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, -5%) scale(1.1); }
+    }
+
+    /* ===== SIDEBAR PREMIUM ===== */
+    .sidebar {
+      width: 260px;
+      background: rgba(15, 10, 31, 0.85);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+
+    .sidebar h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .sidebar a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .sidebar a:hover {
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .sidebar a.active {
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(15, 10, 31, 0.8);
+      backdrop-filter: blur(10px);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 1100;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .content {
+      flex: 1;
+      margin-left: 260px;
+      padding: 3rem 4rem;
+      position: relative;
+      z-index: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .content.full { margin-left: 0; }
+
+    /* Header de Actividad */
+    header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+      position: relative;
+    }
+
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    header p {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Badge */
+    .estado {
+      position: absolute;
+      top: 0; right: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .burbuja {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--glow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    /* Main Content Styling */
+    main {
+      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section { margin-bottom: 3rem; }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '//';
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+    }
+
+    h3 {
+      color: var(--primary);
+      margin: 1.5rem 0 1rem;
+      font-size: 1.2rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+    
+    ul, ol {
+        margin-left: 1.5rem;
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+    }
+    
+    li { margin-bottom: 0.5rem; }
+
+    /* ESTILOS DE TABLA (Adaptado al Premium) */
+    .table-container {
+        overflow-x: auto;
+        margin-top: 1rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(10, 6, 20, 0.6);
+        text-align: center;
+    }
+
+    th, td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    th {
+        background: rgba(167, 139, 250, 0.1);
+        color: var(--primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+    }
+
+    tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    tr:hover {
+        background: rgba(167, 139, 250, 0.05);
+    }
+
+    /* ESTILOS DE CÓDIGO Y MATEMÁTICAS */
+    pre {
+      background: rgba(10, 6, 20, 0.6);
+      padding: 1.5rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .equation {
+        background: rgba(167, 139, 250, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        margin: 1.5rem 0;
+        border: 1px solid var(--border);
+        font-size: 1.2rem;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border), transparent);
+        margin: 3rem 0;
+    }
+
+    /* Botón enlace */
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--text);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .btn-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); width: 280px; }
+      .sidebar.show { transform: translateX(0); }
+      .toggle-btn { display: block; }
+      .content { margin-left: 0; padding: 2rem 1.5rem; }
+      header h1 { font-size: 1.8rem; }
+      .estado { position: relative; margin-top: 1rem; display: inline-flex; }
+    }
+  </style>
 </head>
 
 <body>
-    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-    <aside class="sidebar" id="sidebar">
-        <h2>Unidad 1</h2>
-        <a href="unidad2_01.html">Actividad 01</a>
-        <a href="unidad2_02.html">Actividad 02</a>
-        <a href="unidad2_03.html" class="active">Actividad 03</a>
-        <a href="unidad2_04.html">Actividad 04</a>
-        <a href="unidad2_05.html">Actividad 05</a>
-        <a href="unidad2_06.html">Actividad 06</a>
+  <aside class="sidebar" id="sidebar">
+    <h2>Unidad 2</h2>
+    <a href="unidad2_01.html">Actividad 01</a>
+    <a href="unidad2_02.html">Actividad 02</a>
+    <a href="unidad2_03.html" class="active">Actividad 03</a>
+    <a href="unidad2_04.html">Actividad 04</a>
+    <a href="unidad2_05.html">Actividad 05</a>
+    <a href="unidad2_06.html">Actividad 06</a>
+    <a href="unidad2_07.html">Actividad 07</a>
+    <a href="unidad2_08.html">Actividad 08</a>
+    <a href="unidad2_09.html">Actividad 09</a>
+    
+    <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
         <a href="../index.html">🏠 Volver al inicio</a>
-        <a href="../unidad1/unidad1.html">➡ Ir a Unidad 1</a>
-    </aside>
+        <a href="../unidad1/unidad1.html" style="color: var(--secondary);">➡ Ir a Unidad 1</a>
+    </div>
+  </aside>
 
-    <div class="content" id="content">
-        <header>
-            <h1>Actividad 03 · Comparación OLS vs. Gradiente Descendente</h1>
-            <p>16/10/2025</p>
-            <div class="estado">
-                <div class="burbuja"></div>
-                <span>Completada</span>
+  <div class="content" id="content">
+    <header>
+      <h1>Actividad 03 · Comparación OLS vs. Gradiente Descendente</h1>
+      <p>16/10/2025</p>
+      <div class="estado">
+        <div class="burbuja"></div>
+        <span>Completada</span>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Descripción de la Actividad</h2>
+        <p>Análisis comparativo de rapidez entre los métodos de Mínimos Cuadrados Ordinarios (OLS) y Gradiente Descendente.</p>
+      </section>
+      
+      <section>
+        <h2>Informe de la Actividad</h2>
+        <ul>
+          <li>
+            <a href="https://drive.google.com/" target="_blank" class="btn-link">
+                <span>📄</span> Ver Informe (PDF)
+            </a>
+          </li>
+        </ul>
+      </section>
+      
+      <section>
+        <h2>Desarrollo de la Actividad</h2>
+        
+        <div style="background: rgba(15, 10, 31, 0.4); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--secondary); margin-bottom: 2rem;">
+            <h3 style="margin-top:0;">Comparación de Métodos: Mínimos Cuadrados Ordinarios (OLS) vs. Gradiente Descendente (GD)</h3>
+            <p>Este trabajo presenta una comparación numérica y computacional entre dos métodos para estimar una <strong>regresión lineal simple</strong>:</p>
+            <ul>
+                <li><strong>Mínimos Cuadrados Ordinarios (OLS):</strong> método analítico directo.</li>
+                <li><strong>Gradiente Descendente (GD):</strong> método iterativo de optimización.</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <section>
+            <h2>1. Definición de los Métodos</h2>
+            
+            <h3>1.1. Mínimos Cuadrados Ordinarios (OLS)</h3>
+            <p>OLS busca los coeficientes que minimizan el error cuadrático medio (MSE) resolviendo la ecuación matricial:</p>
+            <div class="equation">
+                $$\beta = (X'X)^{-1}X'Y$$
             </div>
-        </header>
+            <p>Es un método <strong>directo</strong> y <strong>exacto</strong> (en aritmética real), ideal para bases de datos de tamaño pequeño o moderado.</p>
+            
+            <h3>1.2. Gradiente Descendente (GD)</h3>
+            <p>GD es un método <strong>iterativo</strong> que actualiza los parámetros en la dirección opuesta al gradiente del error:</p>
+            <div class="equation">
+                $$\beta_j \leftarrow \beta_j - \alpha \frac{\partial J}{\partial \beta_j}$$
+            </div>
+            <p>donde $\alpha$ es la tasa de aprendizaje. Con suficientes iteraciones, GD converge a una solución cercana a OLS.</p>
+        </section>
 
-        <main>
-            <section>
-                <h2>Descripción de la Actividad</h2>
-                <p>Programa en Python que permite graficar funciones lineales y restricciones dentro de un plano cartesiano textual. (Nota: El contenido del informe adjunto se centra en la comparación OLS vs. Gradiente Descendente para Regresión Lineal).</p>
-            </section>
+        <hr>
 
-            <section>
-                <h2>Informe de la Actividad</h2>
-                <ul>
-                    <li>📄 <a href="#">Informe (PDF)</a></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Desarrollo de la Actividad</h2>
-                
-               <section>
-    <h2>Comparación de Métodos: Mínimos Cuadrados Ordinarios (OLS) vs. Gradiente Descendente (GD)</h2>
-    <p>Este trabajo presenta una comparación numérica y computacional entre dos métodos para estimar una <strong>regresión lineal simple</strong>:</p>
-    <ul>
-        <li><strong>Mínimos Cuadrados Ordinarios (OLS):</strong> método analítico directo.</li>
-        <li><strong>Gradiente Descendente (GD):</strong> método iterativo de optimización.</li>
-    </ul>
-</section>
-
-<hr>
-
-<section>
-    <h2>1. Definición de los Métodos</h2>
-    
-    <h3>1.1. Mínimos Cuadrados Ordinarios (OLS)</h3>
-    <p>OLS busca los coeficientes que minimizan el error cuadrático medio (MSE) resolviendo la ecuación matricial:</p>
-    <div class="equation">
-        $$\beta = (X'X)^{-1}X'Y$$
-    </div>
-    <p>Es un método <strong>directo</strong> y <strong>exacto</strong> (en aritmética real), ideal para bases de datos de tamaño pequeño o moderado.</p>
-    
-    <h3>1.2. Gradiente Descendente (GD)</h3>
-    <p>GD es un método <strong>iterativo</strong> que actualiza los parámetros en la dirección opuesta al gradiente del error:</p>
-    <div class="equation">
-        $$\beta_j \leftarrow \beta_j - \alpha \frac{\partial J}{\partial \beta_j}$$
-    </div>
-    <p>donde $\alpha$ es la tasa de aprendizaje. Con suficientes iteraciones, GD converge a una solución cercana a OLS.</p>
-</section>
-
-<hr>
-
-<section>
-    <h2>2. Implementación en R</h2>
-    <p>Se generaron <strong>1000 observaciones simuladas</strong> con la relación verdadera: <em>peso = 2.5 × talla + error</em>.</p>
-    
-    <h3>2.1. Código OLS (Solución Analítica)</h3>
-    <pre><code>set.seed(123)
+        <section>
+            <h2>2. Implementación en R</h2>
+            <p>Se generaron <strong>1000 observaciones simuladas</strong> con la relación verdadera: <em>peso = 2.5 × talla + error</em>.</p>
+            
+            <h3>2.1. Código OLS (Solución Analítica)</h3>
+            <pre><code>set.seed(123)
 talla <- rnorm(1000, 15, 1.5)
 peso  <- 2.5 * talla + rnorm(1000, 0, 2)
 datos <- data.frame(talla, peso)
@@ -344,15 +480,15 @@ coef(modelo_ols)   # Intercepto: -1.6789
 tiempo_ols["elapsed"]  # 0.003 s
 </code></pre>
 
-    <p><strong>Resultados OLS:</strong></p>
-    <ul>
-        <li>Intercepto: −1.6789</li>
-        <li>Pendiente: 2.6174</li>
-        <li>Tiempo: 0.003 s</li>
-    </ul>
+            <p><strong>Resultados OLS:</strong></p>
+            <ul>
+                <li>Intercepto: −1.6789</li>
+                <li>Pendiente: 2.6174</li>
+                <li>Tiempo: 0.003 s</li>
+            </ul>
 
-    <h3>2.2. Código Gradiente Descendente (Iterativo)</h3>
-    <pre><code>set.seed(123)
+            <h3>2.2. Código Gradiente Descendente (Iterativo)</h3>
+            <pre><code>set.seed(123)
 talla <- rnorm(1000, 15, 1.5)
 peso  <- 2.5 * talla + rnorm(1000, 0, 2)
 n <- length(talla)
@@ -372,103 +508,100 @@ for (i in 1:iteraciones) {
 beta0; beta1;  # -0.0052 ; 2.5071
 </code></pre>
 
-    <p><strong>Resultados GD:</strong></p>
-    <ul>
-        <li>Intercepto: −0.0052</li>
-        <li>Pendiente: 2.5071</li>
-        <li>Tiempo: 0.165 s</li>
-        <li>Iteraciones: 5000 (α = 0.001)</li>
-    </ul>
-</section>
+            <p><strong>Resultados GD:</strong></p>
+            <ul>
+                <li>Intercepto: −0.0052</li>
+                <li>Pendiente: 2.5071</li>
+                <li>Tiempo: 0.165 s</li>
+                <li>Iteraciones: 5000 (α = 0.001)</li>
+            </ul>
+        </section>
 
-<hr>
+        <hr>
 
-<section>
-    <h2>3. Comparación y Análisis</h2>
-    <table border="1" style="border-collapse: collapse; width:100%; text-align:center;">
-        <tr>
-            <th>Método</th>
-            <th>Tipo</th>
-            <th>Ventajas</th>
-            <th>Desventajas</th>
-            <th>Tiempo (s)</th>
-            <th>Pendiente Estimada</th>
-        </tr>
-        <tr>
-            <td><strong>OLS</strong></td>
-            <td>Directo / Analítico</td>
-            <td>Rápido, exacto, estable numéricamente</td>
-            <td>No escala bien con millones de datos</td>
-            <td>0.003</td>
-            <td>2.6174</td>
-        </tr>
-        <tr>
-            <td><strong>GD</strong></td>
-            <td>Iterativo / Aproximado</td>
-            <td>Escalable a grandes datasets o modelos complejos</td>
-            <td>Depende de α y número de iteraciones; más lento</td>
-            <td>0.165</td>
-            <td>2.5071</td>
-        </tr>
-    </table>
+        <section>
+            <h2>3. Comparación y Análisis</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Tipo</th>
+                            <th>Ventajas</th>
+                            <th>Desventajas</th>
+                            <th>Tiempo (s)</th>
+                            <th>Pendiente Estimada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>OLS</strong></td>
+                            <td>Directo / Analítico</td>
+                            <td>Rápido, exacto, estable numéricamente</td>
+                            <td>No escala bien con millones de datos</td>
+                            <td>0.003</td>
+                            <td>2.6174</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GD</strong></td>
+                            <td>Iterativo / Aproximado</td>
+                            <td>Escalable a grandes datasets o modelos complejos</td>
+                            <td>Depende de α y número de iteraciones; más lento</td>
+                            <td>0.165</td>
+                            <td>2.5071</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <p><strong>Conclusión de la comparación:</strong></p>
-    <ul>
-        <li>OLS fue aproximadamente <strong>55 veces más rápido</strong> que GD en este experimento.</li>
-        <li>Ambos métodos estimaron una pendiente cercana al valor real (2.5).</li>
-        <li>OLS es preferible para <strong>problemas pequeños o de tamaño moderado</strong>.</li>
-        <li>GD es más útil en <strong>grandes volúmenes de datos o modelos sin solución analítica</strong>.</li>
-    </ul>
-</section>
+            <br>
+            <p><strong>Conclusión de la comparación:</strong></p>
+            <ul>
+                <li>OLS fue aproximadamente <strong>55 veces más rápido</strong> que GD en este experimento.</li>
+                <li>Ambos métodos estimaron una pendiente cercana al valor real (2.5).</li>
+                <li>OLS es preferible para <strong>problemas pequeños o de tamaño moderado</strong>.</li>
+                <li>GD es más útil en <strong>grandes volúmenes de datos o modelos sin solución analítica</strong>.</li>
+            </ul>
+        </section>
 
-<hr>
+        <hr>
 
-<section>
-    <h2>4. Conclusiones Generales</h2>
-    <ul>
-        <li>El método OLS obtuvo resultados más precisos en menor tiempo.</li>
-        <li>El Gradiente Descendente logró aproximarse, pero requirió más recursos computacionales.</li>
-        <li>Ambos métodos son fundamentales en Programación Numérica y Aprendizaje Automático.</li>
-        <li>La elección del método depende del tamaño de los datos y del tipo de problema.</li>
-    </ul>
-</section>
+        <section>
+            <h2>4. Conclusiones Generales</h2>
+            <ul>
+                <li>El método OLS obtuvo resultados más precisos en menor tiempo.</li>
+                <li>El Gradiente Descendente logró aproximarse, pero requirió más recursos computacionales.</li>
+                <li>Ambos métodos son fundamentales en Programación Numérica y Aprendizaje Automático.</li>
+                <li>La elección del método depende del tamaño de los datos y del tipo de problema.</li>
+            </ul>
+        </section>
 
-<hr>
+        <hr>
 
-<section>
-    <h2>5. Referencias</h2>
-    <ol>
-        <li>Burden, R. & Faires, J. (2011). <em>Numerical Analysis</em>. Brooks/Cole.</li>
-        <li>Nocedal, J. & Wright, S. (2006). <em>Numerical Optimization</em>. Springer.</li>
-        <li>James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). <em>An Introduction to Statistical Learning</em>. Springer.</li>
-        <li>R Core Team (2024). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation, Vienna.</li>
-    </ol>
-</section>
+        <section>
+            <h2>5. Referencias</h2>
+            <ol>
+                <li>Burden, R. & Faires, J. (2011). <em>Numerical Analysis</em>. Brooks/Cole.</li>
+                <li>Nocedal, J. & Wright, S. (2006). <em>Numerical Optimization</em>. Springer.</li>
+                <li>James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). <em>An Introduction to Statistical Learning</em>. Springer.</li>
+                <li>R Core Team (2024). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation, Vienna.</li>
+            </ol>
+        </section>
+      </section>
+    </main>
 
-        </main>
+    <footer>
+      © 2025 Nayelin · Portafolio Programación Numérica 
+    </footer>
+  </div>
 
-        <footer>
-            © 2025 Nayelin · Portafolio Programación Numérica 
-        </footer>
-    </div>
-
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content');
-            sidebar.classList.toggle('hide');
-            content.classList.toggle('full');
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
-<script>
-  // Elimina todas las etiquetas [cite_start] y [cite: ...] al cargar la página
-  document.addEventListener("DOMContentLoaded", () => {
-    document.body.innerHTML = document.body.innerHTML
-      .replace(/\[cite_start\]/g, "")
-      .replace(/\[cite:\s*\d+\]/g, "");
-  });
-</script>
-
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const content = document.getElementById('content');
+      sidebar.classList.toggle('show');
+      content.classList.toggle('full');
+    }
+  </script>
 </body>
 </html>
