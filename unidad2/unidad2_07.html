@@ -6,21 +6,23 @@
   <title>Unidad 2 · Actividad 07</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    /* ===== VARIABLES (Paleta Dark Mode) ===== */
+    /* ===== VARIABLES (Misma paleta global) ===== */
     :root {
-      --primary: #a78bfa;       /* Lila suave */
-      --primary-dark: #7c3aed;  /* Violeta intenso */
-      --secondary: #ec4899;     /* Rosa neón */
-      --accent: #06b6d4;        /* Cian */
-      --bg-dark: #0f0a1f;       /* Fondo muy oscuro */
-      --bg-darker: #0a0614;     /* Fondo casi negro */
-      --text: #f8fafc;          /* Blanco humo */
-      --text-muted: #cbd5e1;    /* Gris claro */
+      --primary: #a78bfa;
+      --primary-dark: #7c3aed;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg-dark: #0f0a1f;
+      --bg-darker: #0a0614;
+      --text: #f8fafc;
+      --text-muted: #cbd5e1;
       --border: rgba(167, 139, 250, 0.2);
       --glow: rgba(167, 139, 250, 0.5);
-      --code-bg: #1e1e2e;       /* Fondo para código */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,7 +37,7 @@
       line-height: 1.6;
     }
 
-    /* ===== FONDO ANIMADO ===== */
+    /* ===== FONDO TÉCNICO ===== */
     body::before {
       content: '';
       position: fixed;
@@ -43,16 +45,32 @@
       background-image: 
         linear-gradient(rgba(167, 139, 250, 0.03) 2px, transparent 2px),
         linear-gradient(90deg, rgba(167, 139, 250, 0.03) 2px, transparent 2px);
-      background-size: 50px 50px;
+      background-size: 100px 100px;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.5;
+      opacity: 0.7;
     }
 
-    /* ===== SIDEBAR ===== */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
+      animation: ambient 30s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes ambient {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, -5%) scale(1.1); }
+    }
+
+    /* ===== SIDEBAR PREMIUM ===== */
     .sidebar {
       width: 260px;
-      background: rgba(15, 10, 31, 0.95);
+      background: rgba(15, 10, 31, 0.85);
       backdrop-filter: blur(20px);
       border-right: 1px solid var(--border);
       padding: 2rem 1.5rem;
@@ -60,8 +78,8 @@
       top: 0; left: 0; bottom: 0;
       display: flex;
       flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1000;
-      transition: transform 0.3s ease;
     }
 
     .sidebar h2 {
@@ -80,42 +98,58 @@
       font-weight: 500;
       padding: 0.8rem 1rem;
       margin-bottom: 0.5rem;
-      border-radius: 8px;
+      border-radius: 12px;
       transition: all 0.3s ease;
-      display: block;
-      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
     }
 
-    .sidebar a:hover, .sidebar a.active {
+    .sidebar a:hover {
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .sidebar a.active {
       background: rgba(167, 139, 250, 0.15);
       color: var(--primary);
       border: 1px solid var(--border);
+      font-weight: 600;
     }
 
     .toggle-btn {
       position: fixed;
-      top: 1rem; left: 1rem;
-      z-index: 1100;
-      background: var(--bg-dark);
-      border: 1px solid var(--border);
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(15, 10, 31, 0.8);
+      backdrop-filter: blur(10px);
       color: var(--primary);
-      padding: 0.5rem;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      border-radius: 12px;
       cursor: pointer;
+      z-index: 1100;
       display: none;
+      transition: all 0.3s ease;
     }
 
-    /* ===== CONTENIDO ===== */
+    /* ===== CONTENIDO PRINCIPAL ===== */
     .content {
       flex: 1;
       margin-left: 260px;
       padding: 3rem 4rem;
       position: relative;
       z-index: 1;
+      transition: margin-left 0.3s ease;
     }
 
+    .content.full { margin-left: 0; }
+
+    /* Header de Actividad */
     header {
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
       border-bottom: 1px solid var(--border);
       padding-bottom: 2rem;
       position: relative;
@@ -123,13 +157,21 @@
 
     header h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       background: linear-gradient(135deg, #fff, var(--primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.5rem;
+      line-height: 1.2;
     }
 
+    header p {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Badge */
     .estado {
       position: absolute;
       top: 0; right: 0;
@@ -153,118 +195,81 @@
       animation: pulse 2s infinite;
     }
 
-    @keyframes pulse { 50% { opacity: 0.6; transform: scale(0.9); } }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
 
-    /* Estilos de Texto */
+    /* Estilos Generales Contenido */
+    main { animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    section { margin-bottom: 4rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 2rem; }
+    section:last-child { border-bottom: none; }
+
     h2 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 1.8rem;
       color: var(--text);
-      margin-top: 3rem;
+      margin-top: 2rem;
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 1px dashed var(--border);
-      padding-bottom: 0.5rem;
     }
+    h2::before { content: '//'; color: var(--primary); font-family: 'JetBrains Mono'; font-size: 1.2rem; }
 
-    h2::before { content: '>'; color: var(--secondary); font-family: monospace; }
+    h3 { color: var(--secondary); margin: 1.5rem 0 0.8rem; font-size: 1.3rem; font-family: 'Space Grotesk'; }
+    h4 { color: var(--accent); margin: 1rem 0 0.5rem; font-size: 1.1rem; }
 
-    h3 { color: var(--primary); margin: 2rem 0 1rem; font-size: 1.3rem; }
-    h4 { color: var(--accent); margin: 1.5rem 0 0.8rem; font-size: 1.1rem; }
+    p, li { color: var(--text-muted); margin-bottom: 0.8rem; font-size: 1.05rem; text-align: justify; }
+    ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
 
-    p { color: var(--text-muted); margin-bottom: 1rem; text-align: justify; }
-    ul { margin-left: 1.5rem; color: var(--text-muted); margin-bottom: 1rem; }
-    li { margin-bottom: 0.3rem; }
-    
-    .math-block {
-        background: rgba(255,255,255,0.05);
-        padding: 1rem;
-        border-radius: 8px;
-        font-family: 'Times New Roman', serif;
-        font-style: italic;
-        margin: 1rem 0;
-        color: #e2e8f0;
-    }
-
-    /* TABLAS DE DATOS */
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.5rem 0;
-      font-size: 0.9rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .data-table th, .data-table td {
-      padding: 0.8rem;
-      border-bottom: 1px solid var(--border);
-      text-align: center;
-    }
-    .data-table th {
-      background: rgba(167, 139, 250, 0.1);
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    /* BLOQUES DE CÓDIGO */
-    .code-block {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    /* ESTILOS DE CÓDIGO (R) */
+    pre {
+      background: rgba(10, 6, 20, 0.6);
       padding: 1.5rem;
-      margin: 1.5rem 0;
-      position: relative;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+      margin: 1rem 0;
     }
     
-    .code-label {
-      position: absolute;
-      top: -10px; right: 20px;
-      background: var(--secondary);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 2px 10px;
-      border-radius: 4px;
-      font-weight: bold;
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e2e8f0; line-height: 1.5; }
+
+    /* Estilo para Salida de Consola */
+    .output {
+        border-left: 3px solid var(--secondary);
+        background: rgba(236, 72, 153, 0.05);
+        color: #fca5a5;
     }
 
-    pre { overflow-x: auto; }
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: #a5b3ce; 
-    }
-    
-    /* Colores sintaxis simple */
-    .comment { color: #6c7086; font-style: italic; }
-    .keyword { color: #cba6f7; } 
-    .string { color: #a6e3a1; }
-    .number { color: #fab387; }
+    /* ESTILOS PARA TABLAS */
+    .table-container { overflow-x: auto; margin: 1.5rem 0; border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; background: rgba(15, 10, 31, 0.5); }
+    th, td { padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    th { background: rgba(167, 139, 250, 0.1); color: var(--primary); font-family: 'Space Grotesk'; font-weight: 600; white-space: nowrap; text-align: left;}
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: rgba(255,255,255,0.02); }
 
-    /* CONSOLA DE SALIDA */
-    .console-output {
-      background: #000;
-      border-left: 4px solid var(--accent);
-      padding: 1rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: #fff;
-      margin-bottom: 3rem;
-    }
+    /* Footer */
+    footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
 
+    /* Responsive */
     @media (max-width: 768px) {
-      .sidebar { transform: translateX(-100%); }
+      .sidebar { transform: translateX(-100%); width: 280px; }
       .sidebar.show { transform: translateX(0); }
       .toggle-btn { display: block; }
       .content { margin-left: 0; padding: 2rem 1.5rem; }
+      header h1 { font-size: 1.8rem; }
+      .table-container { border-radius: 8px; }
     }
   </style>
 </head>
 
 <body>
-  <button class="toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('show')">☰</button>
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
   <aside class="sidebar" id="sidebar">
     <h2>Unidad 2</h2>
@@ -275,192 +280,90 @@
     <a href="unidad2_05.html">Actividad 05</a>
     <a href="unidad2_06.html">Actividad 06</a>
     <a href="unidad2_07.html" class="active">Actividad 07</a>
+    <a href="unidad2_08.html">Actividad 08</a>
+    <a href="unidad2_09.html">Actividad 09</a>
+    <a href="unidad2_10.html">Actividad 10</a>
+    <a href="unidad2_11.html">Actividad 11</a>
     
-    <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border);">
-      <a href="../index.html">🏠 Inicio</a>
+    <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
+        <a href="../index.html">🏠 Volver al inicio</a>
     </div>
   </aside>
 
-  <div class="content">
+  <div class="content" id="content">
     <header>
       <h1>Actividad 07 · Interpolación Numérica</h1>
-      <p>Fecha: 09/11/2025</p>
+      <p>FECHA: 09/11/2025 | SEMESTRE: Cuarto</p>
       <div class="estado">
-        <div class="burbuja"></div> Completada
+        <div class="burbuja"></div>
+        <span>Completada</span>
       </div>
     </header>
 
     <main>
       <section>
-        <h2>Descripción</h2>
-        [cite_start]<p>Desarrollo detallado de ejercicios prácticos sobre métodos de interpolación numérica (Lineal, Lagrange, Newton y Hermite), incluyendo el planteamiento matemático, la implementación en R y la interpretación de los resultados obtenidos [cite: 1106-1112].</p>
+        <h2>1. Definición</h2>
+        <p>La interpolación numérica consiste en determinar una función que pase exactamente por un conjunto finito de puntos conocidos \((x_i, y_i)\), con el propósito de estimar los valores en puntos intermedios. El objetivo es construir una función \(P(x)\) tal que \(P(x_i) = f(x_i)\) para todo \(i\).</p>
       </section>
 
       <section>
-        <h2>1. [cite_start]Interpolación Lineal [cite: 1120]</h2>
-        <p>Método simple que asume una variación lineal entre dos puntos consecutivos.</p>
-
-        [cite_start]<h3>Ejercicio 1: Estimación Puntual (Datos Experimentales) [cite: 1138]</h3>
-        <p><strong>Enunciado:</strong> Se registran los pares (1.0, 3.0) y (2.0, 6.0). Estime el valor de y en x = 1.5.</p>
+        <h2>2. Interpolación Lineal</h2>
         
-        <h4>Planteamiento Matemático</h4>
-        <div class="math-block">
-            Sustituyendo x = 1.5 en la fórmula de la recta:<br>
-            y(x) = y₀ + [(y₁ - y₀) / (x₁ - x₀)] * (x - x₀)<br>
-            y(1.5) = 3 + [(6 - 3) / (2 - 1)] * (1.5 - 1)<br>
-            y(1.5) = 3 + 3 * 0.5 = 4.5
-        </div>
+        <p>Es el método más simple. Asume que entre dos puntos consecutivos \((x_0, y_0)\) y \((x_1, y_1)\), la función puede aproximarse mediante una línea recta.</p>
+        <p><strong>Fórmula:</strong> $$P_1(x) = y_0 + \frac{y_1 - y_0}{x_1 - x_0}(x - x_0)$$</p>
 
-        <h4>Solución en R</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Ejercicio 1 - Interpolacion lineal simple</span>
-x <- c(1.0, 2.0)
-y <- c(3.0, 6.0)
-x_query <- 1.5
-
-<span class="comment"># Usando la funcion approx (interpolacion lineal)</span>
-interp <- approx(x, y, xout = x_query, method = "linear")
-interp$y <span class="comment"># valor interpolado</span>
-
-<span class="comment"># Grafico opcional (ver PDF para detalle visual)</span>
-plot(x, y, pch=19, xlim=c(0.8, 2.2), ylim=c(2.5, 6.5), 
-     main="Interpolacion lineal (Ej.1)")
-points(x_query, interp$y, col="red", pch=19)</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> y(1.5) = 4.5
-        </div>
-
-        [cite_start]<h3>Ejercicio 2: Consumo Eléctrico [cite: 1170]</h3>
-        <p><strong>Enunciado:</strong> Consumo Mes 1: 120 kWh, Mes 3: 150 kWh. Estimar Mes 2.</p>
+        <h3>2.2. Ejercicios Resueltos</h3>
         
-        <h4>Planteamiento Matemático</h4>
-        <div class="math-block">
-            Pendiente m = (150 - 120) / (3 - 1) = 30 / 2 = 15 kWh/mes.<br>
-            y(2) = 120 + 15 * (2 - 1) = 135 kWh.
-        </div>
+        <h4>Ejercicio 1: Estimación Puntual</h4>
+        <p>Dados los puntos \((1, 3)\) y \((2, 6)\), estimar \(y\) en \(x = 1.5\).</p>
+        <p>Cálculo: \(y(1.5) = 3 + \frac{6-3}{2-1}(1.5-1) = 4.5\)</p>
+        <pre><code># Ejercicio 1 - Interpolacion lineal simple
+x <- c(1.0, 2.0); y <- c(3.0, 6.0)
+interp <- approx(x, y, xout = 1.5, method = "linear")
+print(interp$y) # Salida: 4.5</code></pre>
 
-        <h4>Solución en R</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Ejercicio 2 - Consumo electrico</span>
-mes <- c(1, 3)
-consumo <- c(120, 150)
-mes_query <- 2
+        <h4>Ejercicio 2: Consumo Eléctrico</h4>
+        <p>Mes 1 (120 kWh) y Mes 3 (150 kWh). Interpolar Mes 2.</p>
+        <pre><code># Ejercicio 2
+mes <- c(1, 3); consumo <- c(120, 150)
+print(approx(mes, consumo, xout = 2)$y) # Salida: 135</code></pre>
 
-interp2 <- approx(mes, consumo, xout = mes_query, method = "linear")
-interp2$y</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> Consumo estimado = 135 kWh
-        </div>
-
-        [cite_start]<h3>Ejercicio 3: Lecturas de Sensor [cite: 1200]</h3>
-        <p><strong>Enunciado:</strong> Estimar temperatura en t=7s. Datos: t=0(20°C), t=5(23°C), t=10(29°C).</p>
-        
-        <h4>Planteamiento Matemático</h4>
-        <div class="math-block">
-            La consulta t=7 cae entre t₁=5 y t₂=10.<br>
-            Pendiente m = (29 - 23) / (10 - 5) = 6 / 5 = 1.2 °C/s.<br>
-            T(7) = 23 + 1.2 * (7 - 5) = 23 + 2.4 = 25.4 °C.
-        </div>
-
-        <h4>Solución en R</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Ejercicio 3 - Sensor (interpolacion por tramos)</span>
-t <- c(0, 5, 10)
-temp <- c(20, 23, 29)
-t_query <- 7
-
-interp3 <- approx(t, temp, xout = t_query, method = "linear")
-interp3$y</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> Temperatura estimada = 25.4 °C
-        </div>
+        <h4>Ejercicio 3: Sensor (Tiempo Continuo)</h4>
+        <p>Temperaturas: \(t=0(20), t=5(23), t=10(29)\). Estimar \(t=7\).</p>
+        <p>El punto 7 está entre 5 y 10. Pendiente \(m = 1.2\). Resultado \(25.4^\circ C\).</p>
+        <pre class="output"><code>[1] 25.4</code></pre>
       </section>
 
       <section>
-        <h2>2. [cite_start]Interpolación Polinómica de Lagrange [cite: 1227]</h2>
-        <p>Construcción de un polinomio único que pasa por todos los puntos.</p>
-
-        [cite_start]<h3>Ejercicio 1: Rendimiento de Algoritmo [cite: 1251]</h3>
-        <p><strong>Enunciado:</strong> Estimar tiempo para n=3. Datos: (1, 2.0), (2, 2.8), (4, 4.5).</p>
+        <h2>3. Interpolación Polinómica de Lagrange</h2>
         
-        <h4>Planteamiento Matemático</h4>
-        <div class="math-block">
-            P₂(x) = y₀L₀(x) + y₁L₁1(x) + y₂L₂(x)<br>
-            Sustituyendo x=3 en los polinomios base Lᵢ(x):<br>
-            P₂(3) = 2(1/3) + 2.8(1/3) + 4.5(1/3) = 3.1 s.
-        </div>
+        <p>Construye un polinomio único de grado \(n\) utilizando funciones base \(L_i(x)\).</p>
+        <p><strong>Fórmula:</strong> $$P_n(x) = \sum_{i=0}^{n} y_i L_i(x)$$</p>
 
-        <h4>Solución en R</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Ejercicio 1 Interpolacion de Lagrange</span>
-<span class="comment"># library(pracma) # Se asume cargado</span>
-x <- c(1, 2, 4)
-y <- c(2.0, 2.8, 4.5)
-x_query <- 3
-
-P <- pracma::polyLagrange(x, y)
-y_est <- pracma::polyval(P, x_query)
-y_est</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> Tiempo estimado para n=3 -> 3.1 segundos
-        </div>
-
-        [cite_start]<h3>Ejercicio 2: Crecimiento Poblacional [cite: 1293]</h3>
-        <p><strong>Enunciado:</strong> Estimar población 2015. Datos: 2010(52.1), 2012(56.3), 2018(65.0).</p>
+        <h3>3.2. Ejercicios Resueltos</h3>
         
-        <h4>Solución en R</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Ejercicio 2 Crecimiento poblacional</span>
-x <- c(2010, 2012, 2018)
-y <- c(52.1, 56.3, 65.0)
-x_query <- 2015
+        <h4>Ejercicio 1: Rendimiento Algoritmo</h4>
+        <p>Datos: \((1, 2.0), (2, 2.8), (4, 4.5)\). Estimar para \(n=3\).</p>
+        <pre><code>library(pracma)
+x <- c(1, 2, 4); y <- c(2.0, 2.8, 4.5)
+y_est <- pracma::polyval(pracma::polyLagrange(x, y), 3)
+print(y_est) # Salida: 3.1</code></pre>
 
-P <- pracma::polyLagrange(x, y)
-y_est <- pracma::polyval(P, x_query)
-y_est</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> Población estimada 2015 -> 60.2 mil habitantes
-        </div>
-
-        [cite_start]<h3>Ejercicio 3: Temperatura CPU [cite: 1330]</h3>
-        <p><strong>Enunciado:</strong> Temp a carga 65%. Datos: 40%(55), 60%(60), 80%(70).</p>
+        <h4>Ejercicio 2: Crecimiento Poblacional</h4>
+        <p>Años 2010, 2012, 2018. Estimar 2015. Resultado estimado: <strong>60.2 miles</strong>.</p>
         
-        <h4>Planteamiento Matemático</h4>
-        <div class="math-block">
-            P₂(65) = 55*L₀(65) + 60*L₁(65) + 70*L₂(65) ≈ 63.1
-        </div>
-        
-        <div class="console-output">
-            <strong>RESULTADO:</strong> Temp a 65% carga -> 63.1 °C
-        </div>
+        <h4>Ejercicio 3: Temperatura CPU</h4>
+        <p>Carga 40%, 60%, 80%. Estimar temperatura a 65%. Resultado: <strong>63.1 °C</strong>.</p>
       </section>
 
       <section>
-        <h2>3. [cite_start]Interpolación de Newton (Diferencias Divididas) [cite: 1369]</h2>
-        <p>Método recursivo eficiente para el cálculo polinómico.</p>
+        <h2>4. Interpolación de Newton (Diferencias Divididas)</h2>
+        <p>Utiliza un enfoque recursivo. El polinomio se construye progresivamente:</p>
+        <p>$$P_n(x) = f[x_0] + f[x_0, x_1](x - x_0) + \dots$$</p>
 
-        [cite_start]<h3>Ejercicio 1: Población Proyectada [cite: 1392]</h3>
-        <p><strong>Enunciado:</strong> Estimar población en 2017. Datos: 2010(82.5), 2012(88.2), 2014(94.5), 2016(101.1).</p>
-        
-        <h4>Solución en R (Implementación Completa)</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Datos</span>
-x <- c(2010, 2012, 2014, 2016)
-y <- c(82.5, 88.2, 94.5, 101.1)
-
-<span class="comment"># Funcion para diferencias divididas</span>
-diferencias_divididas <- function(x, y) {
+        <h3>4.2. Implementación y Ejercicios</h3>
+        <pre><code># Funcion Newton (Diferencias Divididas)
+newton_interp <- function(x, y, valor) {
   n <- length(x)
   tabla <- matrix(0, n, n)
   tabla[,1] <- y
@@ -469,13 +372,6 @@ diferencias_divididas <- function(x, y) {
       tabla[i, j] <- (tabla[i+1, j-1] - tabla[i, j-1]) / (x[i+j-1] - x[i])
     }
   }
-  return(tabla)
-}
-
-<span class="comment"># Evaluacion en x=2017</span>
-newton_interp <- function(x, y, valor) {
-  tabla <- diferencias_divididas(x, y)
-  n <- length(x)
   resultado <- tabla[1, 1]
   producto <- 1
   for (i in 1:(n-1)) {
@@ -483,182 +379,70 @@ newton_interp <- function(x, y, valor) {
     resultado <- resultado + tabla[1, i+1] * producto
   }
   return(resultado)
-}
+}</code></pre>
 
-poblacion_2017 <- newton_interp(x, y, 2017)
-poblacion_2017</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> P(2017) ≈ 106.9 mil habitantes
-        </div>
-
-        [cite_start]<h3>Ejercicio 2: Rendimiento Agrícola [cite: 1467]</h3>
-        <p><strong>Enunciado:</strong> Rendimiento a 75 kg/ha. Datos: 50(1.8), 60(2.1), 80(2.8), 100(3.6).</p>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Datos</span>
-x <- c(50, 60, 80, 100)
-y <- c(1.8, 2.1, 2.8, 3.6)
-
-<span class="comment"># La funcion newton_interp() se definio en el ejercicio anterior</span>
-rend_75 <- newton_interp(x, y, 75)
-rend_75</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> f(75) ≈ 2.52 t/ha
-        </div>
-
-        [cite_start]<h3>Ejercicio 3: Tiempo de Ejecución [cite: 1484]</h3>
-        <p><strong>Enunciado:</strong> Estimar para n=65. Datos: 40(1.2), 50(2.0), 70(3.8), 90(6.4).</p>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> T(65) ≈ 3.1 segundos
-        </div>
+        <h4>Resultados de Ejercicios</h4>
+        <ul>
+            <li><strong>Ej 1 (Población):</strong> Estimar 2017 dado 2010-2016. Resultado: <strong>106.9</strong>.</li>
+            <li><strong>Ej 2 (Agrícola):</strong> Fertilizante 75 kg/ha. Resultado: <strong>2.52 t/ha</strong>.</li>
+            <li><strong>Ej 3 (Tiempo Ejecución):</strong> Para \(n=65\). Resultado: <strong>3.1 s</strong>.</li>
+        </ul>
       </section>
 
       <section>
-        <h2>4. [cite_start]Interpolación de Hermite [cite: 1504]</h2>
-        <p>Utiliza valores y derivadas para obtener una curva más suave.</p>
-
-        [cite_start]<h3>Ejercicio 1: Hermite Cúbico (2 Puntos) [cite: 1520]</h3>
-        <p><strong>Enunciado:</strong> Estimar en x=1. Datos: x=0(T=10, T'=1), x=2(T=14, T'=0.5).</p>
+        <h2>5. Interpolación de Hermite</h2>
         
-        <h4>Planteamiento Matemático</h4>
-        <div class="math-block">
-            Usando funciones base h₀₀, h₁₀, h₀₁, h₁₁.<br>
-            Para x=1 (t=0.5):<br>
-            H(1) = 12.125 °C
-        </div>
+        <p>Utiliza valores de la función \(f(x)\) y sus derivadas \(f'(x)\), garantizando suavidad en la curva.</p>
 
-        <h4>Solución en R</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Ejercicio 1 Hermite cubico entre dos puntos</span>
-hermite_cubico_2p <- function(x0, y0, dy0, x1, y1, dy1, xq) {
-  h <- x1 - x0
-  t <- (xq - x0)/h
-  h00 <- 2*t^3 - 3*t^2 + 1
-  h10 <- t^3 - 2*t^2 + t
-  h01 <- -2*t^3 + 3*t^2
-  h11 <- t^3 - t^2
-  Hx <- h00*y0 + h10*h*dy0 + h01*y1 + h11*h*dy1
-  return(Hx)
-}
+        <h3>5.2. Ejercicios Resueltos</h3>
+        <h4>Ejercicio 1: Hermite Cúbico (2 Puntos)</h4>
+        <p>Datos: \(P_0(0, 10, m=1)\) y \(P_1(2, 14, m=0.5)\). Estimar \(x=1\).</p>
+        <pre><code># Hermite Cubico Simple
+print(hermite_cubico_2p(0, 10, 1, 2, 14, 0.5, 1))
+# Salida: 12.125</code></pre>
 
-x0 <- 0; y0 <- 10; dy0 <- 1
-x1 <- 2; y1 <- 14; dy1 <- 0.5
-xq <- 1
-
-H1 <- hermite_cubico_2p(x0, y0, dy0, x1, y1, dy1, xq)
-H1</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> T(1) = 12.125 °C
-        </div>
-
-        [cite_start]<h3>Ejercicio 2: Trayectoria [cite: 1579]</h3>
-        <p><strong>Enunciado:</strong> Posición en t=2. Datos: t=0(x=0, v=0), t=4(x=8, v=3).</p>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Ejercicio 2 Trayectoria</span>
-x0 <- 0; y0 <- 0; dy0 <- 0
-x1 <- 4; y1 <- 8; dy1 <- 3
-xq <- 2
-
-x2 <- hermite_cubico_2p(x0, y0, dy0, x1, y1, dy1, xq)
-x2</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> x(2) = 2.5 m
-        </div>
-
-        [cite_start]<h3>Ejercicio 3: Hermite General (3 Puntos) [cite: 1612]</h3>
-        <p><strong>Enunciado:</strong> Estimar f(2.5) usando nodos repetidos.</p>
+        <h4>Ejercicio 2: Trayectoria</h4>
+        <p>Posición y velocidad en \(t=0\) y \(t=4\). Estimar \(t=2\). Resultado: <strong>2.5</strong>.</p>
         
-        <h4>Solución en R (Implementación General)</h4>
-        <div class="code-block">
-            <span class="code-label">CÓDIGO R</span>
-<pre><code><span class="comment"># Hermite general (n puntos con derivadas)</span>
-hermite_general_prompt <- function(x, y, dy, xq) {
-  n <- length(x)
-  m <- 2*n
-  z <- rep(x, each=2)
-  Q <- matrix(0, nrow=m, ncol=m)
-  
-  <span class="comment"># Primera columna</span>
-  Q[,1] <- rep(y, each=2)
-  
-  <span class="comment"># Segunda columna</span>
-  for(i in 1:m) {
-    if(i %% 2 == 0) {
-       Q[i, 2] <- dy[i/2] <span class="comment"># Derivada en fila par</span>
-    } else {
-       if(i > 1) {
-          Q[i, 2] <- (Q[i,1] - Q[i-1,1]) / (z[i] - z[i-1])
-       }
-    }
-  }
-  <span class="comment"># Ajuste manual primera derivada</span>
-  Q[2, 2] <- dy[1] 
-
-  <span class="comment"># Resto de la tabla</span>
-  for(j in 3:m) {
-    for(i in j:m) {
-      Q[i, j] <- (Q[i, j-1] - Q[i-1, j-1]) / (z[i] - z[i-j+1])
-    }
-  }
-  
-  coeffs <- diag(Q) <span class="comment"># Coeficientes en la diagonal</span>
-  
-  <span class="comment"># Evaluacion</span>
-  res <- coeffs[m]
-  for(k in (m-1):1) {
-    res <- res * (xq - z[k]) + coeffs[k]
-  }
-  return(list(valor=res))
-}
-
-x <- c(1.0, 2.0, 3.0)
-y <- c(2.0, 3.0, 5.0)
-dy <- c(0.5, 1.0, 1.5)
-xq <- 2.5
-
-res_std <- hermite_general_prompt(x, y, dy, xq)
-print(round(res_std$valor, 7))</code></pre>
-        </div>
-        <div class="console-output">
-            <strong>RESULTADO:</strong> f(2.5) ≈ 3.9375
-        </div>
+        <h4>Ejercicio 3: General (3 Puntos)</h4>
+        <p>Usando diferencias divididas generalizadas. Resultado para \(f(2.5)\): <strong>3.9375</strong>.</p>
       </section>
 
       <section>
-        [cite_start]<h2>Comparativa de Métodos [cite: 1942]</h2>
-        <table class="data-table">
-            <tr>
-                <th>Método</th>
-                <th>Ventajas</th>
-                <th>Desventajas</th>
-            </tr>
-            <tr>
-                <td><strong>Lineal</strong></td>
-                <td>Sencillo y rápido. Ideal para intervalos cortos.</td>
-                <td>Poca precisión en curvas. Error alto fuera de rango.</td>
-            </tr>
-            <tr>
-                <td><strong>Lagrange</strong></td>
-                <td>Polinomio único y suave. No requiere sistemas de ecuaciones.</td>
-                <td>Ineficiente para recalcular si se agregan puntos (Fenómeno de Runge).</td>
-            </tr>
-            <tr>
-                <td><strong>Newton</strong></td>
-                <td>Eficiente computacionalmente. Fácil actualización con nuevos datos.</td>
-                <td>Pierde precisión con muchos puntos. Sensible a datos dispersos.</td>
-            </tr>
-            <tr>
-                <td><strong>Hermite</strong></td>
-                <td>Curva muy suave y realista al usar derivadas.</td>
-                <td>Requiere conocer las derivadas. Complejo de implementar.</td>
-            </tr>
-        </table>
+        <h2>6. Tabla Comparativa</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Ventajas</th>
+                        <th>Desventajas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lineal</strong></td>
+                        <td>Sencillo y rápido. Ideal para datos densos.</td>
+                        <td>Baja precisión en curvas. No diferenciable en nodos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lagrange</strong></td>
+                        <td>Polinomio único explícito. No requiere sistemas.</td>
+                        <td>Recálculo total al añadir puntos. Fenómeno de Runge.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Newton</strong></td>
+                        <td>Eficiente computacionalmente. Fácil actualización.</td>
+                        <td>Pierde precisión con muchos puntos (Runge).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hermite</strong></td>
+                        <td>Muy preciso y suave (continuidad \(C^1\)).</td>
+                        <td>Requiere conocer derivadas. Cálculo complejo.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
       </section>
 
     </main>
@@ -667,5 +451,14 @@ print(round(res_std$valor, 7))</code></pre>
       © 2025 Nayelin · Portafolio Programación Numérica 
     </footer>
   </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const content = document.getElementById('content');
+      sidebar.classList.toggle('show');
+      content.classList.toggle('full');
+    }
+  </script>
 </body>
 </html>
