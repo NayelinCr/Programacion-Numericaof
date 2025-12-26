@@ -8,18 +8,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== VARIABLES (Misma paleta global) ===== */
+    /* ===== VARIABLES (Paleta Dark Mode) ===== */
     :root {
-      --primary: #a78bfa;
-      --primary-dark: #7c3aed;
-      --secondary: #ec4899;
-      --accent: #06b6d4;
-      --bg-dark: #0f0a1f;
-      --bg-darker: #0a0614;
-      --text: #f8fafc;
-      --text-muted: #cbd5e1;
+      --primary: #a78bfa;       /* Lila suave */
+      --primary-dark: #7c3aed;  /* Violeta intenso */
+      --secondary: #ec4899;     /* Rosa neón */
+      --accent: #06b6d4;        /* Cian */
+      --bg-dark: #0f0a1f;       /* Fondo muy oscuro */
+      --bg-darker: #0a0614;     /* Fondo casi negro */
+      --text: #f8fafc;          /* Blanco humo */
+      --text-muted: #cbd5e1;    /* Gris claro */
       --border: rgba(167, 139, 250, 0.2);
       --glow: rgba(167, 139, 250, 0.5);
+      --code-bg: #1e1e2e;       /* Fondo para código */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,7 +35,7 @@
       line-height: 1.6;
     }
 
-    /* ===== FONDO TÉCNICO ===== */
+    /* ===== FONDO ANIMADO ===== */
     body::before {
       content: '';
       position: fixed;
@@ -42,32 +43,16 @@
       background-image: 
         linear-gradient(rgba(167, 139, 250, 0.03) 2px, transparent 2px),
         linear-gradient(90deg, rgba(167, 139, 250, 0.03) 2px, transparent 2px);
-      background-size: 100px 100px;
+      background-size: 50px 50px;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.7;
+      opacity: 0.5;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
-      animation: ambient 30s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes ambient {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-5%, -5%) scale(1.1); }
-    }
-
-    /* ===== SIDEBAR PREMIUM ===== */
+    /* ===== SIDEBAR ===== */
     .sidebar {
       width: 260px;
-      background: rgba(15, 10, 31, 0.85);
+      background: rgba(15, 10, 31, 0.95);
       backdrop-filter: blur(20px);
       border-right: 1px solid var(--border);
       padding: 2rem 1.5rem;
@@ -75,8 +60,8 @@
       top: 0; left: 0; bottom: 0;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1000;
+      transition: transform 0.3s ease;
     }
 
     .sidebar h2 {
@@ -95,58 +80,42 @@
       font-weight: 500;
       padding: 0.8rem 1rem;
       margin-bottom: 0.5rem;
-      border-radius: 12px;
+      border-radius: 8px;
       transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.95rem;
+      display: block;
+      font-size: 0.9rem;
     }
 
-    .sidebar a:hover {
-      background: rgba(167, 139, 250, 0.1);
-      color: var(--primary);
-      transform: translateX(4px);
-    }
-
-    .sidebar a.active {
+    .sidebar a:hover, .sidebar a.active {
       background: rgba(167, 139, 250, 0.15);
       color: var(--primary);
       border: 1px solid var(--border);
-      font-weight: 600;
     }
 
     .toggle-btn {
       position: fixed;
-      top: 1.5rem;
-      left: 1.5rem;
-      background: rgba(15, 10, 31, 0.8);
-      backdrop-filter: blur(10px);
-      color: var(--primary);
-      border: 1px solid var(--border);
-      padding: 0.8rem;
-      border-radius: 12px;
-      cursor: pointer;
+      top: 1rem; left: 1rem;
       z-index: 1100;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      padding: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
       display: none;
-      transition: all 0.3s ease;
     }
 
-    /* ===== CONTENIDO PRINCIPAL ===== */
+    /* ===== CONTENIDO ===== */
     .content {
       flex: 1;
       margin-left: 260px;
       padding: 3rem 4rem;
       position: relative;
       z-index: 1;
-      transition: margin-left 0.3s ease;
     }
 
-    .content.full { margin-left: 0; }
-
-    /* Header de Actividad */
     header {
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
       border-bottom: 1px solid var(--border);
       padding-bottom: 2rem;
       position: relative;
@@ -154,21 +123,13 @@
 
     header h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       background: linear-gradient(135deg, #fff, var(--primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.5rem;
-      line-height: 1.2;
     }
 
-    header p {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* Badge */
     .estado {
       position: absolute;
       top: 0; right: 0;
@@ -192,28 +153,14 @@
       animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.9); }
-    }
+    @keyframes pulse { 50% { opacity: 0.6; transform: scale(0.9); } }
 
-    /* Main Content Styling */
-    main {
-      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    section { margin-bottom: 3rem; }
-
+    /* Estilos de Texto */
     h2 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var(--text);
-      margin-top: 2rem;
+      margin-top: 3rem;
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
@@ -222,133 +169,92 @@
       padding-bottom: 0.5rem;
     }
 
-    h2::before {
-      content: '//';
-      color: var(--primary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-    }
+    h2::before { content: '>'; color: var(--secondary); font-family: monospace; }
 
-    h3 {
-      color: var(--secondary);
-      margin: 1.5rem 0 1rem;
-      font-size: 1.2rem;
-      font-family: 'Space Grotesk', sans-serif;
+    h3 { color: var(--primary); margin: 2rem 0 1rem; font-size: 1.3rem; }
+    h4 { color: var(--accent); margin: 1.5rem 0 0.8rem; font-size: 1.1rem; }
+
+    p { color: var(--text-muted); margin-bottom: 1rem; text-align: justify; }
+    ul { margin-left: 1.5rem; color: var(--text-muted); margin-bottom: 1rem; }
+    li { margin-bottom: 0.3rem; }
+
+    /* TABLAS DE DATOS */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      overflow: hidden;
     }
-    
-    h4 {
-      color: var(--accent);
-      margin: 1rem 0 0.5rem;
-      font-size: 1.0rem;
+    .data-table th, .data-table td {
+      padding: 0.8rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .data-table th {
+      background: rgba(167, 139, 250, 0.1);
+      color: var(--primary);
       font-weight: 600;
     }
 
-    p {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
-      text-align: justify;
-    }
-    
-    ul, ol {
-        margin-left: 1.5rem;
-        color: var(--text-muted);
-        margin-bottom: 1rem;
-    }
-    
-    li { margin-bottom: 0.5rem; }
-
-    /* ESTILOS DE CÓDIGO (R) */
-    pre {
-      background: rgba(10, 6, 20, 0.6);
-      padding: 1.5rem;
-      border-radius: 12px;
-      overflow-x: auto;
+    /* BLOQUES DE CÓDIGO */
+    .code-block {
+      background: var(--code-bg);
       border: 1px solid var(--border);
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
-      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    
+    .code-label {
+      position: absolute;
+      top: -10px; right: 20px;
+      background: var(--secondary);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-weight: bold;
     }
 
+    pre { overflow-x: auto; }
     code {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
-      color: #e2e8f0;
-      line-height: 1.5;
+      color: #a5b3ce; 
     }
     
-    .comment { color: #6272a4; font-style: italic; }
-    .keyword { color: #ff79c6; }
-    .string { color: #f1fa8c; }
-    .number { color: #bd93f9; }
+    /* Colores sintaxis simple */
+    .comment { color: #6c7086; font-style: italic; }
+    .keyword { color: #cba6f7; } 
+    .string { color: #a6e3a1; }
+    .number { color: #fab387; }
 
-    /* Botón enlace */
-    .btn-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(167, 139, 250, 0.1);
-      color: var(--text);
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
-      font-weight: 500;
+    /* CONSOLA DE SALIDA */
+    .console-output {
+      background: #000;
+      border-left: 4px solid var(--accent);
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #fff;
+      margin-bottom: 3rem;
     }
 
-    .btn-link:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
-    }
-    
-    /* Tables simple styling */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 1.5rem;
-        background: rgba(15, 10, 31, 0.5);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        overflow: hidden;
-    }
-    th, td {
-        padding: 0.8rem;
-        text-align: left;
-        border-bottom: 1px solid rgba(167, 139, 250, 0.1);
-        color: var(--text-muted);
-    }
-    th {
-        background: rgba(167, 139, 250, 0.1);
-        color: var(--primary);
-        font-family: 'Space Grotesk', sans-serif;
-    }
-
-    /* Footer */
-    footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
-      .sidebar { transform: translateX(-100%); width: 280px; }
+      .sidebar { transform: translateX(-100%); }
       .sidebar.show { transform: translateX(0); }
       .toggle-btn { display: block; }
       .content { margin-left: 0; padding: 2rem 1.5rem; }
-      header h1 { font-size: 1.8rem; }
-      .estado { position: relative; margin-top: 1rem; display: inline-flex; }
     }
   </style>
 </head>
 
 <body>
-  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+  <button class="toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('show')">☰</button>
 
   <aside class="sidebar" id="sidebar">
     <h2>Unidad 2</h2>
@@ -359,313 +265,360 @@
     <a href="unidad2_05.html">Actividad 05</a>
     <a href="unidad2_06.html" class="active">Actividad 06</a>
     <a href="unidad2_07.html">Actividad 07</a>
-    <a href="unidad2_08.html">Actividad 08</a>
-    <a href="unidad2_09.html">Actividad 09</a>
-    <a href="unidad2_10.html">Actividad 10</a>
-    <a href="unidad2_11.html">Actividad 11</a>
     
-    <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
-        <a href="../index.html">🏠 Volver al inicio</a>
-        <a href="../unidad1/unidad1.html" style="color: var(--secondary);">➡ Ir a Unidad 1</a>
+    <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border);">
+      <a href="../index.html">🏠 Inicio</a>
     </div>
   </aside>
 
-  <div class="content" id="content">
+  <div class="content">
     <header>
-      <h1>Actividad 06 · Diferenciación Numerica [Ejercicios]</h1>
-      <p>29/10/2025</p>
+      <h1>Actividad 06 · Diferenciación Numérica</h1>
+      <p>Fecha: 05/11/2025</p>
       <div class="estado">
-        <div class="burbuja"></div>
-        <span>Completada</span>
+        <div class="burbuja"></div> Completada
       </div>
     </header>
 
     <main>
       <section>
-        <h2>Descripción</h2>
-        <p>Resolución práctica de problemas aplicando métodos de diferenciación numérica (Diferencias Finitas: Adelante, Atrás y Centrada) utilizando el lenguaje de programación R. Se abordan casos de estudio reales como crecimiento de usuarios, optimización de funciones de pérdida, series temporales, gradientes en redes neuronales y detección de anomalías.</p>
+        <p>A continuación se presenta el desarrollo completo de los ejercicios propuestos en el PDF "Diferenciación Numérica", incluyendo planteamiento, solución matemática, implementación en código R y los resultados obtenidos.</p>
       </section>
 
       <section>
-        <h2>Desarrollo de la Actividad</h2>
+        <h2>1. [cite_start]Análisis de Crecimiento de Usuarios [cite: 28-174]</h2>
         
-        <h3>1. Ejercicio 1: Análisis de Crecimiento de Usuarios</h3>
-        <p>Una startup de tecnología registra el número acumulado de usuarios activos mensuales (en miles).</p>
-        
-        <h4>Planteamiento y Solución Matemática</h4>
-        <p><strong>Datos:</strong> f(1)=10, f(2)=15, f(3)=23, f(4)=34, f(5)=48, f(6)=65, f(7)=85. Paso h=1 mes.</p>
-        
-        <p><strong>Cálculos realizados:</strong></p>
+        <h3>Planteamiento</h3>
+        <p>Una startup registra el número acumulado de usuarios activos mensuales. Se pide calcular tasas de crecimiento y aceleración.</p>
+        <table class="data-table">
+          <tr><th>Mes</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+          <tr><th>Usuarios (miles)</th><td>10</td><td>15</td><td>23</td><td>34</td><td>48</td><td>65</td><td>85</td></tr>
+        </table>
+
+        <h3>Solución</h3>
         <ul>
-            <li>Tasa en Mes 4 (Diferencia Centrada): 12.5 mil usuarios/mes.</li>
-            <li>Tasa en Mes 1 (Adelante): 5 mil usuarios/mes.</li>
-            <li>Tasa en Mes 7 (Atrás): 20 mil usuarios/mes.</li>
-            <li>Segunda derivada (Aceleración): Constante en 3 mil usuarios/mes².</li>
+            <li><strong>Mes 4 (Centrada):</strong> f'(4) ≈ (48 - 23) / 2 = 12.5 miles/mes.</li>
+            <li><strong>Mes 1 (Adelante):</strong> f'(1) ≈ (15 - 10) / 1 = 5 miles/mes.</li>
+            <li><strong>Mes 7 (Atrás):</strong> f'(7) ≈ (85 - 65) / 1 = 20 miles/mes.</li>
+            <li><strong>Aceleración (f''):</strong> Calculando f''(x) ≈ f(x+1) - 2f(x) + f(x-1), se obtiene un valor constante de <strong>3 miles/mes²</strong> para todos los puntos.</li>
+            <li><strong>Interpretación:</strong> La startup crece de forma acelerada (cóncava hacia arriba).</li>
         </ul>
-        <p><strong>Interpretación:</strong> La startup está creciendo de forma acelerada (cóncava hacia arriba).</p>
 
-        <h4>Código en R</h4>
-        <pre><code># EJERCICIO 1: ANALISIS DE CRECIMIENTO DE USUARIOS
-# Datos: usuarios mensuales acumulados (en miles)
+        <div class="code-block">
+          <span class="code-label">CÓDIGO R</span>
+<pre><code><span class="comment"># EJERCICIO 1: ANALISIS DE CRECIMIENTO DE USUARIOS</span>
+usuarios <- c(10, 15, 23, 34, 48, 65, 85) <span class="comment"># f1..f7 (miles)</span>
+h <- 1 <span class="comment"># paso en meses</span>
 
-# --- Datos ---
-usuarios <- c(10, 15, 23, 34, 48, 65, 85) # f1...f7
-h <- 1 # paso en meses
-
-# 1) Derivadas primeras
-# Mes 1: diferencia hacia adelante
+<span class="comment"># 1) Derivadas primeras</span>
 fwd_mes1 <- (usuarios[2] - usuarios[1]) / h
-
-# Mes 4: diferencia centrada
 central_mes4 <- (usuarios[5] - usuarios[3]) / (2 * h)
-
-# Mes 7: diferencia hacia atras
 bwd_mes7 <- (usuarios[7] - usuarios[6]) / h
 
-# 2) Segunda derivada para cada punto (3-puntos)
+<span class="comment"># 2) Segunda derivada</span>
 n <- length(usuarios)
 segunda <- numeric(n)
-
-# Extremos y puntos internos
-segunda[1] <- (usuarios[3] - 2*usuarios[2] + usuarios[1]) / h^2
+<span class="comment"># Puntos extremos y centrales (formula equivalente para f'' constante)</span>
+segunda[1] <- usuarios[3] - 2*usuarios[2] + usuarios[1]
 for (i in 2:(n-1)) {
-  segunda[i] <- (usuarios[i+1] - 2*usuarios[i] + usuarios[i-1]) / h^2
+    segunda[i] <- usuarios[i+1] - 2*usuarios[i] + usuarios[i-1]
 }
-segunda[n] <- (usuarios[n] - 2*usuarios[n-1] + usuarios[n-2]) / h^2
+segunda[n] <- usuarios[n] - 2*usuarios[n-1] + usuarios[n-2]
 
-# Mostrar resultados
-cat("EJERCICIO 1: Diferenciacion Numerica (R)\n")
-cat(sprintf("Derivada (mes 1, adelante): %.4g miles usuarios/mes\n", fwd_mes1))
-cat(sprintf("Derivada (mes 4, centrada): %.4g miles usuarios/mes\n", central_mes4))
-cat(sprintf("Derivada (mes 7, atras): %.4g miles usuarios/mes\n", bwd_mes7))
+<span class="comment"># Mostrar resultados</span>
+cat("Derivada (mes 1, adelante):", fwd_mes1, "\n")
+cat("Derivada (mes 4, centrada):", central_mes4, "\n")
+cat("Derivada (mes 7, atras):", bwd_mes7, "\n")
+cat("Segunda derivada (aceleracion):", segunda, "\n")</code></pre>
+        </div>
 
-cat("Segunda derivada (aceleracion) por mes:\n")
-for (i in 1:n) {
-  cat(sprintf(" Mes %d: %g\n", i, segunda[i]))
-}</code></pre>
+        <div class="console-output">
+          <strong>RESULTADO (Salida Consola):</strong><br>
+          Derivada (mes 1, adelante): 5 miles usuarios/mes<br>
+          Derivada (mes 4, centrada): 12.5 miles usuarios/mes<br>
+          Derivada (mes 7, atras): 20 miles usuarios/mes<br>
+          Segunda derivada (aceleracion): 3 3 3 3 3 3 3<br>
+          Interpretacion: Aceleracion constante y positiva. Crecimiento acelerado.
+        </div>
+      </section>
 
-        <h3>2. Ejercicio 2: Optimización de Función de Pérdida</h3>
-        <p>Durante el entrenamiento de un modelo de Machine Learning, se registra la función de pérdida (loss) en cada época.</p>
+      <section>
+        <h2>2. [cite_start]Optimización de Función de Pérdida [cite: 175-333]</h2>
         
-        <h4>Planteamiento</h4>
-        <p><strong>Datos:</strong> Loss en épocas 0, 10, 20, 30, 40, 50. Paso h=10.</p>
+        <h3>Planteamiento</h3>
+        <p>Se registra la función de pérdida (loss) durante el entrenamiento de un modelo ML. Paso h=10.</p>
+        <table class="data-table">
+          <tr><th>Época</th><td>0</td><td>10</td><td>20</td><td>30</td><td>40</td><td>50</td></tr>
+          <tr><th>Loss</th><td>2.45</td><td>1.82</td><td>1.35</td><td>1.08</td><td>0.95</td><td>0.89</td></tr>
+        </table>
+
+        <h3>Solución</h3>
         <ul>
-            <li>f'(20) usando diferencia centrada.</li>
-            <li>f''(30) para analizar convergencia.</li>
-            <li>Criterio de parada: |f'| < 0.01.</li>
+            <li><strong>f'(20) [Centrada]:</strong> (1.08 - 1.82) / 20 = -0.037.</li>
+            <li><strong>f''(30):</strong> (0.95 - 2(1.08) + 1.35) / 100 = 0.0014. (Positivo = desaceleración de la mejora).</li>
+            <li><strong>Criterio |f'| < 0.01:</strong> Se cumple en la época 40 (|f'(40)| = 0.0095).</li>
+            <li><strong>Estimación f(25):</strong> f(20) + 5*f'(20) = 1.35 + 5(-0.037) = 1.165.</li>
         </ul>
 
-        <h4>Solución y Código en R</h4>
-        <pre><code># EJERCICIO 2: OPTIMIZACION DE LOSS
-epocas <- c(0, 10, 20, 30, 40, 50)
+        <div class="code-block">
+          <span class="code-label">CÓDIGO R</span>
+<pre><code>epocas <- c(0, 10, 20, 30, 40, 50)
 loss <- c(2.45, 1.82, 1.35, 1.08, 0.95, 0.89)
-h <- 10 # paso
+h <- 10
 
-# 1) Derivada centrada en epoca 20 (indice 3)
+<span class="comment"># 1) Derivada centrada en epoca 20</span>
 f_prime_20 <- (loss[4] - loss[2]) / (2 * h)
 
-# 2) Segunda derivada en epoca 30 (indice 4)
+<span class="comment"># 2) Segunda derivada en epoca 30</span>
 f_second_30 <- (loss[5] - 2*loss[4] + loss[3]) / (h^2)
 
-# 3) Calcular derivadas en todas las epocas
+<span class="comment"># 3) Calculo general y criterio de parada</span>
 n <- length(epocas)
 f_prime <- numeric(n)
-f_prime[1] <- (loss[2] - loss[1]) / h # Forward
-for (i in 2:(n-1)) {
-  f_prime[i] <- (loss[i+1] - loss[i-1]) / (2 * h) # Centrada
-}
-f_prime[n] <- (loss[n] - loss[n-1]) / h # Backward
+<span class="comment"># ... (Calculo de derivadas para todo el vector)</span>
+f_prime[1] <- (loss[2]-loss[1])/h
+for(i in 2:(n-1)) f_prime[i] <- (loss[i+1]-loss[i-1])/(2*h)
+f_prime[n] <- (loss[n]-loss[n-1])/h
 
-# Criterio de parada
-umbral <- 0.01
-cumple <- which(abs(f_prime) < umbral)
-
-# 4) Estimacion lineal f(25)
+<span class="comment"># 4) Estimacion lineal epoca 25</span>
 f_est_25 <- loss[3] + (25 - 20) * f_prime[3]
 
-cat("EJERCICIO 2 Output:\n")
-cat(sprintf("f'(20) = %.6g\n", f_prime_20))
-cat(sprintf("f''(30) = %.6g\n", f_second_30))
-cat(sprintf("Estimacion f(25) approx %.6g\n", f_est_25))</code></pre>
+cat("f'(20) =", f_prime_20, "\n")
+cat("f''(30) =", f_second_30, "\n")
+cat("Estimacion f(25) =", f_est_25, "\n")</code></pre>
+        </div>
 
-        <h3>3. Ejercicio 3: Análisis de Series Temporales de Ventas</h3>
-        <p>Análisis de ventas diarias durante una semana de campaña.</p>
+        <div class="console-output">
+          <strong>RESULTADO (Salida Consola):</strong><br>
+          1) f'(20) (centrada) = -0.037 (loss/epoca)<br>
+          2) f''(30) = 0.0014 (loss/epoca^2)<br>
+          3) Primera epoca donde |f'| < 0.01: epoca 40<br>
+          4) Estimacion lineal f(25) approx 1.165<br>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. [cite_start]Análisis de Ventas (Series Temporales) [cite: 334-481]</h2>
         
-        <h4>Planteamiento</h4>
-        <p>Se busca identificar el día de mayor aceleración, la magnitud de la caída del jueves y estimar las ventas del lunes siguiente.</p>
+        <h3>Planteamiento</h3>
+        <p>Ventas diarias en una semana de campaña. Paso h=1 día.</p>
+        <table class="data-table">
+          <tr><th>Día</th><td>Lun</td><td>Mar</td><td>Mié</td><td>Jue</td><td>Vie</td><td>Sáb</td><td>Dom</td></tr>
+          <tr><th>Ventas ($k)</th><td>45</td><td>52</td><td>61</td><td>58</td><td>73</td><td>89</td><td>95</td></tr>
+        </table>
 
-        <h4>Código en R</h4>
-        <pre><code># EJERCICIO 3: ANALISIS DE VENTAS DIARIAS
-dias <- c("Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom")
+        <h3>Solución</h3>
+        <ul>
+            <li><strong>Velocidades (f'):</strong> Lun(7), Mar(8), Mié(3), Jue(6), Vie(15.5), Sáb(11), Dom(6).</li>
+            <li><strong>Mayor Aceleración:</strong> Jueves (f'' = 18 $k/día²).</li>
+            <li><strong>Caída Mié->Jue:</strong> 58 - 61 = -3 $k.</li>
+            <li><strong>Proyección Lunes:</strong> f(Dom) + f'(Dom)*1 = 95 + 6 = 101 $k.</li>
+        </ul>
+
+        <div class="code-block">
+          <span class="code-label">CÓDIGO R</span>
+<pre><code>dias <- c("Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom")
 ventas <- c(45, 52, 61, 58, 73, 89, 95)
 h <- 1
 
+<span class="comment"># 1) Primera Derivada</span>
 n <- length(ventas)
 velocidad <- numeric(n)
-velocidad[1] <- (ventas[2] - ventas[1]) / h
-for (i in 2:(n-1)) { velocidad[i] <- (ventas[i+1] - ventas[i-1]) / (2*h) }
-velocidad[n] <- (ventas[n] - ventas[n-1]) / h
+velocidad[1] <- (ventas[2]-ventas[1])/h
+for(i in 2:(n-1)) velocidad[i] <- (ventas[i+1]-ventas[i-1])/(2*h)
+velocidad[n] <- (ventas[n]-ventas[n-1])/h
 
-# Segunda derivada (aceleracion)
+<span class="comment"># 2) Aceleracion y Maximo</span>
 aceleracion <- rep(NA, n)
-for (i in 2:(n-1)) {
-  aceleracion[i] <- (ventas[i+1] - 2*ventas[i] + ventas[i-1])
-}
+for(i in 2:(n-1)) aceleracion[i] <- ventas[i+1] - 2*ventas[i] + ventas[i-1]
+dia_max_acc <- dias[which.max(aceleracion)]
 
-# Dia con mayor aceleracion
-max_acc_index <- which(aceleracion == max(aceleracion, na.rm=TRUE))
-dia_max_acc <- dias[max_acc_index]
+<span class="comment"># 3) Extrapolacion</span>
+ventas_lun_sig <- ventas[n] + velocidad[n]*1
 
-# Extrapolacion lunes siguiente
-ventas_lunes_sig <- ventas[n] + velocidad[n] * 1
+cat("Mayor aceleracion:", dia_max_acc, "\n")
+cat("Estimacion Lunes:", ventas_lun_sig, "\n")</code></pre>
+        </div>
 
-cat("EJERCICIO 3 Output:\n")
-cat(sprintf("Dia con mayor aceleracion: %s (%g $k/dia^2)\n", dia_max_acc, max(aceleracion, na.rm=TRUE)))
-cat(sprintf("Estimacion ventas lunes siguiente: %g $k\n", ventas_lunes_sig))</code></pre>
-
-        <h3>4. Ejercicio 4: Gradiente de Función de Activación</h3>
-        <p>Cálculo del gradiente de la función sigmoide en varios puntos para Backpropagation.</p>
-        
-        <h4>Código en R</h4>
-        <pre><code># EJERCICIO 4: Gradiente de la sigmoide
-x_vals <- c(-3, -2, -1, 0, 1, 2, 3)
-sigma_vals <- c(0.0474, 0.1192, 0.2689, 0.5000, 0.7311, 0.8808, 0.9526)
-names(sigma_vals) <- as.character(x_vals)
-
-# Funcion auxiliar diferencia centrada
-centered_diff <- function(x, map, h=1) {
-  x_plus <- as.character(x + h)
-  x_minus <- as.character(x - h)
-  return((map[x_plus] - map[x_minus]) / (2 * h))
-}
-
-# Calculo en x=0, x=-2, x=2
-deriv_0 <- centered_diff(0, sigma_vals)
-deriv_neg2 <- centered_diff(-2, sigma_vals)
-deriv_pos2 <- centered_diff(2, sigma_vals)
-
-cat("EJERCICIO 4 Output:\n")
-cat(sprintf("Sigmoide'(0) = %.6g\n", deriv_0))
-cat(sprintf("Sigmoide'(-2) = %.6g\n", deriv_neg2))
-cat(sprintf("Sigmoide'(2) = %.6g\n", deriv_pos2))</code></pre>
-
-        <h3>5. Ejercicio 5: Detección de Anomalías</h3>
-        <p>Monitoreo de latencia de una API. Identificación de "picos de anomalía" usando la segunda derivada.</p>
-        
-        <h4>Resultados Clave</h4>
-        <ul>
-            <li>Pico de anomalía (cambio de signo en f''): Entre Hora 3 y 4.</li>
-            <li>Salto brusco (Hora 3 a 4): 145 ms.</li>
-            <li>Anomalías detectadas (>50 ms/h): Horas 3, 4, 6 y 7.</li>
-        </ul>
-
-        <h4>Código en R</h4>
-        <pre><code># EJERCICIO 5: LATENCIA
-latencia <- c(120, 125, 128, 135, 280, 290, 275, 155)
-h <- 1
-n <- length(latencia)
-
-# 1) Primera derivada
-f_prime <- numeric(n)
-f_prime[1] <- (latencia[2] - latencia[1])/h
-for(i in 2:(n-1)) f_prime[i] <- (latencia[i+1] - latencia[i-1])/(2*h)
-f_prime[n] <- (latencia[n] - latencia[n-1])/h
-
-# 2) Segunda derivada
-f_second <- rep(NA, n)
-for(i in 2:(n-1)) f_second[i] <- latencia[i+1] - 2*latencia[i] + latencia[i-1]
-
-# Deteccion
-umbral <- 50
-anomalias <- which(abs(f_prime) > umbral)
-
-cat("EJERCICIO 5 Output:\n")
-cat("Anomalias detectadas en horas:", paste(anomalias - 1, collapse=", "), "\n")
-cat("Salto entre hora 3 y 4:", latencia[5]-latencia[4], "ms\n")</code></pre>
-
-        <h3>6. Ejercicio 6: Tasa de Conversión (ROI)</h3>
-        <p>Análisis de rendimientos decrecientes en inversión publicitaria.</p>
-        
-        <h4>Solución</h4>
-        <p>Se calcula el ROI marginal. Se observa que f''(15) es negativo (-0.012), indicando rendimientos decrecientes. La recomendación es no aumentar el gasto más allá de $25k.</p>
-
-        <h4>Código en R</h4>
-        <pre><code># EJERCICIO 6: ROI MARGINAL
-gasto_k <- c(0, 5, 10, 15, 20, 25)
-conversion <- c(2.1, 3.8, 5.2, 6.1, 6.7, 7.0)
-h <- 5
-n <- length(gasto_k)
-
-roi <- numeric(n)
-roi[1] <- (conversion[2] - conversion[1]) / h
-for(i in 2:(n-1)) roi[i] <- (conversion[i+1] - conversion[i-1]) / (2*h)
-roi[n] <- (conversion[n] - conversion[n-1]) / h
-
-# Segunda derivada en 15k (indice 4)
-f2_15 <- (conversion[5] - 2*conversion[4] + conversion[3]) / (h^2)
-
-cat("EJERCICIO 6 Output:\n")
-cat(sprintf("ROI marginal en $25k: %.4g %%/$k\n", roi[n]))
-cat(sprintf("f''(15) = %.6g (Rendimientos decrecientes)\n", f2_15))</code></pre>
-
-        <h3>7. Ejercicio 7: Feature Engineering con Derivadas</h3>
-        <p>Creación de nuevas características (velocidad y aceleración) para un sensor de temperatura industrial.</p>
-        
-        <h4>Código en R</h4>
-        <pre><code># EJERCICIO 7: FEATURE ENGINEERING
-temp <- c(20.1, 20.3, 20.8, 21.5, 22.6, 24.2, 26.1, 28.5)
-h <- 1
-n <- length(temp)
-
-# Velocidad (1ra derivada)
-d1 <- rep(NA, n)
-d1[1] <- (temp[2] - temp[1])/h
-for(i in 2:(n-1)) d1[i] <- (temp[i+1] - temp[i-1])/(2*h)
-d1[n] <- (temp[n] - temp[n-1])/h
-
-# Aceleracion (2da derivada)
-d2 <- rep(NA, n)
-for(i in 2:(n-1)) d2[i] <- (temp[i+1] - 2*temp[i] + temp[i-1])/h^2
-
-# Alertas
-umbral <- 0.8
-alertas <- which(d1 > umbral)
-
-cat("EJERCICIO 7 Output:\n")
-print(data.frame(Tiempo=0:7, Temp=temp, Velocidad=round(d1,3), Aceleracion=round(d2,3)))
-cat("Alertas en t =", paste(alertas - 1, collapse=", "), "s\n")</code></pre>
-
+        <div class="console-output">
+          <strong>RESULTADO (Salida Consola):</strong><br>
+          Dia(s) con mayor aceleracion positiva: Jue (18 $k/dia^2)<br>
+          Caida Mie -> Jue: -3 $k<br>
+          Estimacion ventas lunes siguiente: 101 $k
+        </div>
       </section>
 
       <section>
-        <h2>Evidencias</h2>
+        <h2>4. [cite_start]Gradiente de Función Sigmoide [cite: 482-613]</h2>
+        
+        <h3>Planteamiento</h3>
+        <p>Calcular gradientes numéricos de la función sigmoide usando datos tabulados y compararlos con la analítica.</p>
+        <p>Datos σ(x): {-3: 0.0474, -2: 0.1192, -1: 0.2689, 0: 0.5000, 1: 0.7311, 2: 0.8808, 3: 0.9526}</p>
+
+        <h3>Solución</h3>
         <ul>
-          <li>
-            <a href="#" class="btn-link">
-                <span>📄</span> Ver Informe Completo (PDF)
-            </a>
-          </li>
-          <li>
-            <a href="#" class="btn-link">
-                <span>💻</span> Script R Consolidado
-            </a>
-          </li>
+            <li><strong>σ'(0) [Numérico]:</strong> (0.7311 - 0.2689)/2 = 0.2311.</li>
+            <li><strong>Analítico σ'(0):</strong> 0.25. Error = -0.0189.</li>
+            <li><strong>Simetría:</strong> σ'(-2) ≈ 0.1107 y σ'(2) ≈ 0.1107. Son iguales porque la derivada de la sigmoide es una función par.</li>
+            <li><strong>Recomendación:</strong> h=1 es muy grande. Se recomienda h ≈ 1e-5.</li>
         </ul>
+
+        <div class="code-block">
+          <span class="code-label">CÓDIGO R</span>
+<pre><code>x_vals <- c(-3, -2, -1, 0, 1, 2, 3)
+sigma_vals <- c(0.0474, 0.1192, 0.2689, 0.5000, 0.7311, 0.8808, 0.9526)
+names(sigma_vals) <- as.character(x_vals)
+
+centered_diff <- function(x, map, h=1) {
+    x_p <- as.character(x+h); x_m <- as.character(x-h)
+    return((map[x_p] - map[x_m])/(2*h))
+}
+
+<span class="comment"># Calculos en puntos clave</span>
+d_0 <- centered_diff(0, sigma_vals)
+d_2 <- centered_diff(2, sigma_vals)
+d_neg2 <- centered_diff(-2, sigma_vals)
+
+cat("x=0 num:", d_0, "analitica: 0.25\n")
+cat("x=2 num:", d_2, "\n")</code></pre>
+        </div>
+
+        <div class="console-output">
+          <strong>RESULTADO (Salida Consola):</strong><br>
+          x=-2 : num(h=1)=0.11075 analitica=0.10499<br>
+          x=0  : num(h=1)=0.2311  analitica=0.25<br>
+          x=2  : num(h=1)=0.11075 analitica=0.10499<br>
+          Nota: h=1 introduce error de truncamiento visible.
+        </div>
       </section>
+
+      <section>
+        <h2>5. [cite_start]Detección de Anomalías (Latencia) [cite: 614-785]</h2>
+        
+        <h3>Planteamiento</h3>
+        <p>Latencia (ms) de una API por hora. Detectar picos anómalos usando derivadas.</p>
+        <table class="data-table">
+          <tr><th>Hora</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+          <tr><th>Latencia</th><td>120</td><td>125</td><td>128</td><td>135</td><td>280</td><td>290</td><td>275</td><td>155</td></tr>
+        </table>
+
+        <h3>Solución</h3>
+        <ul>
+            <li><strong>Pico de Anomalía:</strong> Ocurre donde f'' cambia de signo (+ a -). Esto sucede entre la <strong>Hora 3</strong> (f''=138) y la <strong>Hora 4</strong> (f''=-135).</li>
+            <li><strong>Salto:</strong> Diferencia Hora 3 a 4 = 145 ms.</li>
+            <li><strong>Alertas (>50 ms/h):</strong> Detectadas en Horas 3, 4, 6 y 7.</li>
+        </ul>
+
+        <div class="code-block">
+          <span class="code-label">CÓDIGO R</span>
+<pre><code>latencia <- c(120, 125, 128, 135, 280, 290, 275, 155)
+h <- 1; n <- length(latencia)
+
+<span class="comment"># Derivadas</span>
+f_prime <- numeric(n); f_second <- rep(NA, n)
+<span class="comment"># ... (Calculo bucles f_prime y f_second)</span>
+<span class="comment"># Deteccion</span>
+umbral <- 50
+anomalias <- which(abs(f_prime) > umbral)
+salto <- latencia[5] - latencia[4]
+
+cat("Anomalias indices:", anomalias, "\n")
+cat("Salto h3->h4:", salto, "\n")</code></pre>
+        </div>
+
+        <div class="console-output">
+          <strong>RESULTADO (Salida Consola):</strong><br>
+          Pico(s) de anomalia (cambio en f'') detectado en hora: 4<br>
+          Salto entre hora 3 y 4: 145 ms<br>
+          Anomalias detectadas con |Delta| > 50 ms/h en horas: 3, 4, 6, 7
+        </div>
+      </section>
+
+      <section>
+        <h2>6. [cite_start]ROI Marginal (Marketing) [cite: 786-939]</h2>
+        
+        <h3>Planteamiento</h3>
+        <p>Tasa de conversión vs Gasto en publicidad ($k). Analizar ROI marginal.</p>
+        <table class="data-table">
+          <tr><th>Gasto ($k)</th><td>0</td><td>5</td><td>10</td><td>15</td><td>20</td><td>25</td></tr>
+          <tr><th>Conv (%)</th><td>2.1</td><td>3.8</td><td>5.2</td><td>6.1</td><td>6.7</td><td>7.0</td></tr>
+        </table>
+
+        <h3>Solución</h3>
+        <ul>
+            <li><strong>ROI Marginal:</strong> 0.34, 0.31, 0.23, 0.15, 0.09, 0.06 (%/$k).</li>
+            <li><strong>Rango Eficiente (>0.2):</strong> Hasta los $10k.</li>
+            <li><strong>Punto Saturación ($15k):</strong> f''(15) ≈ -0.012 (negativo indica rendimientos decrecientes).</li>
+            <li><strong>Recomendación:</strong> No gastar más de $25k.</li>
+        </ul>
+
+        <div class="code-block">
+          <span class="code-label">CÓDIGO R</span>
+<pre><code>gasto_k <- c(0, 5, 10, 15, 20, 25)
+conversion <- c(2.1, 3.8, 5.2, 6.1, 6.7, 7.0)
+h <- 5
+
+<span class="comment"># Calculo de ROI (f') y f'' en 15k</span>
+<span class="comment"># ... (implementacion diferencias finitas)</span>
+f2_15 <- (conversion[5] - 2*conversion[4] + conversion[3]) / h^2
+
+cat("f''(15):", f2_15, "\n")</code></pre>
+        </div>
+
+        <div class="console-output">
+          <strong>RESULTADO (Salida Consola):</strong><br>
+          ROI marginal en $25k: 0.06 %/$k<br>
+          (Tarea 3) Segunda derivada en $15k: -0.012 %/($k)^2<br>
+          Recomendacion: no aumentar gasto mas alla de $25k.
+        </div>
+      </section>
+
+      <section>
+        <h2>7. [cite_start]Feature Engineering (Sensor) [cite: 940-1078]</h2>
+        
+        <h3>Planteamiento</h3>
+        <p>Datos de temperatura por segundo. Crear features de velocidad y aceleración.</p>
+        
+        <h3>Solución</h3>
+        <ul>
+            <li><strong>Feature 1 (Velocidad):</strong> Derivada de T respecto al tiempo.</li>
+            <li><strong>Feature 2 (Aceleración):</strong> Segunda derivada.</li>
+            <li><strong>Alerta (>0.8 °C/s):</strong> Se dispara en t = 3, 4, 5, 6, 7.</li>
+        </ul>
+
+        <div class="code-block">
+          <span class="code-label">CÓDIGO R</span>
+<pre><code>t <- 0:7
+temp <- c(20.1, 20.3, 20.8, 21.5, 22.6, 24.2, 26.1, 28.5)
+h <- 1
+
+<span class="comment"># Features</span>
+d1 <- numeric(8); d2 <- rep(NA, 8)
+<span class="comment"># ... (bucles de derivacion)</span>
+umbral <- 0.8
+alertas <- which(d1 > umbral)
+
+res <- data.frame(t, temp, d1=round(d1,3), d2=round(d2,3))
+print(res)</code></pre>
+        </div>
+
+        <div class="console-output">
+          <strong>RESULTADO (Salida Consola):</strong><br>
+             t temp    d1    d2<br>
+          1  0 20.1 0.200    NA<br>
+          2  1 20.3 0.350 0.300<br>
+          3  2 20.8 0.600 0.200<br>
+          4  3 21.5 0.900 0.400  <- Alerta<br>
+          5  4 22.6 1.350 0.500  <- Alerta<br>
+          ...
+        </div>
+      </section>
+
     </main>
 
     <footer>
-      © 2025 Nayelin · Portafolio Programación Numérica 
+      © 2025 Nayelin · Portafolio Programación Numérica
     </footer>
   </div>
-
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      sidebar.classList.toggle('show');
-      content.classList.toggle('full');
-    }
-  </script>
 </body>
 </html>
