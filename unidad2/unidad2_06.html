@@ -347,79 +347,21 @@
     <main>
       <section>
         <h2>Descripción</h2>
-        <p>Hacer un resumen del documento enviado al grupo de whatsapp.</p>
+        <p>  </p>
       </section>
 
       <section>
         <h2>Desarrollo de la Actividad</h2>
         
         <h3>Planteamiento</h3>
-        <p>El artículo “Optimal Single-Path Information Propagation in Gradient-Based Algorithms” presenta el algoritmo BIS (Bounded Information Speed), el cual mejora la propagación de información en redes distribuidas mediante un control explícito de la velocidad mínima de transmisión entre nodos.</p>
-        <p>Para comprender su funcionamiento, se plantea una simulación sencilla que ilustra la diferencia entre un gradiente clásico y el gradiente BIS. En este ejemplo se construye una red aleatoria de nodos en un plano bidimensional. Cada nodo calcula su distancia a una fuente central (gradiente clásico) y luego se aplica el concepto del BIS, limitando la velocidad de propagación de la información con un parámetro v.</p>
-        <p>La comparación visual mostrará cómo el BIS suaviza las transiciones y controla mejor la propagación, logrando una distribución más estable de la información en la red.</p>
-
-        <h3>Código en R</h3>
-        <p>A continuación se muestra el código utilizado para realizar la simulación:</p>
-        <pre><code># ==========================================
-# Simulación del algoritmo BIS Gradient
-# ==========================================
-
-if(!require(ggplot2)) install.packages("ggplot2")
-if(!require(gridExtra)) install.packages("gridExtra")
-library(ggplot2)
-library(gridExtra)
-
-# 1. Generación de la red
-set.seed(123)
-n <- 50
-nodes <- data.frame(
-  id = 1:n,
-  x = runif(n, 0, 10),
-  y = runif(n, 0, 10)
-)
-
-# Nodo fuente
-source <- c(5, 5)
-
-# 2. Cálculo de gradientes
-nodes$dist_classic <- sqrt((nodes$x - source[1])^2 + (nodes$y - source[2])^2)
-v <- 0.8
-nodes$dist_BIS <- pmax(nodes$dist_classic * v, nodes$dist_classic - 1)
-
-# 3. Visualización comparativa
-p1 <- ggplot(nodes, aes(x, y, color = dist_classic)) +
-  geom_point(size = 3) +
-  scale_color_viridis_c() +
-  ggtitle("Gradiente clásico") +
-  theme_minimal()
-
-p2 <- ggplot(nodes, aes(x, y, color = dist_BIS)) +
-  geom_point(size = 3) +
-  scale_color_viridis_c() +
-  ggtitle("Gradiente BIS (v limitada)") +
-  theme_minimal()
-
-grid.arrange(p1, p2, ncol = 2)
-</code></pre>
-
-        <h3>Resultados</h3>
-        <p>El resultado visual muestra dos mapas de color:</p>
-        <ol>
-            <li>En el gradiente clásico, los valores aumentan sin control según la distancia a la fuente.</li>
-            <li>En el gradiente BIS, la velocidad de propagación está acotada por v = 0,8, generando una distribución más homogénea y estable.</li>
-        </ol>
-
+       
         
-
-        <h3>Conclusión del experimento</h3>
-        <p>La simulación demuestra que el algoritmo BIS logra un equilibrio entre rapidez, precisión y estabilidad en la propagación de información, tal como se describe en el artículo original. Este comportamiento controlado lo hace especialmente útil en entornos donde las condiciones de comunicación cambian constantemente, como en sistemas de sensores o redes IoT distribuidas.</p>
-      </section>
 
       <section>
         <h2>Evidencias</h2>
         <ul>
           <li>
-            <a href="https://drive.google.com/file/d/1FLg1Wm1U-oDS7wscBTcueAuZ0edm_nfg/view?usp=sharing" target="_blank" class="btn-link">
+            <a href="" target="_blank" class="btn-link">
                 <span>📄</span> Ver Informe (PDF)
             </a>
           </li>
