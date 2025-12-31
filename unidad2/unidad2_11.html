@@ -51,18 +51,7 @@
       opacity: 0.7;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
-      animation: ambient 30s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ===== SIDEBAR PREMIUM ===== */
+    /* ===== SIDEBAR ===== */
     .sidebar {
       width: 260px;
       background: rgba(15, 10, 31, 0.85);
@@ -116,18 +105,14 @@
 
     .toggle-btn {
       position: fixed;
-      top: 1.5rem;
-      left: 1.5rem;
+      top: 1.5rem; left: 1.5rem;
       background: rgba(15, 10, 31, 0.8);
       backdrop-filter: blur(10px);
       color: var(--primary);
       border: 1px solid var(--border);
-      padding: 0.8rem;
-      border-radius: 12px;
-      cursor: pointer;
-      z-index: 1100;
+      padding: 0.8rem; border-radius: 12px;
+      cursor: pointer; z-index: 1100;
       display: none;
-      transition: all 0.3s ease;
     }
 
     /* ===== CONTENIDO PRINCIPAL ===== */
@@ -142,7 +127,6 @@
 
     .content.full { margin-left: 0; }
 
-    /* Header de Actividad */
     header {
       margin-bottom: 3rem;
       border-bottom: 1px solid var(--border);
@@ -166,7 +150,7 @@
       font-size: 0.9rem;
     }
 
-    /* Badge */
+    /* Badge Estado */
     .estado {
       position: absolute;
       top: 0; right: 0;
@@ -189,13 +173,9 @@
       box-shadow: 0 0 10px var(--glow);
       animation: pulse 2s infinite;
     }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.9); } }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.9); }
-    }
-
-    /* ===== ESTILOS PARA TABS ===== */
+    /* ===== TABS ===== */
     .tabs-container {
         display: flex;
         gap: 1rem;
@@ -231,56 +211,21 @@
         border-color: var(--primary);
     }
 
-    /* Contenedores de Ejercicios */
-    .ejercicio-content {
-        display: none;
-        animation: fadeUp 0.5s ease;
-    }
-
-    .ejercicio-content.active {
-        display: block;
-    }
-
-    /* Estilos Generales Contenido */
-    main { animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    /* Contenido Ejercicios */
+    .ejercicio-content { display: none; animation: fadeUp 0.5s ease; }
+    .ejercicio-content.active { display: block; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
-      color: var(--text);
-      margin-top: 2rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: var(--text); margin-top: 2rem; margin-bottom: 1.5rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 0.5rem;}
+    h3 { color: var(--secondary); margin: 1.5rem 0 1rem; font-size: 1.2rem; font-family: 'Space Grotesk', sans-serif; }
+    p, li { color: var(--text-muted); margin-bottom: 1rem; font-size: 1.05rem; text-align: justify; }
+    ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
 
-    h3 {
-      color: var(--secondary);
-      margin: 1.5rem 0 1rem;
-      font-size: 1.2rem;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    p {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
-      text-align: justify;
-    }
-    
-    ul, ol {
-        margin-left: 1.5rem;
-        color: var(--text-muted);
-        margin-bottom: 1rem;
-    }
-
-    /* ESTILOS DE CÓDIGO (R/Python) */
+    /* Código */
     pre {
       background: rgba(10, 6, 20, 0.6);
       padding: 1.5rem;
@@ -288,40 +233,24 @@
       overflow-x: auto;
       border: 1px solid var(--border);
       box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+      margin: 1.5rem 0;
     }
-
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      color: #e2e8f0;
-      line-height: 1.5;
-    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #e2e8f0; line-height: 1.5; }
 
     /* Tablas */
     .table-container { overflow-x: auto; margin: 1.5rem 0; border-radius: 12px; border: 1px solid var(--border); }
     table { width: 100%; border-collapse: collapse; background: rgba(15, 10, 31, 0.5); }
     th, td { padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
     th { background: rgba(167, 139, 250, 0.1); color: var(--primary); font-family: 'Space Grotesk'; font-weight: 600; white-space: nowrap; }
-    td { font-size: 0.95rem; }
 
     /* Footer */
-    footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
+    footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
 
-    /* Responsive */
     @media (max-width: 768px) {
       .sidebar { transform: translateX(-100%); width: 280px; }
       .sidebar.show { transform: translateX(0); }
       .toggle-btn { display: block; }
       .content { margin-left: 0; padding: 2rem 1.5rem; }
-      header h1 { font-size: 1.8rem; }
-      .estado { position: relative; margin-top: 1rem; display: inline-flex; }
       .tabs-container { flex-direction: column; }
     }
   </style>
@@ -352,7 +281,7 @@
   <div class="content" id="content">
     <header>
       <h1>Actividad 11 · Cadenas de Markov</h1>
-      <p>Análisis de Casos Turísticos | Puno, 2025</p>
+      <p>Puno, Perú · 2025 | Nayelin Brisbany Cutipa Ramos</p>
       <div class="estado">
         <div class="burbuja"></div>
         <span>Completada</span>
@@ -362,28 +291,47 @@
     <main>
       <section class="tabs-container">
         <div class="tab-btn active" onclick="openExercise('ej1')">Ejercicio 1: Taquile</div>
-        <div class="tab-btn" onclick="openExercise('ej2')">Ejercicio 2: Isla Anapia</div>
+        <div class="tab-btn" onclick="openExercise('ej2')">Ejercicio 2: Anapia</div>
         <div class="tab-btn" onclick="openExercise('ej3')">Ejercicio 3: Temporadas</div>
       </section>
 
       <div id="ej1" class="ejercicio-content active">
         <section>
-            <h2>Ejercicio 1: Modificación de la Dinámica Turística</h2>
+            <h2>EJERCICIO 1: CADENAS DE MARKOV - Análisis de Inversión Turística en Taquile</h2>
+            <p><strong>UNIVERSIDAD NACIONAL DEL ALTIPLANO - PUNO</strong><br>
+            FACULTAD DE INGENIERÍA ESTADÍSTICA E INFORMÁTICA<br>
+            ESCUELA PROFESIONAL DE INGENIERÍA ESTADÍSTICA E INFORMÁTICA</p>
+            <p><strong>DOCENTE:</strong> Ing. Fred Torres Cruz<br>
+            <strong>PRESENTADO POR:</strong> Nayelin Brisbany Cutipa Ramos</p>
+
+            <h3>Ejercicio 1: Modificación de la Dinámica Turística</h3>
             <p>Se plantea un escenario donde se realiza una inversión en infraestructura en la isla de Taquile, lo que modifica las probabilidades de transición desde Islas Uros y desde la misma Taquile.</p>
 
             <h3>a) Modificación de la matriz de transición</h3>
             <p>Las modificaciones requeridas son:</p>
+            <p><strong>Desde Islas Uros (IU):</strong></p>
             <ul>
-                <li><strong>Desde Islas Uros (IU):</strong> IU -> Taquile: aumenta de 0,25 a 0,35. IU -> Puno: disminuye de 0,50 a 0,40. Nueva fila IU: [0.40, 0,15, 0,35, 0,10] (Suma=1.0).</li>
-                <li><strong>Desde Taquile (IT):</strong> IT -> Puno: disminuye de 0,40 a 0,30. IT -> Taquile: aumenta de 0,30 a 0,40. Nueva fila IT: [0,30, 0,10, 0,40, 0,20] (Suma=1.0).</li>
+                <li>IU \(\rightarrow\) Taquile: aumenta de 0,25 a 0,35.</li>
+                <li>IU \(\rightarrow\) Puno: disminuye de 0,50 a 0,40.</li>
+                <li>IU \(\rightarrow\) Uros y IU \(\rightarrow\) Amantaní se mantienen constantes.</li>
             </ul>
-            <p>La nueva matriz de transición \(T_{nuevo}\) es:</p>
+            <p>Nueva fila IU: \([0.40, 0,15, 0,35, 0,10]\) \((Suma=1.0)\).</p>
+
+            <p><strong>Desde Taquile (IT):</strong></p>
+            <ul>
+                <li>IT \(\rightarrow\) Puno: disminuye de 0,40 a 0,30.</li>
+                <li>IT \(\rightarrow\) Taquile: aumenta de 0,30 a 0,40.</li>
+                <li>El resto se mantiene constante.</li>
+            </ul>
+            <p>Nueva fila IT: \([0,30, 0,10, 0,40, 0,20]\) \((Suma=1.0)\).</p>
             
+            <p>La nueva matriz de transición \(T_{nuevo}\) es:</p>
             <p>$$T_{nuevo}=\begin{pmatrix}0.25&0,45&0,20&0,10\\ 0.40&0,15&0,35&0,10\\ 0.30&0,10&0,40&0,20\\ 0,55&0,15&0,10&0,20\end{pmatrix}$$</p>
             <p>Donde las filas representan: Puno Ciudad, Islas Uros, Taquile y Amantaní, respectivamente.</p>
 
             <h3>b) Cálculo de los nuevos eigenvalues y eigenvectors</h3>
             <p>Para analizar la estabilidad del nuevo sistema, calculamos los valores y vectores propios de la matriz transpuesta \(T_{nuevo}^{T}\).</p>
+
             <pre><code>from scipy import linalg
 import numpy as np
 
@@ -401,8 +349,9 @@ eigenvalues, eigenvectors = linalg.eig(T_nuevo.T)
 print("EIGENVALUES ENCONTRADOS")
 for i, val in enumerate (eigenvalues):
     print (f"Lambda {i+1} = {val:.6f}")</code></pre>
-            
-            <p><strong>Resultados Obtenidos:</strong></p>
+            <p><em>Listing 1: Código Python para cálculo de Eigenvalues</em></p>
+
+            <p><strong>Resultados Obtenidos:</strong> Los eigenvalues calculados son:</p>
             <ul>
                 <li>\(\lambda_{1}=1,00000\)</li>
                 <li>\(\lambda_{2}\approx-0,214420\)</li>
@@ -412,11 +361,16 @@ for i, val in enumerate (eigenvalues):
             <p><strong>Interpretación:</strong> El eigenvalue dominante es \(\lambda=1\). Esto confirma que el sistema sigue teniendo un estado estacionario único y la cadena de Markov es estable (ergódica).</p>
 
             <h3>c) Determinación de la nueva distribución estacionaria</h3>
+            <p>La distribución estacionaria corresponde al eigenvector asociado a \(\lambda=1\), normalizado para que la suma de sus componentes sea 1.</p>
             <pre><code># Extraer eigenvector dominante (indice 0 para lambda=1)
 v_dominante = eigenvectors[:, 0].real
 # Normalizar
 dist_estacionaria_nueva = v_dominante / v_dominante.sum()</code></pre>
+            <p><em>Listing 2: Normalización del Eigenvector dominante</em></p>
+            
             <p><strong>Nueva Distribución Estacionaria (\(\pi\)):</strong></p>
+            <p>\(\pi = [0,3422, 0,2388, 0,2770, 0,1419]\)</p>
+            <p>En porcentajes:</p>
             <ul>
                 <li>Puno Ciudad: 34.22%</li>
                 <li>Islas Uros: 23.88%</li>
@@ -425,6 +379,7 @@ dist_estacionaria_nueva = v_dominante / v_dominante.sum()</code></pre>
             </ul>
 
             <h3>d) Comparación con la distribución original</h3>
+            <p>A continuación, se presenta la comparación entre el modelo base (antes de la inversión) y el nuevo modelo.</p>
             <div class="table-container">
                 <table>
                     <thead><tr><th>Destino</th><th>Original (%)</th><th>Nuevo (%)</th><th>Variación</th></tr></thead>
@@ -436,37 +391,63 @@ dist_estacionaria_nueva = v_dominante / v_dominante.sum()</code></pre>
                     </tbody>
                 </table>
             </div>
-            <p><strong>Análisis:</strong> Taquile es el destino más beneficiado (+6.40%), validando que la inversión aumentó la permanencia. Puno sigue siendo el hub principal. Amantaní sufre la mayor caída (-8.01%), indicando un efecto de sustitución.</p>
+            <p><em>Cuadro 1: Comparación de distribuciones estacionarias</em></p>
+
+            <p><strong>Análisis:</strong></p>
+            <p><strong>Taquile:</strong> Es el destino más beneficiado con un aumento del 6.40%. Esto valida que la inversión en infraestructura aumentó la permanencia y atracción del destino.</p>
+            <p><strong>Hub Principal:</strong> Puno Ciudad sigue siendo el hub principal (34.22%), lo que indica que la estructura logística del sistema no se ha roto, solo redistribuido.</p>
+            <p><strong>Amantaní:</strong> Sufre la mayor caída (-8.01%), indicando un efecto de sustitución por Taquile.</p>
 
             <h3>e) Simulación temporal y velocidad de convergencia</h3>
+            <p>Simulamos la evolución del sistema partiendo de que todos los turistas inician en Puno Ciudad: \(x(0)=[1,0,0,0]\).</p>
             <pre><code># Estado inicial: Todos en Puno
 estado = np.array([1.0, 0.0, 0.0, 0.0])
 n_dias = 30
 # Iteracion
 for dia in range(n_dias):
     estado = T_nuevo.T @ estado</code></pre>
-            <p><strong>Análisis de Convergencia:</strong> $|\lambda_{2}^{(nuevo)}| \approx 0,21 < |\lambda_{2}^{(original)}| \approx 0,27$. El nuevo sistema converge más rápido al equilibrio. La inversión ha hecho el sistema turístico más dinámico y estable.</p>
+            <p><em>Listing 3: Simulación de convergencia</em></p>
+
+            <p><strong>Análisis de Convergencia:</strong> La velocidad de convergencia está determinada por la magnitud del segundo eigenvalue más grande \((|\lambda_{2}|)\).</p>
+            <ul>
+                <li>Modelo Original: \(|\lambda_{2}|\approx0,27\)</li>
+                <li>Modelo Nuevo: \(|\lambda_{2}|\approx0,21\)</li>
+            </ul>
+            <p>Dado que \(|\lambda_{2}^{(nuevo)}|<|\lambda_{2}^{(original)}|\), el nuevo sistema converge más rápido al equilibrio. La inversión ha hecho el sistema turístico más dinámico y estable.</p>
 
             <h3>Preguntas de Reflexión</h3>
-            <p><strong>1. ¿Valió la pena la inversión en Taquile?</strong> Sí. El porcentaje de turistas aumentó significativamente (6.4 puntos) y la estabilidad matemática se mantiene.</p>
-            <p><strong>2. ¿Cómo afectaría esto a los ingresos?</strong></p>
+            <p><strong>1. ¿Valió la pena la inversión en Taquile desde el punto de vista de distribución turística?</strong></p>
+            <p>Sí, valió la pena. Desde el punto de vista del modelo de Cadenas de Markov, el porcentaje de turistas en Taquile aumentó significativamente (de 21.3% a 27.7%). Este incremento de 6.4 puntos porcentuales es el mayor cambio positivo del sistema. Además, la estabilidad matemática se mantiene \((\lambda=1)\) y la velocidad de convergencia mejora, lo que indica un sistema más eficiente.</p>
+            <p><strong>2. ¿Cómo afectaría esto a los ingresos de Taquile vs otros destinos?</strong></p>
+            <p>El impacto económico se deriva directamente de las probabilidades estacionarias:</p>
             <ul>
-                <li><strong>Taquile (Ganador):</strong> Incrementará ingresos sostenidos por servicios.</li>
-                <li><strong>Puno Ciudad (Estable):</strong> Asegura ingresos por transporte y hotelería.</li>
-                <li><strong>Amantaní (Perdedor relativo):</strong> Enfrentará disminución de ingresos.</li>
+                <li><strong>Taquile (Ganador):</strong> Al tener más turistas y mayor retención, incrementará sus ingresos por servicios locales, alimentación y artesanía de forma sostenida.</li>
+                <li><strong>Puno Ciudad (Estable):</strong> Se mantiene como el centro logístico y ve un ligero aumento, asegurando ingresos por transporte y hotelería base.</li>
+                <li><strong>Amantaní (Perdedor relativo):</strong> Al reducirse su cuota de mercado al 14.19%, podría enfrentar una disminución en los ingresos por turismo vivencial, lo que obligaría a plantear nuevas estrategias para competir con la renovada oferta de Taquile.</li>
             </ul>
         </section>
       </div>
 
       <div id="ej2" class="ejercicio-content">
         <section>
-            <h2>Ejercicio 2: Introducción de Isla Anapia</h2>
-            <p>En este ejercicio se modela la incorporación de un quinto destino turístico, Isla Anapia (IAp), al sistema existente. Anapia ofrece turismo vivencial y compite principalmente con Amantaní.</p>
+            <h2>EJERCICIO 2: CADENAS DE MARKOV - Introducción de un Nuevo Destino Turístico: Isla Anapia</h2>
+            <p><strong>Ejercicio 2: Introducción de Isla Anapia</strong></p>
+            <p>En este ejercicio se modela la incorporación de un quinto destino turístico, Isla Anapia (IAp), al sistema existente. Anapia ofrece turismo vivencial y compite principalmente con Amantaní, manteniendo conexiones con Puno Ciudad.</p>
 
             <h3>a) Expansión de la matriz de transición</h3>
-            <p>El sistema pasa de tener 4 estados a 5 estados: Puno Ciudad (PC), Islas Uros (IU), Taquile (IT), Amantaní (IA), Anapia (IAP).</p>
+            <p>El sistema pasa de tener 4 estados a 5 estados. Los destinos considerados son:</p>
+            <ol>
+                <li>Puno Ciudad (PC)</li>
+                <li>Islas Uros (IU)</li>
+                <li>Taquile (IT)</li>
+                <li>Amantaní (IA)</li>
+                <li>Anapia (IAP)</li>
+            </ol>
+            <p>La nueva matriz de transición incorpora una quinta fila y una quinta columna para representar las transiciones hacia y desde el nuevo destino.</p>
 
             <h3>b) Propuesta de probabilidades de transición</h3>
+            <p>Se han definido probabilidades realistas considerando que Anapia capta parte del flujo de Amantaní y mantiene una fuerte conexión de retorno a Puno.</p>
+            <p><strong>Matriz de Transición Definida:</strong></p>
             <pre><code>import numpy as np
 
 # Matriz de transicion con 5 destinos
@@ -477,65 +458,98 @@ T_5 = np.array([
     [0.45, 0.10, 0.10, 0.20, 0.15], # Desde Amantani
     [0.50, 0.05, 0.05, 0.25, 0.15]  # Desde Anapia
 ])</code></pre>
+            <p><em>Listing 1: Definición de la matriz 5x5 en Python</em></p>
 
             <h3>c) Cálculo de la distribución estacionaria</h3>
+            <p>Se calculan los eigenvalues y eigenvectors de la matriz transpuesta para encontrar el estado de equilibrio.</p>
             <pre><code>from scipy import linalg
+
 # Calculo de eigenvalues y eigenvectors
 eigenvalues_5, eigenvectors_5 = linalg.eig(T_5.T)
+
 # Identificar eigenvalue dominante (lambda = 1)
 idx_dom_5 = np.argmax(np.abs(eigenvalues_5))
 v_dom_5 = eigenvectors_5[:, idx_dom_5].real
+
 # Normalizacion
 dist_estacionaria_5 = v_dom_5 / v_dom_5.sum()</code></pre>
+            <p><em>Listing 2: Cálculo de Eigenvalues y Normalización</em></p>
+
+            <p><strong>Resultado obtenido:</strong> La nueva distribución de equilibrio es:</p>
 
             <h3>d) Análisis de participación de Anapia</h3>
-            <p>Anapia recibiría aproximadamente el <strong>9.5%</strong> de los turistas. Este resultado es significativo para un destino nuevo.</p>
+            <p>Según el modelo, en el estado estacionario:</p>
+            <p>Anapia recibiría aproximadamente el 9.5% de los turistas. Este resultado es significativo para un destino nuevo, demostrando que logra posicionarse en el mercado compitiendo directamente con Amantaní y aprovechando la conectividad con Puno.</p>
 
             <h3>e) Impacto en los otros destinos</h3>
+            <p>Comparando la dinámica del sistema con la introducción de Anapia, se observa:</p>
             <div class="table-container">
                 <table>
                     <thead><tr><th>Destino</th><th>Tipo de Impacto</th></tr></thead>
                     <tbody>
-                        <tr><td>Amantaní</td><td><strong>Mayor Perjudicado.</strong> Reduce su cuota al 14.7%.</td></tr>
-                        <tr><td>Anapia</td><td><strong>Beneficiado.</strong> Logra captar casi el 10% del mercado.</td></tr>
-                        <tr><td>Puno Ciudad</td><td><strong>Estable/Neutro.</strong> Mantiene su rol de Hub (32.8%).</td></tr>
-                        <tr><td>Islas Uros</td><td><strong>Impacto Leve.</strong> Protegido por su naturaleza de excursión corta.</td></tr>
+                        <tr><td><strong>Amantaní</strong></td><td><strong>Mayor Perjudicado.</strong> Reduce su cuota al 14.7% debido a la competencia directa en turismo vivencial.</td></tr>
+                        <tr><td><strong>Anapia</strong></td><td><strong>Beneficiado.</strong> Logra captar casi el 10% del mercado desde cero.</td></tr>
+                        <tr><td><strong>Puno Ciudad</strong></td><td><strong>Estable/Neutro.</strong> Mantiene su rol de Hub (32.8%) y punto de conexión logística.</td></tr>
+                        <tr><td><strong>Islas Uros</strong></td><td><strong>Impacto Leve.</strong> Su naturaleza de excursión corta lo protege de la competencia directa.</td></tr>
                     </tbody>
                 </table>
             </div>
+            <p><em>Cuadro 1: Análisis de Ganadores y Perdedores</em></p>
 
             <h3>f) Visualización de la red de flujo turístico</h3>
-            
+            <p>Se genera una representación gráfica donde el tamaño de los nodos corresponde a la distribución estacionaria y el grosor de las aristas a las probabilidades de transición.</p>
             <pre><code>import matplotlib.pyplot as plt
-# Configuracion de nodos y posiciones...</code></pre>
-            <p><strong>Interpretación:</strong> Puno Ciudad sigue siendo el nodo central. Anapia aparece como un nodo emergente, fuertemente conectado con Amantaní y Puno.</p>
 
-            <h3>Preguntas de Reflexión</h3>
-            <p><strong>1. ¿Es viable el desarrollo turístico de Anapia?</strong> Sí, captar un 9.5% es demanda suficiente para sostener servicios locales.</p>
-            <p><strong>2. ¿Qué estrategia recomendarías?</strong> Complementariedad (Paquetes combinados "Puno-Anapia") y Turismo de Nicho.</p>
-            <p><strong>3. ¿Qué pasa si Anapia baja precios?</strong> Aumentaría su cuota, pero causaría una caída drástica en Amantaní y posible sobrecarga en Anapia.</p>
+# Configuracion de nodos y posiciones
+pos_5 = {
+    0: (0.5, 0.75),  # Puno
+    1: (0.15, 0.45), # Uros
+    2: (0.85, 0.45), # Taquile
+    3: (0.35, 0.15), # Amantani
+    4: (0.65, 0.15)  # Anapia
+}
+
+# (El codigo continua con la generacion del grafo usando Matplotlib...)</code></pre>
+            <p><em>Listing 3: Código para visualización de la red</em></p>
+            <p><strong>Interpretación de la Red:</strong> La visualización confirma que Puno Ciudad sigue siendo el nodo central y más grande. Anapia aparece como un nodo emergente, fuertemente conectado con Amantaní y Puno, lo que valida la hipótesis de rutas combinadas y competencia local.</p>
+
+            <h3>Preguntas de Reflexión (Ejercicio 2)</h3>
+            <p><strong>1. ¿Es viable el desarrollo turístico de Anapia según tu modelo?</strong></p>
+            <p>Sí, es viable. El modelo predice que Anapia captará un 9.5% del turismo total en equilibrio. Para un destino emergente, esta cifra representa una demanda suficiente para sostener servicios locales e infraestructura básica sin desestabilizar el sistema general.</p>
+            <p><strong>2. ¿Qué estrategia de marketing recomendarías para Anapia?</strong></p>
+            <p>Se recomienda una estrategia de complementariedad y diferenciación:</p>
+            <ul>
+                <li><strong>Paquetes Combinados:</strong> Fomentar rutas "Puno - Anapia - Taquile - Amantaní - Anapia" para aprovechar el flujo existente.</li>
+                <li><strong>Turismo de Nicho:</strong> Posicionarse como una experiencia "más auténtica y menos masiva" que Amantaní.</li>
+                <li><strong>Alianzas con Puno:</strong> Dado que Puno es el hub, la venta debe originarse allí.</li>
+            </ul>
+            <p><strong>3. ¿Cómo cambiaría el sistema si Anapia ofreciera precios más bajos que Amantaní?</strong></p>
+            <p>Si Anapia reduce precios agresivamente, aumentarían las probabilidades de transición desde Puno y Amantaní hacia Anapia. Esto elevaría su cuota de mercado (posiblemente superando el 12-15%), pero causaría una caída drástica en los ingresos de Amantaní y podría generar problemas de sostenibilidad (sobrecarga) en la propia Anapia al ser una isla pequeña.</p>
         </section>
       </div>
 
       <div id="ej3" class="ejercicio-content">
         <section>
-            <h2>Ejercicio 3: Análisis de Temporadas Turísticas</h2>
-            <p>En este ejercicio se modela el comportamiento del flujo turístico considerando la estacionalidad (temporada alta vs. temporada baja).</p>
+            <h2>EJERCICIO 3: ANÁLISIS DE TEMPORADAS - Modelado Estacional del Turismo en el Lago Titicaca</h2>
+            <p><strong>Ejercicio 3: Análisis de Temporadas Turísticas</strong></p>
+            <p>En este ejercicio se modela el comportamiento del flujo turístico considerando la estacionalidad (temporada alta vs. temporada baja), afectando las probabilidades de transición entre Puno Ciudad, Islas Uros, Taquile y Amantaní.</p>
 
             <h3>a) Creación de las matrices de transición</h3>
-            <p><strong>Temporada Alta (\(T_{alta}\)):</strong> Mayor movilidad hacia islas lejanas.</p>
+            <p>Se definen dos matrices distintas para capturar la dinámica estacional:</p>
+            <p><strong>Temporada Alta \((T_{alta})\):</strong> Mayor movilidad hacia islas lejanas.</p>
+            <p><strong>Temporada Baja \((T_{baja})\):</strong> Mayor permanencia en Puno y excursiones cortas.</p>
             <p>$$T_{alta}=\begin{pmatrix}0.15&0.40&0.25&0.20\\ 0.45&0.10&0.30&0.15\\ 0.35&0,10&0,30&0,25\\ 0,45&0,10&0,20&0,25\end{pmatrix}$$</p>
-            
-            <p><strong>Temporada Baja (\(T_{baja}\)):</strong> Mayor permanencia en Puno.</p>
             <p>$$T_{baja}=\begin{pmatrix}0.45&0.35&0.10&0.10\\ 0.60&0.20&0.15&0.05\\ 0.55&0.15&0.20&0.10\\ 0.60&0,15&0,10&0,15\end{pmatrix}$$</p>
 
             <h3>b) Cálculo de la distribución estacionaria por temporada</h3>
-            <ul>
-                <li><strong>Temporada Alta:</strong> Taquile y Amantaní concentran más del 50%.</li>
-                <li><strong>Temporada Baja:</strong> Puno Ciudad domina claramente con un 41.6%.</li>
-            </ul>
+            <p>Calculando el eigenvector dominante para cada matriz, obtenemos los equilibrios teóricos:</p>
+            <p><strong>Temporada Alta \((\pi_{alta})\):</strong> \([0,239, 0,221, 0,278, 0,262]\)</p>
+            <p>Taquile y Amantaní concentran más del 50% del turismo.</p>
+            <p><strong>Temporada Baja \((\pi_{baja})\):</strong> \([0,416, 0,234, 0,190, 0,160]\)</p>
+            <p>Puno Ciudad domina claramente con un 41.6%.</p>
 
             <h3>c) Comparación de distribuciones</h3>
+            <p>¿Qué destino se beneficia más en temporada alta? Comparando los porcentajes de participación:</p>
             <div class="table-container">
                 <table>
                     <thead><tr><th>Destino</th><th>Temp. Baja (%)</th><th>Temp. Alta (%)</th><th>Variación</th></tr></thead>
@@ -547,21 +561,48 @@ dist_estacionaria_5 = v_dom_5 / v_dom_5.sum()</code></pre>
                     </tbody>
                 </table>
             </div>
+            <p><strong>Conclusión:</strong> El destino que más se beneficia en términos de captación absoluta y estratégica en temporada alta es Taquile, alcanzando el pico más alto de ocupación (27.8%) de todo el sistema.</p>
 
-            <h3>d) Simulación de un año completo (360 días)</h3>
-            <p>Días 0-120 (Alta), 121-240 (Baja), 241-360 (Media).</p>
+            <h3>d) Simulación de un año completo</h3>
+            <p>Se realiza una simulación de 360 días con la siguiente estructura:</p>
+            <ul>
+                <li>Días 0-120 (Meses 1-4): Temporada Alta \((T_{alta})\).</li>
+                <li>Días 121-240 (Meses 5-8): Temporada Baja \((T_{baja})\).</li>
+                <li>Días 241-360 (Meses 9-12): Temporada Media \((T_{original})\).</li>
+            </ul>
+            <p>Se inicia con 1000 turistas distribuidos según el equilibrio de temporada alta.</p>
 
-            <h3>e) Evolución anual</h3>
-            <pre><code># Bucle de simulacion
+            <h3>e) Evolución anual de la distribución de turistas</h3>
+            <p>A continuación, se presenta el código utilizado para la simulación y la gráfica resultante.</p>
+            <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+# Configuracion inicial
+dias = 360
+evolucion = np.zeros((dias + 1, 4))
+evolucion[0] = [239, 221, 278, 262] # Inicio: Equilibrio Alta
+
+# Matrices T_alta, T_baja y T_media definidas previamente...
+# Bucle de simulacion
 for t in range(dias):
-    if t < 120: T = T_alta
-    elif t < 240: T = T_baja
-    else: T = T_media
-    evolucion[t+1] = T.T @ evolucion[t]</code></pre>
-            
-            <p><strong>Interpretación:</strong> El flujo turístico se adapta suavemente a los cambios de temporada. Concentración en islas al inicio, recuperación de Puno en el segundo tercio.</p>
+    if t < 120:
+        T = T_alta
+    elif t < 240:
+        T = T_baja
+    else:
+        T = T_media
+    evolucion[t+1] = T.T @ evolucion[t]
 
-            <h3>f) Promedio anual de turistas</h3>
+# Generacion de la grafica
+plt.plot(evolucion)
+plt.legend(["Puno", "Uros", "Taquile", "Amantani"])
+plt.show()</code></pre>
+            <p><em>Listing 1: Código Python para la simulación anual y gráfica</em></p>
+            <p>(Gráfica: Evolución de Turistas - Lago Titicaca)</p>
+            <p><strong>Interpretación:</strong> La gráfica muestra cómo el flujo turístico se adapta suavemente a los cambios de temporada. Se observa una clara concentración en las islas durante el primer tercio del año, seguida de una recuperación de Puno Ciudad en el segundo tercio, finalizando con una estabilización general.</p>
+
+            <h3>f) Promedio anual de turistas por destino</h3>
+            <p>Calculando el promedio sobre los 360 días simulados:</p>
             <div class="table-container">
                 <table>
                     <thead><tr><th>Destino</th><th>Promedio (Turistas)</th><th>Promedio (%)</th></tr></thead>
@@ -570,32 +611,104 @@ for t in range(dias):
                         <tr><td>Islas Uros</td><td>230</td><td>23.0%</td></tr>
                         <tr><td>Taquile</td><td>225</td><td>22.5%</td></tr>
                         <tr><td>Amantaní</td><td>215</td><td>21.5%</td></tr>
+                        <tr><td>Total</td><td>1000</td><td>100%</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Preguntas de Reflexión</h3>
-            <ol>
-                <li><strong>Mayor variación:</strong> Puno Ciudad (rol dual: paso vs refugio).</li>
-                <li><strong>Personal:</strong> Flexible. Máximo operativo en islas en alta; mantenimiento en baja.</li>
-                <li><strong>Estrategias:</strong> Promociones "off-season", eventos en Puno.</li>
-                <li><strong>Capacidad hotelera Puno:</strong> Alta 85-100%, Baja 60-70%.</li>
-            </ol>
+            <p><strong>1. ¿Qué destino tiene la mayor variación entre temporadas?</strong></p>
+            <p>Puno Ciudad. Experimenta una variación de casi 18 puntos porcentuales (del 41.6% en baja al 23.9% en alta). Esto se debe a su rol dual: es un destino de paso obligado en temporada alta, pero un destino refugio en temporada baja.</p>
+            <p><strong>2. ¿Cómo deberían planificar los hoteles su personal?</strong></p>
+            <p>Deben adoptar un modelo de personal flexible. En temporada alta, se requiere máximo personal operativo en las islas (Taquile/Amantaní) y servicios de transporte. En temporada baja, el personal debe concentrarse en Puno Ciudad, aprovechando para realizar mantenimiento y capacitación en las instalaciones de las islas.</p>
+            <p><strong>3. ¿Qué estrategias podrían usarse para equilibrar el turismo?</strong></p>
+            <ul>
+                <li>Promociones "off-season": Descuentos agresivos en temporada baja para atraer turismo local.</li>
+                <li>Eventos en Puno: Festivales culturales en la ciudad para compensar la menor visita a islas.</li>
+                <li>Paquetes cortos: Tours de medio día a Uros que no dependan tanto del clima.</li>
+            </ul>
+            <p><strong>4. Si tuvieras un hotel en Puno, ¿qué capacidad mantener?</strong></p>
+            <p>Basado en los promedios anuales:</p>
+            <ul>
+                <li>Temporada Alta: Mantener operativa el 85-100% de la capacidad.</li>
+                <li>Temporada Baja: Reducir la operatividad al 60-70% para optimizar costos fijos, ya que la demanda se concentra en la ciudad pero el volumen total de turistas en la región suele ser menor.</li>
+            </ul>
 
             <hr style="border-top: 1px dashed var(--border); margin: 2rem 0;">
 
             <h3>ANÁLISIS ADICIONAL: Modelo basado en Datos Reales</h3>
-            <p>Contrastando la movilidad teórica con la pernoctación efectiva.</p>
-            <p><strong>Matrices Reales:</strong> Se definen matrices donde Puno Ciudad (PC) tiene una alta probabilidad de retención (diagonal principal alta).</p>
-            
-            <h4>Distribuciones estacionarias (Datos Reales)</h4>
+            <p>A continuación, se presenta un modelo alternativo basado en datos reales de ocupación hotelera en Puno. Este análisis busca contrastar la movilidad teórica con la pernoctación efectiva registrada históricamente.</p>
+            <p><strong>Contexto Real:</strong> Los datos reales de ocupación hotelera en Puno muestran una estacionalidad marcada:</p>
             <ul>
-                <li><strong>Temporada Alta:</strong> Puno 63%</li>
-                <li><strong>Temporada Baja:</strong> Puno 79%</li>
-                <li><strong>Temporada Media:</strong> Puno 70%</li>
+                <li>Alta: Junio - Agosto.</li>
+                <li>Media: Abril - Mayo, Septiembre - Noviembre.</li>
+                <li>Baja: Enero - Marzo.</li>
+            </ul>
+            <p>A diferencia del modelo de movilidad pura, en los datos reales se observa que la gran mayoría de turistas pernocta en Puno Ciudad, mientras que las visitas a las islas funcionan mayoritariamente como excursiones (full-day) sin pernoctación masiva.</p>
+
+            <h3>a) Creación de las matrices de transición reales</h3>
+            <p>Se definen las siguientes matrices donde Puno Ciudad (PC) tiene una alta probabilidad de retención (pernoctación):</p>
+            <p><strong>Matriz REAL - Temporada Alta \((T_{alta}^{real})\):</strong></p>
+            <p>$$T_{alta}^{real}=\begin{pmatrix}0.55&0,25&0,12&0,08\\ 0,70&0,15&0,10&0,05\\ 0,75&0,10&0,??&0,05\\ 0,78&0,10&0,??&0,05\end{pmatrix}$$ (Nota: Valores inferidos del texto fuente)</p>
+            
+            <p><strong>Matriz REAL - Temporada Baja \((T_{baja}^{real})\):</strong></p>
+            <p>$$T_{baja}^{real}=\begin{pmatrix}0.75&0.18&0.05&0.02\\ 0.85&0.10&0.04&0.01\\ 0.88&0.07&0.03&0.02\\ 0.90&0.06&0.02&0.02\end{pmatrix}$$</p>
+
+            <p><strong>Matriz REAL - Temporada Media \((T_{media}^{real})\):</strong></p>
+            <p>$$T_{media}^{real}=\begin{pmatrix}0.65&0.22&0.08&0.05\\ 0,75&0,15&0.07&0.03\\ 0,80&0,10&0,06&0,04\\ 0,82&0,10&0,05&0,03\end{pmatrix}$$</p>
+
+            <h3>b) Distribuciones estacionarias (Datos Reales)</h3>
+            <p>Calculando el eigenvector dominante para cada temporada real:</p>
+            <ul>
+                <li>Temporada Alta: \(\pi_{alta}^{real}=[0,63,0,18,0,11,0,08]\)</li>
+                <li>Temporada Baja: \(\pi_{baja}^{real}=[0,79,0,13,0,05,0,03]\)</li>
+                <li>Temporada Media: \(\pi_{media}^{real}=[0,70,0,17,0,08,0,05]\)</li>
             </ul>
 
-            <h4>Comparación Final</h4>
+            <h3>c) Comparación entre temporadas (Real)</h3>
+            <p>Comparando los porcentajes de ocupación por destino en el escenario real:</p>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>Destino</th><th>Temp. Alta (%)</th><th>Temp. Baja (%)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Puno Ciudad</td><td>63%</td><td>79%</td></tr>
+                        <tr><td>Islas Uros</td><td>18%</td><td>13%</td></tr>
+                        <tr><td>Taquile</td><td>11%</td><td>5%</td></tr>
+                        <tr><td>Amantaní</td><td>8%</td><td>3%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><em>Nota: Puno Ciudad es el destino dominante en TODAS las temporadas reales.</em></p>
+
+            <h3>d) Simulación de un año completo (Real)</h3>
+            <p>Se simula bajo las mismas condiciones del Ejercicio 3, pero con la duración real de temporadas:</p>
+            <ul>
+                <li>4 meses temporada alta.</li>
+                <li>4 meses temporada baja.</li>
+                <li>4 meses temporada media.</li>
+            </ul>
+            <p>Inicio: 1000 turistas distribuidos según el equilibrio real de temporada alta: \(x(0)=[630,180,110,80]\).</p>
+            <p><strong>Resultado de la simulación:</strong> La simulación converge rápidamente hacia una alta concentración en Puno.</p>
+
+            <h3>e) Evolución anual (Interpretación)</h3>
+            <p>La curva de ocupación de Puno Ciudad se mantiene siempre dominante por encima del 60%. Las islas presentan fluctuaciones leves estacionales, pero no existe una redistribución extrema de los turistas como en el modelo teórico de movilidad. Esto coincide con la realidad de la infraestructura hotelera de la región.</p>
+
+            <h3>f) Promedio anual de turistas (Modelo Real)</h3>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>Destino</th><th>Promedio Real (Turistas)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Puno Ciudad</td><td>720</td></tr>
+                        <tr><td>Islas Uros</td><td>160</td></tr>
+                        <tr><td>Taquile</td><td>75</td></tr>
+                        <tr><td>Amantaní</td><td>45</td></tr>
+                        <tr><td>Total</td><td>1000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Comparación Final y Conclusiones</h3>
+            <p><strong>Comparación: Modelo Ejercicio 3 vs. Modelo Real</strong></p>
             <div class="table-container">
                 <table>
                     <thead><tr><th>Destino</th><th>Ej. 3 (Simulado)</th><th>Modelo Real</th></tr></thead>
@@ -607,7 +720,10 @@ for t in range(dias):
                     </tbody>
                 </table>
             </div>
-            <p><strong>Interpretación Final:</strong> El Ejercicio 3 representa la <strong>movilidad</strong> (flujo de visitas), mientras que el Modelo Real representa la <strong>pernoctación</strong>. Ambos son correctos pero describen fenómenos distintos.</p>
+            <p><strong>Interpretación Final</strong></p>
+            <p>El modelo desarrollado en el Ejercicio 3 representa adecuadamente la <strong>movilidad turística</strong> (flujo de visitas durante el día), donde los turistas efectivamente se desplazan masivamente a las islas.</p>
+            <p>Por otro lado, el Modelo basado en Datos Reales representa la <strong>pernoctación hotelera</strong>.</p>
+            <p>Ambos son matemáticamente correctos, pero describen fenómenos distintos. La comparación demuestra que, aunque hay mucha movilidad hacia las islas (Ej. 3), la ocupación hotelera y el gasto principal por alojamiento (Modelo Real) están fuertemente concentrados en Puno Ciudad.</p>
         </section>
       </div>
 
