@@ -288,14 +288,15 @@
       box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
     }
 
-    /* Estilo para el Embed del Poster */
+    /* Contenedor del Poster (Embed) */
     .poster-container {
         width: 100%;
-        height: 600px;
+        height: 800px; /* Altura suficiente para ver bien el poster */
         background: rgba(15, 10, 31, 0.6);
         border: 1px solid var(--border);
         border-radius: 12px;
         overflow: hidden;
+        margin-top: 1rem;
     }
 
     /* Footer */
@@ -316,7 +317,7 @@
       .content { margin-left: 0; padding: 2rem 1.5rem; }
       header h1 { font-size: 1.8rem; }
       .estado { position: relative; margin-top: 1rem; display: inline-flex; }
-      .poster-container { height: 400px; }
+      .poster-container { height: 500px; }
     }
   </style>
 </head>
@@ -334,7 +335,7 @@
     <a href="unidad2_06.html">Actividad 06</a>
     <a href="unidad2_07.html">Actividad 07</a>
     <a href="unidad2_08.html">Actividad 08</a>
-    <a href="unidad2_09.html" class="active">Actividad 09</a>
+    <a href="unidad2_09.html" class="active" >Actividad 09</a>
     <a href="unidad2_10.html">Actividad 10</a>
     <a href="unidad2_11.html">Actividad 11</a>
     <a href="unidad2_12.html">Actividad 12</a>
@@ -363,10 +364,10 @@
 
       <section>
         <h2>Desarrollo de la Actividad</h2>
-        <p>A continuación se visualiza el póster generado:</p>
+        <p>A continuación se visualiza el póster generado. Si no carga, por favor usa el botón de descarga abajo.</p>
         
         <div class="poster-container">
-            <embed src="../archivos/POSTER_PROGRAMACIÓN_NUMERICA.pdf" type="application/pdf" width="100%" height="100%">
+            <embed src="../archivos/poster_programacion.pdf" type="application/pdf" width="100%" height="100%">
         </div>
       </section>
 
@@ -374,7 +375,7 @@
         <h2>Evidencias</h2>
         <ul>
           <li>
-            <a href="../archivos/POSTER_PROGRAMACIÓN_NUMERICA.pdf" target="_blank" class="btn-link">
+            <a href="../archivos/poster_programacion.pdf" target="_blank" class="btn-link">
                 <span>📄</span> Descargar Póster (PDF)
             </a>
           </li>
