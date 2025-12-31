@@ -6,6 +6,9 @@
   <title>Unidad 2 · Actividad 10</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
     /* ===== VARIABLES (Misma paleta global) ===== */
@@ -57,11 +60,6 @@
       animation: ambient 30s ease-in-out infinite;
       pointer-events: none;
       z-index: 0;
-    }
-
-    @keyframes ambient {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-5%, -5%) scale(1.1); }
     }
 
     /* ===== SIDEBAR PREMIUM ===== */
@@ -197,21 +195,16 @@
       50% { opacity: 0.6; transform: scale(0.9); }
     }
 
-    /* Main Content Styling */
-    main {
-      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    /* Estilos Generales Contenido */
+    main { animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    section { margin-bottom: 3rem; }
+    section { margin-bottom: 4rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 2rem; }
+    section:last-child { border-bottom: none; }
 
     h2 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var(--text);
       margin-top: 2rem;
       margin-bottom: 1.5rem;
@@ -219,84 +212,25 @@
       align-items: center;
       gap: 10px;
     }
+    h2::before { content: '//'; color: var(--primary); font-family: 'JetBrains Mono'; font-size: 1.2rem; }
 
-    h2::before {
-      content: '//';
-      color: var(--primary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-    }
+    h3 { color: var(--secondary); margin: 1.5rem 0 0.8rem; font-size: 1.3rem; font-family: 'Space Grotesk'; }
+    h4 { color: var(--accent); margin: 1rem 0 0.5rem; font-size: 1.1rem; }
 
-    h3 {
-      color: var(--primary);
-      margin: 1.5rem 0 1rem;
-      font-size: 1.2rem;
-      font-family: 'Space Grotesk', sans-serif;
-    }
+    p, li { color: var(--text-muted); margin-bottom: 0.8rem; font-size: 1.05rem; text-align: justify; }
+    ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
 
-    p {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
-      text-align: justify;
-    }
-    
-    ul, ol {
-        margin-left: 1.5rem;
-        color: var(--text-muted);
-        margin-bottom: 1rem;
-    }
-    
-    li { margin-bottom: 0.5rem; }
-
-    /* ESTILOS DE CÓDIGO (R) */
-    pre {
-      background: rgba(10, 6, 20, 0.6);
-      padding: 1.5rem;
-      border-radius: 12px;
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
-    }
-
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      color: #e2e8f0;
-      line-height: 1.5;
-    }
-
-    /* Botón enlace */
-    .btn-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(167, 139, 250, 0.1);
-      color: var(--text);
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .btn-link:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+    /* Estilo para bloques de resultado/conclusión */
+    .conclusion-box {
+        background: rgba(6, 182, 212, 0.05);
+        border-left: 3px solid var(--accent);
+        padding: 1rem;
+        border-radius: 0 8px 8px 0;
+        margin-top: 1rem;
     }
 
     /* Footer */
-    footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
+    footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -305,7 +239,6 @@
       .toggle-btn { display: block; }
       .content { margin-left: 0; padding: 2rem 1.5rem; }
       header h1 { font-size: 1.8rem; }
-      .estado { position: relative; margin-top: 1rem; display: inline-flex; }
     }
   </style>
 </head>
@@ -324,20 +257,18 @@
     <a href="unidad2_07.html">Actividad 07</a>
     <a href="unidad2_08.html">Actividad 08</a>
     <a href="unidad2_09.html">Actividad 09</a>
-    <a href="unidad2_10.html" class="active" >Actividad 10</a>
+    <a href="unidad2_10.html" class="active">Actividad 10</a>
     <a href="unidad2_11.html">Actividad 11</a>
-    <a href="unidad2_12.html">Actividad 12</a>
     
     <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
         <a href="../index.html">🏠 Volver al inicio</a>
-        <a href="../unidad2/unidad2.html" style="color: var(--secondary);">➡ Menu-Unidad 2</a>
     </div>
   </aside>
 
   <div class="content" id="content">
     <header>
-      <h1>Actividad 10 · --------- </h1>
-      <p>13/09/2025</p>
+      <h1>Actividad 10 · Métodos de Optimización</h1>
+      <p>Eigenvalores y Eigenvectores | Puno, 2025</p>
       <div class="estado">
         <div class="burbuja"></div>
         <span>Completada</span>
@@ -345,31 +276,108 @@
     </header>
 
     <main>
-      <section>
-        <h2>Descripción</h2>
-        
-      </section>
+      
 
       <section>
-        <h2>Desarrollo de la Actividad</h2>
+        <h2>Ejercicio 1: Matriz Diagonal</h2>
+        <p>Dada la matriz \(A = \begin{pmatrix} 4 & 0 \\ 0 & 7 \end{pmatrix}\), se solicita determinar sus eigenvalores y eigenvectores.</p>
         
-       
-
-      <section>
-        <h2>Evidencias</h2>
+        <h3>1.1. Polinomio característico</h3>
+        <p>$$p(\lambda) = \det(A - \lambda I) = (4 - \lambda)(7 - \lambda)$$</p>
+        
+        <h3>1.2. Eigenvalores</h3>
+        <p>Las raíces del polinomio característico son:</p>
         <ul>
-          <li>
-            <a href="https://drive.google.com/file/d/1FLg1Wm1U-oDS7wscBTcueAuZ0edm_nfg/view?usp=sharing" target="_blank" class="btn-link">
-                <span>📄</span> Ver Informe (PDF)
-            </a>
-          </li>
-          <li>
-            <a href="#" class="btn-link">
-                <span>💻</span> Resumen manual
-            </a>
-          </li>
+            <li>\(\lambda_1 = 4\)</li>
+            <li>\(\lambda_2 = 7\)</li>
+        </ul>
+
+        <h3>1.3. Eigenvectores</h3>
+        <p>Para cada eigenvalor, los vectores asociados son:</p>
+        <ul>
+            <li>\(v_1 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\)</li>
+            <li>\(v_2 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\)</li>
         </ul>
       </section>
+
+      <section>
+        <h2>Ejercicio 2: Matriz Simétrica</h2>
+        <p>Dada la matriz \(B = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}\).</p>
+        
+        <h3>2.1. Polinomio característico</h3>
+        <p>$$\det(B - \lambda I) = (1 - \lambda)^2 - 4 = \lambda^2 - 2\lambda - 3$$</p>
+
+        <h3>2.2. Eigenvalores</h3>
+        <p>Resolviendo la ecuación cuadrática \(\lambda^2 - 2\lambda - 3 = 0 \Rightarrow (\lambda - 3)(\lambda + 1) = 0\):</p>
+        <ul>
+            <li>\(\lambda_1 = 3\)</li>
+            <li>\(\lambda_2 = -1\)</li>
+        </ul>
+
+        <h3>2.3. Eigenvectores</h3>
+        <p>Para \(\lambda = 3\) (\(-2x + 2y = 0 \Rightarrow y = x\)):</p>
+        <p>$$v^{(1)} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$$</p>
+        
+        <p>Para \(\lambda = -1\) (\(2x + 2y = 0 \Rightarrow y = -x\)):</p>
+        <p>$$v^{(2)} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$$</p>
+      </section>
+
+      <section>
+        <h2>Ejercicio 3: Optimización (Hessiana)</h2>
+        <p>Sea la función \(f(x_1, x_2) = 2x_1^2 + x_2^2 - 2x_1 x_2\).</p>
+        
+        <h3>3.1. Cálculo de la matriz Hessiana</h3>
+        <p>$$H = \begin{pmatrix} 4 & -2 \\ -2 & 2 \end{pmatrix}$$</p>
+
+        <h3>3.2. Eigenvalores de la Hessiana</h3>
+        <p>El polinomio característico es \(\lambda^2 - 6\lambda + 4\). Resolviendo:</p>
+        <p>$$\lambda = 3 \pm \sqrt{5}$$</p>
+        <p>Ambos valores son positivos.</p>
+
+        <div class="conclusion-box">
+            <strong>3.3. Clasificación:</strong> Al tener todos los eigenvalores positivos, se concluye que (0,0) es un <strong>mínimo local</strong>.
+        </div>
+      </section>
+
+      <section>
+        <h2>Ejercicio 4: Máximo Local</h2>
+        <p>Sea la función \(f(x_1, x_2) = -x_1^2 - 2x_2^2\).</p>
+        
+        <h3>4.1. Hessiana</h3>
+        <p>$$H = \begin{pmatrix} -2 & 0 \\ 0 & -4 \end{pmatrix}$$</p>
+
+        <h3>4.2. Clasificación</h3>
+        <p>Los eigenvalores son los elementos de la diagonal:</p>
+        <ul>
+            <li>\(\lambda_1 = -2\)</li>
+            <li>\(\lambda_2 = -4\)</li>
+        </ul>
+        
+        <div class="conclusion-box">
+            Como ambos eigenvalores son negativos, (0,0) es un <strong>máximo local</strong>.
+        </div>
+      </section>
+
+      <section>
+        <h2>Ejercicio 5: Verificación de Eigenvector</h2>
+        <p>Dada la matriz \(C = \begin{pmatrix} 3 & 2 \\ 1 & 4 \end{pmatrix}\) y el vector \(v = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\).</p>
+        
+        <h3>5.1. Verificación</h3>
+        <p>Calculamos el producto \(Cv\):</p>
+        <p>$$C v = \begin{pmatrix} 3 & 2 \\ 1 & 4 \end{pmatrix} \begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} 8 \\ 6 \end{pmatrix}$$</p>
+        <p>Igualamos a \(\lambda v\):</p>
+        <p>$$\begin{pmatrix} 8 \\ 6 \end{pmatrix} = \begin{pmatrix} 2\lambda \\ \lambda \end{pmatrix}$$</p>
+        <p>Comparando componentes, obtenemos \(2\lambda = 8 \Rightarrow \lambda = 4\) y \(\lambda = 6\). Como no coinciden:</p>
+        <p><strong>Conclusión:</strong> \(v = (2, 1)\) no es eigenvector de \(C\).</p>
+
+        <h3>5.2. Eigenvalores reales de C</h3>
+        <p>El polinomio característico es \(\lambda^2 - 7\lambda + 10\). Resolviendo \((\lambda - 5)(\lambda - 2) = 0\):</p>
+        <ul>
+            <li>\(\lambda_1 = 5\)</li>
+            <li>\(\lambda_2 = 2\)</li>
+        </ul>
+      </section>
+
     </main>
 
     <footer>
