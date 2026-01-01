@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unidad 2 · Actividad 09</title>
+  <title>Unidad 2 · Actividad 12</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
@@ -288,6 +288,17 @@
       box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
     }
 
+    /* Estilo para el Embed del Libro */
+    .book-container {
+        width: 100%;
+        height: 800px;
+        background: rgba(15, 10, 31, 0.6);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 1rem;
+    }
+
     /* Footer */
     footer {
       margin-top: 4rem;
@@ -306,6 +317,7 @@
       .content { margin-left: 0; padding: 2rem 1.5rem; }
       header h1 { font-size: 1.8rem; }
       .estado { position: relative; margin-top: 1rem; display: inline-flex; }
+      .book-container { height: 500px; }
     }
   </style>
 </head>
@@ -326,16 +338,17 @@
     <a href="unidad2_09.html">Actividad 09</a>
     <a href="unidad2_10.html">Actividad 10</a>
     <a href="unidad2_11.html">Actividad 11</a>
-    <a href="unidad2_12.html" class="active" >Actividad 12</a>
+    <a href="unidad2_12.html" class="active">Actividad 12</a>
+    
     <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem;">
         <a href="../index.html">🏠 Volver al inicio</a>
-       <a href="../unidad2/unidad2.html" style="color: var(--secondary);">➡ Menu-Unidad 2</a>
+        <a href="../unidad2/unidad2.html" style="color: var(--secondary);">➡ Menu-Unidad 2</a>
     </div>
   </aside>
 
   <div class="content" id="content">
     <header>
-      <h1>Actividad 09 · --------- </h1>
+      <h1>Actividad 12 · Libro Digital</h1>
       <p>13/09/2025</p>
       <div class="estado">
         <div class="burbuja"></div>
@@ -346,25 +359,29 @@
     <main>
       <section>
         <h2>Descripción</h2>
-        
+        <p>Presentación del libro digital desarrollado en el curso de Programación Numérica, compilando los temas, ejercicios y proyectos abordados durante el semestre.</p>
       </section>
 
       <section>
         <h2>Desarrollo de la Actividad</h2>
+        <p>A continuación se visualiza el libro completo:</p>
         
-       
+        <div class="book-container">
+            <embed src="../archivos/libro_programacion.pdf" type="application/pdf" width="100%" height="100%">
+        </div>
+      </section>
 
       <section>
         <h2>Evidencias</h2>
         <ul>
           <li>
-            <a href="https://drive.google.com/file/d/1FLg1Wm1U-oDS7wscBTcueAuZ0edm_nfg/view?usp=sharing" target="_blank" class="btn-link">
-                <span>📄</span> Ver Informe (PDF)
+            <a href="../archivos/libro_programacion.pdf" target="_blank" class="btn-link">
+                <span>📚</span> Descargar Libro (PDF)
             </a>
           </li>
           <li>
             <a href="#" class="btn-link">
-                <span>💻</span> Resumen manual
+                <span>💻</span> Código fuente LaTeX
             </a>
           </li>
         </ul>
